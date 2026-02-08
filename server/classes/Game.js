@@ -7,7 +7,7 @@ export class Game {
 
         this.io.on("connection", (socket) => {
             io.sockets.emit("message", `player at socket ${socket.id} has connected.`);
-            this.players[socket.id] = new Player(this, socket.id);
+            this.players[socket.id] = new Player(this, socket);
 
             socket.on("disconnect", (reason) => {
                 io.sockets.emit("message", `Player at socket ${socket.id} has disconnected`);

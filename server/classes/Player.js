@@ -1,12 +1,13 @@
 import { PlayerChat } from "./PlayerChat";
 
 export class Player {
-    constructor(game, io){
+    constructor(game, socket){
         this.game = game;
-        this.io = io;
+        this.socket = socket;
+        this.io = socket.id;
         this.position = {x: 0, y: 0, z: 0};
         this.movespeed = {x: 0.1, y: 0.1, z: 0.1};
-        this.nickname = `Player_${io.substring(0, 4)}`;
+        this.nickname = `Player_${socket.id.substring(0, 4)}`;
         /**
          * Current Keyboard Inputs
          */
@@ -16,7 +17,7 @@ export class Player {
         // d - right
         this.input = {};
 
-        this.chat = new PlayerChat(this, this.io);
+        this.chat = new PlayerChat(this, socket);
     };
 
     update() {

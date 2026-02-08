@@ -11,9 +11,10 @@
 import { HelpCommandMessage } from "../utils/consts";
 
 export class PlayerChat {
-    constructor (player, io) {
+    constructor (player, socket) {
         this.player = player;
-        this.io = io;
+        this.socket = socket;
+        this.io = socket.id;
 
         this.player_chats = [];
     }
@@ -87,13 +88,13 @@ export class PlayerChat {
         const targets = targetString.split(',').map((username) => username.trim());
 
         const targetPlayers = targets.map((targetName) => {
-            return Object.keys(this.player.game.players)
+            return Object.values(this.player.game.players)
             .find(p => p.nickname === targetName)
         }).filter(p => p);
 
         if(targetPlayers) {
             targetPlayers.map((target) => {
-                target.io.emit("whisper_command", {
+                target.socket.emit("whisper_command", {
                     from: this.player.nickname,
                     message: message
                 });
@@ -102,7 +103,7 @@ export class PlayerChat {
     }
 
     handle_nickname_command(newNickname) {
-        this.player.setNickname(newNickname);
+        this.player.setNickname(newNickname.join(" "));
     }
 
     handle_color_command(newColor) {
