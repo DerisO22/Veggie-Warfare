@@ -37,10 +37,6 @@ function App() {
     const localPlayer = gameState.players.find(player => player.id === socket?.id);
     const localPlayerPosition = localPlayer?.position || null;
 
-    useEffect(() => {
-        setCameraMode('follow')
-    }, []);
-
     return (
         <div style={{ width: '100vw', height: '100vh' }}>
             <Canvas camera={{ position: [10, 10, 10], fov: 75 }}>

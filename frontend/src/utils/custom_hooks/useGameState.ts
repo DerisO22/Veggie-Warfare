@@ -3,12 +3,12 @@ import type { GameState } from "../types/player";
 import { useEffect, useState } from "react";
 
 export const useGameState = (socket: Socket | null) => {
-    const [gameState, setGameState] = useState<GameState>({ players: []});
+    const [gameState, setGameState] = useState<GameState>({ players: [] });
 
     useEffect(() => {
         if(!socket) return;
 
-        const handleState = ( state: GameState) => {
+        const handleState = (state: GameState) => {
             setGameState(state);
         }
 

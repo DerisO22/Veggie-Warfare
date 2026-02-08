@@ -8,9 +8,14 @@ export interface PlayerDrawInfo {
     id: string;
     position: PlayerPosition;
 }
+export interface PlayerChatInfo {
+    text: string,
+    command_type: 'Whisper' | 'Nickname' | 'Color' | 'Leave',
+}
 
 export interface GameState {
     players: PlayerDrawInfo[];
+    //player_chats: PlayerChatInfo[];
 }
 
 export interface Position {

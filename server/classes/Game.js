@@ -34,7 +34,8 @@ export class Game {
         let players = Object.entries(this.players).map(([id, player]) => {
             return {
                 id: id,
-                ...player.getDrawInfo()
+                ...player.getDrawInfo(),
+                ...player.chat.getPlayerChats(),
             }
         })
 

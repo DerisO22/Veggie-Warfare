@@ -1,3 +1,5 @@
+import { PlayerChat } from "./PlayerChat";
+
 export class Player {
     constructor(game, io){
         this.game = game;
@@ -12,7 +14,9 @@ export class Player {
         // s - backward
         // d - right
         this.input = {};
-    }
+
+        this.chat = new PlayerChat(this, this.io);
+    };
 
     update() {
         // Movement Logic
@@ -26,15 +30,19 @@ export class Player {
 
         this.position.x += xInput * this.movespeed.x;
         this.position.z += zInput * this.movespeed.z;
-    }
+    };
 
     setButton(button, value) {
         this.input[button] = value;
-    }
+    };
 
     getDrawInfo() {
         return {
             position: this.position,
         }
+    };
+
+    sendMessage(text) {
+        this.chat.handleMessage(text);
     }
 }
