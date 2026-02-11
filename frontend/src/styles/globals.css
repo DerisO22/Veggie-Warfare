@@ -1,0 +1,15 @@
+:root {
+    /* 
+    *   Game Chat Styling
+    */
+    --chatbg-color: rgba(0, 0, 0, 0.7);
+    --chat-text-color: white;
+}
+
+[data-theme="dark"] :root {
+    /* 
+    *   Game Chat Styling
+    */
+    --chatbg-color: rgba(0, 0, 0, 0.7);
+    --chat-text-color: white;
+}
