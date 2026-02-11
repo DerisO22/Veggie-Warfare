@@ -28,7 +28,7 @@ const GameChat = () => {
             <div className="messages_container">
                 <>
                     {chatPayload && chatPayload.broadcast_messages.map((message, index) => (
-                        <div key={message.from + index} className="message">
+                        <div style={{ backgroundColor: `${chatPayload.color ? `${chatPayload.color.newColor}` : "white"}`}} key={message.from + index} className="message">
                             <div className="sender_username">[{message.from}]: </div>
                             <div className="sender_message">{message.text}</div>
                             <div className="sender_time">{formatDate(message.time)}</div>

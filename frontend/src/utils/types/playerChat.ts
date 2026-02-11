@@ -1,7 +1,7 @@
 export interface BroadcastMessage {
     from: string,
     text: string,
-    time: number
+    time: number,
 };
 
 export interface WhisperMessage {
@@ -11,10 +11,11 @@ export interface WhisperMessage {
 
 export interface HelpMessage {
     text: string,
-    time: Date,
+    time: number,
 };
 
 export interface ChatPayload {
+    color: { newColor: string },
     username: string,
     broadcast_messages: BroadcastMessage[],
     whisper_messages: WhisperMessage[],

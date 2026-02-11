@@ -107,7 +107,7 @@ export class PlayerChat {
     }
 
     handle_color_command(newColor) {
-        
+        this.player.game.io.sockets.emit("color_command", newColor );
     }   
 
     handle_leave_command() {

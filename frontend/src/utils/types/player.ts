@@ -1,5 +1,3 @@
-import type { BroadcastMessage, WhisperMessage } from "./playerChat";
-
 export interface PlayerPosition {
     x: number;
     y: number;
