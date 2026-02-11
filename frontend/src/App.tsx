@@ -1,11 +1,12 @@
 import { OrbitControls } from '@react-three/drei';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { Vector3 } from 'three';
 import { useSocket } from './utils/custom_hooks/useSocket';
 import { useKeyboardControls } from './utils/custom_hooks/useKeyboardControls';
 import { useGameState } from './utils/custom_hooks/useGameState';
 import { PlayerCube } from './components/player/PlayerCube';
+import GameChat from './components/game_chat/GameChat';
 
 // Camera follower component
 function CameraFollower({ targetPosition }: { targetPosition: { x: number; y: number; z: number } | null }) {
@@ -135,6 +136,11 @@ function App() {
                     <p>Make sure the backend is running on port 3001</p>
                 </div>
             )}
+
+            {/* Game Chat */}
+            {/* {socket?.connected && ( */}
+                <GameChat socket={socket}/>
+            {/* )} */}
         </div>
     );
 }

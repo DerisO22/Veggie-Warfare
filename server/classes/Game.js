@@ -43,7 +43,6 @@ export class Game {
             return {
                 id: id,
                 ...player.getDrawInfo(),
-                ...player.chat.getPlayerChats(),
             }
         })
 

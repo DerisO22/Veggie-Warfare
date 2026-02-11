@@ -96,7 +96,7 @@ export class PlayerChat {
             targetPlayers.map((target) => {
                 target.socket.emit("whisper_command", {
                     from: this.player.nickname,
-                    message: message
+                    text: message
                 });
             })
         }

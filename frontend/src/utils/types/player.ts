@@ -1,3 +1,5 @@
+import type { BroadcastMessage, WhisperMessage } from "./playerChat";
+
 export interface PlayerPosition {
     x: number;
     y: number;
@@ -9,15 +11,8 @@ export interface PlayerDrawInfo {
     position: PlayerPosition;
 }
 
-export interface PlayerChatInfo {
-    username: string,
-    text: string,
-    time: Date,
-}
-
 export interface GameState {
     players: PlayerDrawInfo[];
-    player_chats: PlayerChatInfo[];
 }
 
 export interface Position {

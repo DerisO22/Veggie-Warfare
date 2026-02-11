@@ -1,15 +1,21 @@
 export interface BroadcastMessage {
     from: string,
     text: string,
-    time: Date
+    time: number
 };
 
 export interface WhisperMessage {
     from: string,
-    message: string
+    text: string
 };
 
 export interface HelpMessage {
     text: string,
     time: Date,
 };
+
+export interface ChatPayload {
+    username: string,
+    broadcast_messages: BroadcastMessage[],
+    whisper_messages: WhisperMessage[],
+}

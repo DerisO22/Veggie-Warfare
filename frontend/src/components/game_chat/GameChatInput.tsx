@@ -1,37 +1,35 @@
 import { useState, type ChangeEvent } from "react";
 import type { Socket } from "socket.io-client";
 
-export interface Message {
-    message: string;
-}
-
-const GameChatInput = (socket: Socket | null) => {
-    const [ formData, setFormData ] = useState<Message>({ message: "" });
+const GameChatInput = ({ socket } : {socket: Socket | null}) => {
+    const [ message, setMessage ] = useState("");
 
     const handleSubmit = () => {
         if(!socket) return;
 
-        if(formData){
-            socket.emit("send_message", { text: formData.message });
+        if(message){
+            socket.emit("send_message", { text: message });
         }
+
+        setMessage("");
     };
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         const { value } = e.target;
-
-        setFormData(prev => ({
-            ...prev,
-            message: value
-        }));
+        setMessage(value);
     }
 
     return (
-        <div>
-            <form className="chat_form" onSubmit={handleSubmit}>
+        <div className="message_form_container">
+            <form className="chat_form" onSubmit={(e) => {
+                e.preventDefault();
+                handleSubmit();
+            }}>
                 <input
                     type="text"
                     name="message_input"
-                    value={formData?.message}
+                    className="message_input"
+                    value={message}
                     onChange={handleChange}
                     placeholder="Enter message..."
                 />
