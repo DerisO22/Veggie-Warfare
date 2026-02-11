@@ -7,7 +7,7 @@ const MAX_MESSAGES = 100;
 
 export const usePlayerChat = (socket: Socket | null) => {
     const [ chatPayload, setChatPayload ] = useState<ChatPayload>({
-        color: { newColor: "#FFFFFF" },
+        color: { newColor: {newColor: ["#FFFFFF"]}},
         username: "",
         broadcast_messages: [],
         whisper_messages: []
@@ -34,11 +34,11 @@ export const usePlayerChat = (socket: Socket | null) => {
             }));
         }
 
-        const update_messages_color = (newColor: string) => {
+        const update_messages_color = (new_color: string) => {
             // Will need to map through all message types
             setChatPayload(prev => ({
                 ...prev,
-                color: { newColor },
+                color: {newColor: { newColor: [new_color]}},
             }))
         }
 

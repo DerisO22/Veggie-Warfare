@@ -106,8 +106,9 @@ export class PlayerChat {
         this.player.setNickname(newNickname.join(" "));
     }
 
-    handle_color_command(newColor) {
-        this.player.game.io.sockets.emit("color_command", newColor );
+    handle_color_command(color) {
+        const newColor = color[0];
+        this.player.socket.emit("color_command", newColor);
     }   
 
     handle_leave_command() {

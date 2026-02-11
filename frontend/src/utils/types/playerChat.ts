@@ -15,7 +15,7 @@ export interface HelpMessage {
 };
 
 export interface ChatPayload {
-    color: { newColor: string },
+    color: { newColor: { newColor: string[]} },
     username: string,
     broadcast_messages: BroadcastMessage[],
     whisper_messages: WhisperMessage[],
