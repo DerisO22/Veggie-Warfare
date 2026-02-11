@@ -8,6 +8,7 @@ import { useGameState } from './contexts/useGameState';
 import { PlayerCube } from './components/player/PlayerCube';
 import GameChat from './components/game_chat/GameChat';
 import StatesInterface from './components/interface/StatsInterface';
+import LoadingInterface from './components/interface/LoadingInterface';
 
 // Camera follower component
 function CameraFollower({ targetPosition }: { targetPosition: { x: number; y: number; z: number } | null }) {
@@ -74,25 +75,7 @@ function App() {
             </Canvas>
 
             <StatesInterface cam={{cameraMode, setCameraMode}} localPlayerPosition={localPlayerPosition}/>
-
-            {/* Loading state */}
-            {!socket?.connected && (
-                <div style={{
-                    position: 'absolute',
-                    top: '50%',
-                    left: '50%',
-                    transform: 'translate(-50%, -50%)',
-                    color: 'white',
-                    fontFamily: 'monospace',
-                    background: 'rgba(0,0,0,0.8)',
-                    padding: '30px',
-                    borderRadius: '10px',
-                    textAlign: 'center'
-                }}>
-                    <h2>Connecting to server...</h2>
-                    <p>Make sure the backend is running on port 3001</p>
-                </div>
-            )}
+            <LoadingInterface />
 
             {/* Game Chat */}
             {/* {socket?.connected && ( */}
