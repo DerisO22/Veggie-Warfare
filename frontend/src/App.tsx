@@ -139,7 +139,7 @@ function App() {
 
             {/* Game Chat */}
             {/* {socket?.connected && ( */}
-                <GameChat />
+            <GameChat />
             {/* )} */}
         </div>
     );

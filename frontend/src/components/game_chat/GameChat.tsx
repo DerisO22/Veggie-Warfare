@@ -13,7 +13,7 @@ const GameChat = () => {
     }, [chatPayload]);
 
     const formatDate = (time: number) => {
-        const timeObject = new Date(time)
+        const timeObject = new Date(time);
 
         const hours = timeObject.getHours().toString().padStart(2, '0');
         const minutes = timeObject.getMinutes().toString().padStart(2, '0');

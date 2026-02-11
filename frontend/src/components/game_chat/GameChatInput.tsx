@@ -32,6 +32,7 @@ const GameChatInput = ({ socket } : {socket: Socket | null}) => {
                     value={message}
                     onChange={handleChange}
                     placeholder="Enter message..."
+                    maxLength={100}
                 />
 
                 <button className="submit_button" type="submit">Submit</button>
