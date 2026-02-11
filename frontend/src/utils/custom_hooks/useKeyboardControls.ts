@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { Socket } from 'socket.io-client';
 import type { KeyBindings } from '../types/controlType';
+import { useSocket } from './useSocket';
 
 const DEFAULT_KEYS: KeyBindings = {
     forward: 'w',
@@ -9,7 +10,8 @@ const DEFAULT_KEYS: KeyBindings = {
     right: 'd',
 };
 
-export const useKeyboardControls = (socket: Socket | null, keys: KeyBindings = DEFAULT_KEYS) => {
+export const useKeyboardControls = (keys: KeyBindings = DEFAULT_KEYS) => {
+    const socket = useSocket();
     const pressedKeys = useRef<Set<string>>(new Set());
 
     useEffect(() => {

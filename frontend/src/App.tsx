@@ -30,8 +30,8 @@ function CameraFollower({ targetPosition }: { targetPosition: { x: number; y: nu
 
 function App() {
     const socket = useSocket();
-    const gameState = useGameState(socket);
-    useKeyboardControls(socket);
+    const gameState = useGameState();
+    useKeyboardControls();
     const [cameraMode, setCameraMode] = useState<'follow' | 'orbit'>('follow');
 
     // Find local player
@@ -139,7 +139,7 @@ function App() {
 
             {/* Game Chat */}
             {/* {socket?.connected && ( */}
-                <GameChat socket={socket}/>
+                <GameChat />
             {/* )} */}
         </div>
     );

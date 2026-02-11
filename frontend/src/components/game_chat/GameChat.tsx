@@ -3,8 +3,10 @@ import '../../styles/gamechat.css';
 import type { Socket } from "socket.io-client";
 import { usePlayerChat } from "../../utils/custom_hooks/usePlayerChat";
 import GameChatInput from "./GameChatInput";
+import { useSocket } from "../../utils/custom_hooks/useSocket";
 
-const GameChat = ({ socket } : {socket: Socket | null}) => {
+const GameChat = () => {
+    const socket = useSocket();
     const chatPayload = usePlayerChat(socket);
 
     useEffect(() => {
@@ -15,8 +17,8 @@ const GameChat = ({ socket } : {socket: Socket | null}) => {
         <div className="player_chat_container">
             <span className="heading">Game Chat</span>
 
-            {chatPayload && chatPayload.broadcast_messages.map((message) => (
-                <div className="annoucement_message">
+            {chatPayload && chatPayload.broadcast_messages.map((message, index) => (
+                <div key={message.from + index} className="annoucement_message">
                     <span className="sender_username">{message.from}</span>
                     <span className="sender_message">{message.text}</span>
                     <span className="sender_time">{message.time}</span>

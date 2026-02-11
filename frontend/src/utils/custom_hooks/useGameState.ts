@@ -1,8 +1,10 @@
 import type { Socket } from "socket.io-client";
 import type { GameState } from "../types/player";
 import { useEffect, useState } from "react";
+import { useSocket } from "./useSocket";
 
-export const useGameState = (socket: Socket | null) => {
+export const useGameState = () => {
+    const socket = useSocket();
     const [gameState, setGameState] = useState<GameState>({ players: [] });
 
     useEffect(() => {
