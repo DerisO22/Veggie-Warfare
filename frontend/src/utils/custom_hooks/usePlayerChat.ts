@@ -17,7 +17,7 @@ export const usePlayerChat = (socket: Socket | null) => {
         if(!socket) return;
 
         const update_username = (new_username: string) => {
-
+            
         }
 
         const update_broadcast_messages = (new_broadcast_message: BroadcastMessage) => {

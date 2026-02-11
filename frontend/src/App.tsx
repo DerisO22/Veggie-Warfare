@@ -4,7 +4,7 @@ import { useRef, useState } from 'react';
 import { Vector3 } from 'three';
 import { useSocket } from './contexts/useSocket';
 import { useKeyboardControls } from './utils/custom_hooks/useKeyboardControls';
-import { useGameState } from './utils/custom_hooks/useGameState';
+import { useGameState } from './contexts/useGameState';
 import { PlayerCube } from './components/player/PlayerCube';
 import GameChat from './components/game_chat/GameChat';
 
