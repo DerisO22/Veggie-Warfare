@@ -1,9 +1,15 @@
-import { useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
 import { io, type Socket } from "socket.io-client";
 
 const SERVER_URL = 'http://localhost:3001';
 
-export const useSocket = () => {
+interface SocketProviderProps {
+    children: ReactNode;
+}
+
+export const SocketContext = createContext<Socket | null | undefined>(undefined);
+
+export const SocketProvider = ({ children }: SocketProviderProps) => {
     const [socket, setSocket] = useState<Socket | null>(null);
 
     useEffect(() => {
@@ -19,7 +25,6 @@ export const useSocket = () => {
 
         newSocket.on('disconnect', () => {
             console.log(`Disconnected from server`);
-            newSocket.disconnect();
         });
 
         newSocket.on('message', (message: string) => {
@@ -31,5 +36,19 @@ export const useSocket = () => {
         }
     }, []);
 
-    return socket;
+    return (
+        <SocketContext.Provider value={ socket }>
+            { children }
+        </SocketContext.Provider>
+    )
+}
+
+export const useSocket = () => {
+    const context = useContext(SocketContext);
+
+    if(context === undefined){
+        throw new Error("useSocket must be used within a SocketProvider");
+    }
+
+    return context;
 }
