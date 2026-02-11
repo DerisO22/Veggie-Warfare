@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import type { KeyBindings } from '../types/controlType';
-import { useSocket } from './useSocket';
+import { useSocket } from '../../contexts/useSocket';
 
 const DEFAULT_KEYS: KeyBindings = {
     forward: 'w',

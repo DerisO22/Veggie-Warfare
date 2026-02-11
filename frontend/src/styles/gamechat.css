@@ -4,19 +4,32 @@
     position: absolute;
     z-index: 100;
     width: 20rem;
-    height: 10rem;
+    height: 11rem;
     top: 0.01rem;
     right: 0.01rem;
-
 
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    gap: 0.5rem;
 
     background-color: rgba(0, 0, 0, 0.8);
     border-top: 3px solid rgba(255, 255, 255, 0.709);
     border-right: 3px solid rgba(255, 255, 255, 0.709);
     box-shadow: 0 0 2px 0 rgba(211, 220, 255, 0.657);
+}
+
+.messages_container {
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: start;
+    overflow-y: auto;
+    gap: 0.1rem;
+    padding-left: 0.4rem;
 }
 
 .heading {
@@ -41,7 +54,7 @@
     align-items: center;
     gap: 1rem;
 
-    padding-bottom: 1rem;
+    padding-bottom: 0.5rem;
 }
 
 .message_form_container form {
@@ -72,5 +85,30 @@
 
 .submit_button:hover {
     border: 2px solid white;
+    color: white;
+}
+
+/* 
+    Announcements
+*/
+.announcement_message {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: start;
+    padding-left: 0.3rem;
+
+    color: white;
+}
+
+.sender_username {
+    color: white;
+}
+
+.sender_message {
+    color: white;
+}
+
+.sender_time {
     color: white;
 }

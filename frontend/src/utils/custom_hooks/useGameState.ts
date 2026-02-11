@@ -1,6 +1,6 @@
 import type { GameState } from "../types/player";
 import { useEffect, useState } from "react";
-import { useSocket } from "./useSocket";
+import { useSocket } from "../../contexts/useSocket";
 
 export const useGameState = () => {
     const socket = useSocket();
