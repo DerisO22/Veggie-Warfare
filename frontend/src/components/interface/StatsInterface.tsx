@@ -2,6 +2,7 @@ import type { Dispatch, SetStateAction } from "react";
 import { useGameState } from "../../contexts/useGameState";
 import { useSocket } from "../../contexts/useSocket";
 import type { PlayerPosition } from "../../utils/types/player";
+import '../../styles/interface.css'
 
 interface StatsInterfaceProps {
     cam: { 

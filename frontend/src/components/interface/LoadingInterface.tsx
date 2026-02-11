@@ -1,4 +1,5 @@
-import { useSocket } from "../../contexts/useSocket"
+import { useSocket } from "../../contexts/useSocket";
+import '../../styles/interface.css';
 
 const LoadingInterface = () => {
     const socket = useSocket();
