@@ -1,5 +1,4 @@
 import { useEffect, useRef } from 'react';
-import { Socket } from 'socket.io-client';
 import type { KeyBindings } from '../types/controlType';
 import { useSocket } from './useSocket';
 

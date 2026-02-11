@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import '../../styles/gamechat.css';
-import type { Socket } from "socket.io-client";
 import { usePlayerChat } from "../../utils/custom_hooks/usePlayerChat";
 import GameChatInput from "./GameChatInput";
 import { useSocket } from "../../utils/custom_hooks/useSocket";

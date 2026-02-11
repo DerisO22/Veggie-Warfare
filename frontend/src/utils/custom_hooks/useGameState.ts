@@ -1,4 +1,3 @@
-import type { Socket } from "socket.io-client";
 import type { GameState } from "../types/player";
 import { useEffect, useState } from "react";
 import { useSocket } from "./useSocket";
