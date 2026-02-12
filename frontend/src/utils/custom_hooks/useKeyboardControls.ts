@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import type { KeyBindings } from '../types/controlType';
 import { useSocket } from '../../contexts/useSocket';
+import { useChatInput } from '../../contexts/ChatInput';
 
 const DEFAULT_KEYS: KeyBindings = {
     forward: 'w',
@@ -12,9 +13,11 @@ const DEFAULT_KEYS: KeyBindings = {
 export const useKeyboardControls = (keys: KeyBindings = DEFAULT_KEYS) => {
     const socket = useSocket();
     const pressedKeys = useRef<Set<string>>(new Set());
+    const { isPlayerInputting } = useChatInput();
 
     useEffect(() => {
         if (!socket) return;
+        if(isPlayerInputting) return;
 
         const handleKeyDown = (e: KeyboardEvent) => {
             const key = e.key.toLowerCase();
@@ -49,10 +52,10 @@ export const useKeyboardControls = (keys: KeyBindings = DEFAULT_KEYS) => {
 
         window.addEventListener('keydown', handleKeyDown);
         window.addEventListener('keyup', handleKeyUp);
-
+        
         return () => {
             window.removeEventListener('keydown', handleKeyDown);
             window.removeEventListener('keyup', handleKeyUp);
         };
-    }, [socket, keys]);
+    }, [socket, keys, isPlayerInputting]);
 };

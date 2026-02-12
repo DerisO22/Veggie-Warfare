@@ -4,13 +4,16 @@ import './index.css';
 import App from './App.tsx';
 import { SocketProvider } from './contexts/useSocket.tsx';
 import { GameProvider } from './contexts/useGameState.tsx';
+import { ChatInputProvider } from './contexts/ChatInput.tsx';
 
 createRoot(document.getElementById('root')!).render(
     <StrictMode>
 		<SocketProvider>
-			<GameProvider>
-				<App />
-			</GameProvider>
+		<GameProvider>
+		<ChatInputProvider>
+			<App />
+		</ChatInputProvider>
+		</GameProvider>
 		</SocketProvider>
     </StrictMode>,
 )
