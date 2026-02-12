@@ -23,6 +23,11 @@ const GameChat = () => {
         return `${hours}:${minutes}`;
     }
 
+    const handleTextColor = () => {
+        console.log("Hello")
+        return chatPayload.color ? `${chatPayload.color.newColor.newColor[0]}` : "blue";
+    };
+
     return (
         <div className="player_chat_container">
             <span className="heading">Game Chat</span>
@@ -31,10 +36,10 @@ const GameChat = () => {
                 <>
                     {/* Need to create a context of the gameState, so color changes and whispers can work */}
                     {chatPayload && chatPayload.broadcast_messages.map((message, index) => (
-                        <div style={{ backgroundColor: `${chatPayload.color ? `${chatPayload.color.newColor.newColor[0]}` : "transparent"}`}} key={message.from + index} className="message">
-                            <div className="sender_username">[{message.from}]: </div>
-                            <div className="sender_message">{message.text}</div>
-                            <div className="sender_time">{formatDate(message.time)}</div>
+                        <div style={{ color: handleTextColor() }} key={message.from + index} className="message">
+                            <div style={{ color: handleTextColor()}} className="sender_username">[{message.from}]: </div>
+                            <div style={{ color: handleTextColor()}} className="sender_message">{message.text}</div>
+                            <div style={{ color: handleTextColor()}} className="sender_time">{formatDate(message.time)}</div>
                         </div>
                     ))}
 

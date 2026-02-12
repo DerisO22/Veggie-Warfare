@@ -1,9 +1,14 @@
+import GameWorld from "./GameWorld"
 import Landscape from "./Landscape"
 
-const Scene = () => {
+interface SceneProps {
+    cameraMode: 'follow' | 'orbit',
+}
+
+const Scene = ({ cameraMode }: SceneProps) => {
     return (
         <>
-            
+            <GameWorld />
             <Landscape />
         </>
     )

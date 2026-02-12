@@ -9,12 +9,15 @@ interface StatsInterfaceProps {
         cameraMode: 'follow' | 'orbit',
         setCameraMode: Dispatch<SetStateAction<"follow" | "orbit">>
     },
-    localPlayerPosition: PlayerPosition | null,
 }
 
-const StatsInterface = ({ cam, localPlayerPosition } : StatsInterfaceProps) => {
+const StatsInterface = ({ cam } : StatsInterfaceProps) => {
     const socket = useSocket();
     const gameState = useGameState();
+
+    // Find local player
+    const localPlayer = gameState.players.find(player => player.id === socket?.id);
+    const localPlayerPosition = localPlayer?.position || null;
 
     return (
         <div className="game_info_container">

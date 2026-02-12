@@ -1,44 +1,16 @@
-import { OrbitControls } from '@react-three/drei';
-import { Canvas, useFrame, useThree } from '@react-three/fiber';
-import { useRef, useState } from 'react';
-import { Vector3 } from 'three';
+import { Canvas } from '@react-three/fiber';
 import { useSocket } from './contexts/useSocket';
 import { useKeyboardControls } from './utils/custom_hooks/useKeyboardControls';
-import { useGameState } from './contexts/useGameState';
-import { PlayerCube } from './components/player/PlayerCube';
 import GameChat from './components/game_chat/GameChat';
-import StatesInterface from './components/interface/StatsInterface';
+import StatsInterface from './components/interface/StatsInterface';
 import LoadingInterface from './components/interface/LoadingInterface';
-
-// Camera follower component
-function CameraFollower({ targetPosition }: { targetPosition: { x: number; y: number; z: number } | null }) {
-    const { camera } = useThree();
-    const targetRef = useRef(new Vector3());
-
-    useFrame(() => {
-        if (targetPosition) {
-            targetRef.current.set(
-                targetPosition.x,
-                targetPosition.y + 5,
-                targetPosition.z + 10
-            );
-            camera.position.lerp(targetRef.current, 0.1);
-            camera.lookAt(targetPosition.x, targetPosition.y, targetPosition.z);
-        }
-    });
-
-    return null;
-}
+import Scene from './components/scene/Scene';
+import { useState } from 'react';
 
 function App() {
     const socket = useSocket();
-    const gameState = useGameState();
     useKeyboardControls();
     const [cameraMode, setCameraMode] = useState<'follow' | 'orbit'>('follow');
-
-    // Find local player
-    const localPlayer = gameState.players.find(player => player.id === socket?.id);
-    const localPlayerPosition = localPlayer?.position || null;
 
     return (
         <div style={{ width: '100vw', height: '100vh' }}>
@@ -50,32 +22,17 @@ function App() {
 
                 {/* Environment */}
                 <gridHelper args={[50, 50]} />
+                <Scene cameraMode={cameraMode} />
                 
                 {/* Ground plane */}
                 <mesh receiveShadow={true} rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.5, 0]}>
                     <planeGeometry args={[100, 100]} />
                     <meshStandardMaterial color="white" />
                 </mesh>
-
-                {/* Render all players */}
-                {gameState.players.map((player) => (
-                    <PlayerCube
-                        key={player.id}
-                        position={player.position}
-                        isLocalPlayer={player.id === socket?.id}
-                    />
-                ))}
-
-                {/* Camera controls */}
-                {cameraMode === 'follow' && localPlayerPosition ? (
-                    <CameraFollower targetPosition={localPlayerPosition} />
-                ) : (
-                    <OrbitControls />
-                )}
             </Canvas>
 
             {/* Interface */}
-            <StatesInterface cam={{cameraMode, setCameraMode}} localPlayerPosition={localPlayerPosition}/>
+            <StatsInterface cam={{cameraMode, setCameraMode}}/>
             <LoadingInterface />
 
             {/* Game Chat */}

@@ -1,8 +1,8 @@
 const Landscape = () => {
     return (
-        <div>
+        <>
         
-        </div>
+        </>
     )
 }
 
