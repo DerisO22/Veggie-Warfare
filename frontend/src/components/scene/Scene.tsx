@@ -8,7 +8,7 @@ interface SceneProps {
 const Scene = ({ cameraMode }: SceneProps) => {
     return (
         <>
-            <GameWorld />
+            <GameWorld cameraMode={cameraMode}/>
             <Landscape />
         </>
     )

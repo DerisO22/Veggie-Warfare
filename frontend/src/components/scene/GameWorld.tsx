@@ -6,6 +6,9 @@ import { useFrame, useThree } from "@react-three/fiber";
 import { useRef, useState } from "react";
 import { Vector3 } from "three";
 
+interface GameWorldProps {
+    cameraMode: 'follow' | 'orbit',
+}
 
 // Camera follower component
 function CameraFollower({ targetPosition }: { targetPosition: { x: number; y: number; z: number } | null }) {
@@ -27,10 +30,9 @@ function CameraFollower({ targetPosition }: { targetPosition: { x: number; y: nu
     return null;
 }
 
-const GameWorld = () => {
+const GameWorld = ({ cameraMode } : GameWorldProps) => {
     const gameState = useGameState();
     const socket = useSocket();
-    const [cameraMode, setCameraMode] = useState<'follow' | 'orbit'>('follow');
 
     // Find local player
     const localPlayer = gameState.players.find(player => player.id === socket?.id);
