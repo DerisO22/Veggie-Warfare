@@ -122,3 +122,38 @@
     color: white;
     padding-right: 0.3rem;
 }
+
+/* 
+*   Game Chat Toggle Button
+*/
+.game_chat_toggle_container {
+    top: 0.5rem;
+    right: 0.5rem;
+    position: absolute;
+    z-index: 100;
+}
+
+.game_chat_toggle_button {
+    border: none;
+    width: 2.5rem;
+    height: 2.5rem;
+    background-color: white;
+    border-radius: 10px;
+    background-image: url("../../public/message-circle-lines-svgrepo-com.svg");
+    background-size: contain;
+    font-weight: 600;
+    fill: white;
+    color: white;
+    stroke: white;
+    cursor: pointer;
+
+    transition: all 0.3s ease-in-out;
+}
+
+.game_chat_toggle_button:hover {
+    transform: scale(1.1);
+}
+
+.game_chat_toggle_button:active {
+    transform: scale(0.6);
+}

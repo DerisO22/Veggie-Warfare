@@ -1,14 +1,14 @@
-import { memo, useEffect } from "react";
+import { memo, useEffect, useState } from "react";
 import '../../styles/gamechat.css';
 import { usePlayerChat } from "../../utils/custom_hooks/usePlayerChat";
 import GameChatInput from "./GameChatInput";
 import { useSocket } from "../../contexts/useSocket";
+import GameChatToggle from "./GameChatToggle";
 
 const GameChat = () => {
     const { socket } = useSocket();
     const chatPayload = usePlayerChat(socket);
-    
-    console.log("hello")
+    const [ isVisible, setIsVisible ] = useState<boolean>(true);
 
     useEffect(() => {
         console.log(chatPayload);
@@ -29,33 +29,45 @@ const GameChat = () => {
         return chatPayload.color ? `${chatPayload.color.newColor.newColor[0]}` : "blue";
     };
 
+    const handle_toggle = (e: React.MouseEvent) => {
+        console.log(isVisible)
+        e.preventDefault();
+        setIsVisible(prev => !prev);
+    }
+
     return (
-        <div className="player_chat_container">
-            <span className="heading">Game Chat</span>
+        <>
+            {isVisible && (
+                <div className="player_chat_container">
+                    <span className="heading">Game Chat</span>
 
-            <div className="messages_container">
-                <>
-                    {/* Need to create a context of the gameState, so color changes and whispers can work */}
-                    {chatPayload && chatPayload.broadcast_messages.map((message, index) => (
-                        <div style={{ color: handleTextColor() }} key={message.from + index} className="message">
-                            <div style={{ color: handleTextColor()}} className="sender_username">[{message.from}]: </div>
-                            <div style={{ color: handleTextColor()}} className="sender_message">{message.text}</div>
-                            <div style={{ color: handleTextColor()}} className="sender_time">{formatDate(message.time)}</div>
-                        </div>
-                    ))}
+                    <div className="messages_container">
+                        <>
+                            {/* Need to create a context of the gameState, so color changes and whispers can work */}
+                            {chatPayload && chatPayload.broadcast_messages.map((message, index) => (
+                                <div style={{ color: handleTextColor() }} key={message.from + index} className="message">
+                                    <div style={{ color: handleTextColor()}} className="sender_username">[{message.from}]: </div>
+                                    <div style={{ color: handleTextColor()}} className="sender_message">{message.text}</div>
+                                    <div style={{ color: handleTextColor()}} className="sender_time">{formatDate(message.time)}</div>
+                                </div>
+                            ))}
 
-                    {chatPayload && chatPayload.whisper_messages.map((message, index) => {
-                        <div key={message.from + index} className="message">
+                            {chatPayload && chatPayload.whisper_messages.map((message, index) => {
+                                <div key={message.from + index} className="message">
 
-                        </div>
-                    })}
-                </>
-            </div>
-            
-            {socket && (
-                <GameChatInput socket={socket}/>
+                                </div>
+                            })}
+                        </>
+                    </div>
+                    
+                    {socket && (
+                        <GameChatInput socket={socket}/>
+                    )}
+                </div>
             )}
-        </div>
+
+            <GameChatToggle handle_toggle={handle_toggle}/>
+        </>
     );
 }
 
