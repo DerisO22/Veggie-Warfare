@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { memo, useEffect } from "react";
 import '../../styles/gamechat.css';
 import { usePlayerChat } from "../../utils/custom_hooks/usePlayerChat";
 import GameChatInput from "./GameChatInput";
@@ -7,6 +7,8 @@ import { useSocket } from "../../contexts/useSocket";
 const GameChat = () => {
     const socket = useSocket();
     const chatPayload = usePlayerChat(socket);
+    
+    console.log("hello")
 
     useEffect(() => {
         console.log(chatPayload);
@@ -24,7 +26,6 @@ const GameChat = () => {
     }
 
     const handleTextColor = () => {
-        console.log("Hello")
         return chatPayload.color ? `${chatPayload.color.newColor.newColor[0]}` : "blue";
     };
 
@@ -56,4 +57,4 @@ const GameChat = () => {
     );
 }
 
-export default GameChat;
+export default memo(GameChat);

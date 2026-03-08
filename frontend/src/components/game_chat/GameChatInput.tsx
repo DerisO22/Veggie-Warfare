@@ -3,7 +3,7 @@ import type { Socket } from "socket.io-client";
 import { useChatInput } from "../../contexts/ChatInput";
 
 const GameChatInput = ({ socket } : { socket: Socket | null }) => {
-    const [ message, setMessage ] = useState("");
+    const [ message, setMessage ] = useState<string>("");
     const { setIsPlayerInputting } = useChatInput();
 
     const handleSubmit = () => {
@@ -17,6 +17,7 @@ const GameChatInput = ({ socket } : { socket: Socket | null }) => {
     };
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+        e.preventDefault();
         const { value } = e.target;
         setMessage(value);
     }
@@ -35,8 +36,14 @@ const GameChatInput = ({ socket } : { socket: Socket | null }) => {
                     onChange={handleChange}
                     placeholder="Enter message..."
                     maxLength={100}
-                    onFocus={() => setIsPlayerInputting(true)}
-                    onBlur={() => setIsPlayerInputting(false)}
+                    onFocus={(e) => {
+                        e.preventDefault();
+                        setIsPlayerInputting(true);
+                    }}
+                    onBlur={(e) => {
+                        e.preventDefault();
+                        setIsPlayerInputting(false);
+                    }}
                 />
 
                 <button className="submit_button" type="submit">Submit</button>
