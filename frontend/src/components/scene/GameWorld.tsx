@@ -12,7 +12,7 @@ interface GameWorldProps {
 const GameWorld = ({ cameraMode } : GameWorldProps) => {
     const gameState = useGameState();
     const socket = useSocket();
-    const localPlayerRef = useRef<Mesh>(null);
+    const localPlayerRef = useRef<Mesh>(null!);
 
     // Find local player
     const localPlayer = gameState.players.find(player => player.id === socket?.id);
