@@ -22,7 +22,7 @@ const GameChat = () => {
 
         const hours = Number(hoursString) % 12;
 
-        return `${hours}:${minutes}`;
+        return `${hours}:${minutes} ${hours >= 12 ? "pm" : "am"}`;
     }
 
     const handleTextColor = () => {
@@ -48,7 +48,7 @@ const GameChat = () => {
                                 <div style={{ color: handleTextColor() }} key={message.from + index} className="message">
                                     <div style={{ color: handleTextColor()}} className="sender_username">[{message.from}]: </div>
                                     <div style={{ color: handleTextColor()}} className="sender_message">{message.text}</div>
-                                    <div style={{ color: handleTextColor()}} className="sender_time">{formatDate(message.time)}</div>
+                                    <div style={{ color: handleTextColor()}} className="sender_time">[{formatDate(message.time)}]</div>
                                 </div>
                             ))}
 
@@ -66,7 +66,7 @@ const GameChat = () => {
                 </div>
             )}
 
-            <GameChatToggle handle_toggle={handle_toggle}/>
+            <GameChatToggle handle_toggle={handle_toggle} isVisible={isVisible}/>
         </>
     );
 }

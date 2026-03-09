@@ -4,7 +4,7 @@
     position: absolute;
     z-index: 100;
     width: 20rem;
-    height: 11rem;
+    height: 14rem;
     top: 0.01rem;
     right: 0.01rem;
 
@@ -30,15 +30,19 @@
     overflow-y: auto;
     gap: 0.3rem;
     padding-left: 0.4rem;
+
+    border-top: 1px solid white;
+    padding-top: 0.5rem;
 }
 
 .heading {
     font-size: 1.2rem;
     color: white;
     font-weight: 600;
-    font-family: 'monospace';
+    font-family: monospace;
     padding-left: 0.4rem;
-    padding-top: 0.2rem;
+    padding-top: 0.5rem;
+    word-spacing: -0.4rem;
 }
 
 /* 
@@ -98,6 +102,7 @@
     align-items: start;
     justify-content: space-between;
     padding-left: 0.3rem;
+    font-family: monospace;
 
     color: white;
 }
@@ -127,7 +132,7 @@
 *   Game Chat Toggle Button
 */
 .game_chat_toggle_container {
-    top: 0.5rem;
+    top: 0.4rem;
     right: 0.5rem;
     position: absolute;
     z-index: 100;
@@ -135,8 +140,8 @@
 
 .game_chat_toggle_button {
     border: none;
-    width: 2.5rem;
-    height: 2.5rem;
+    width: 1.8rem;
+    height: 1.8rem;
     background-color: rgba(0, 0, 0, 0.773);
     border-radius: 10px;
     background-image: url("../../public/chat_toggle.svg");
