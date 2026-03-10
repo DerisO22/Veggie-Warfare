@@ -25,14 +25,14 @@ function App() {
                 <pointLight castShadow={true} position={[0, 5, 0]} intensity={10.5} />
 
                 {/* Environment */}
-                <gridHelper args={[50, 50]} />
+                {/* <gridHelper args={[50, 50]} /> */}
                 <Scene cameraMode={cameraMode} />
                 
                 {/* Ground plane */}
-                <mesh receiveShadow={true} rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.5, 0]}>
+                {/* <mesh receiveShadow={true} rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.5, 0]}>
                     <planeGeometry args={[100, 100]} />
                     <meshStandardMaterial color="white" />
-                </mesh>
+                </mesh> */}
             </Canvas>
 
             {/* Interface */}

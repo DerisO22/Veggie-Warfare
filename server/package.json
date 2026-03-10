@@ -1,10 +1,14 @@
 {
   "dependencies": {
     "@dimforge/rapier3d-compat": "^0.19.3",
+    "@gltf-transform/core": "^4.3.0",
+    "@gltf-transform/extensions": "^4.3.0",
     "cors": "^2.8.6",
     "dotenv": "^17.2.3",
+    "draco3d": "^1.5.7",
     "express": "^5.2.1",
-    "socket.io": "^4.8.3"
+    "socket.io": "^4.8.3",
+    "three": "^0.183.2"
   },
   "type": "module"
 }
