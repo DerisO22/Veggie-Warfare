@@ -109,6 +109,7 @@
 
 .sender_username {
     color: white;
+    width: fit-content;
 }
 
 .sender_message {
@@ -116,16 +117,17 @@
     color: white;
     display: flex;
     justify-content: start;
-    padding-left: 0.3rem;
     height: fit-content;
+    padding-left: 0.3rem;
     text-overflow: ellipsis;
     overflow: hidden;
     word-break: break-all;
 }
 
 .sender_time {
+    width: fit-content;
     color: white;
-    padding-right: 0.3rem;
+    padding-right: 0.5rem;
 }
 
 /* 

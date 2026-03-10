@@ -20,9 +20,9 @@ const GameChat = () => {
         const hoursString = timeObject.getHours().toString().padStart(2, '0');
         const minutes = timeObject.getMinutes().toString().padStart(2, '0');
 
-        const hours = Number(hoursString) % 12;
+        const hours = Number(hoursString);
 
-        return `${hours}:${minutes} ${hours >= 12 ? "pm" : "am"}`;
+        return `${hours}:${minutes}`;
     }
 
     const handleTextColor = () => {
