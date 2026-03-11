@@ -3,7 +3,6 @@ export class Lobby {
         this.io = io;
         // going to be 30 seconds for voting
         this.voting_duration = 30000;
-        this.timestamp;
 
         this.votes = {
             map1: 0,
@@ -18,7 +17,7 @@ export class Lobby {
         const timestamp = new Date(Date.now());
         const votingState = {
             duration: this.voting_duration,
-            server_time: this.timestamp,
+            server_time: timestamp,
         };
 
         return votingState;
