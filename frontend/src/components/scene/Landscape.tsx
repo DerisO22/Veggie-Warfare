@@ -20,7 +20,6 @@ const Landscape = () => {
         })
     }, [landscape]);
 
-
     return (
         <>
             <primitive 
@@ -30,7 +29,7 @@ const Landscape = () => {
                 rotation-y={Math.PI / 2}
             />
         </>
-    )
+    );
 }
 
 export default Landscape;

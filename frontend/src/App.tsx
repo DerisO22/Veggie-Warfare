@@ -6,6 +6,7 @@ import StatsInterface from './components/interface/StatsInterface';
 import LoadingInterface from './components/interface/LoadingInterface';
 import Scene from './components/scene/Scene';
 import { useEffect, useState } from 'react';
+import Lobby from './components/interface/GameLobby/Lobby';
 
 function App() {
     const { socket, isConnected } = useSocket();
@@ -36,11 +37,14 @@ function App() {
             </Canvas>
 
             {/* Interface */}
-            <StatsInterface cam={{cameraMode, setCameraMode}}/>
+            <Lobby />
             
             {/* Game Chat */}
             {isConnected ? (
-                <GameChat />
+                <>
+                    <StatsInterface cam={{cameraMode, setCameraMode}}/>
+                    <GameChat />
+                </>
             ): (
                 <LoadingInterface />
             )}
