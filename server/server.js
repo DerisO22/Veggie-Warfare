@@ -7,7 +7,6 @@ import cors from 'cors';
 dotenv.config();
 
 import { Game } from './classes/Game.js';
-import { Lobby } from './classes/GameWorld/Lobby.js';
 
 const PORT = process.env.PORT || 3001;
 const FRAME_TIME = Math.floor(1000 / 60);

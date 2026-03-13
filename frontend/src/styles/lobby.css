@@ -14,13 +14,42 @@
 }
 
 .logo_container {
+    position: absolute;
     width: fit-content;
     height: fit-content;
 
-    top: 0;
-    left: 0;
+    top: 2rem;
+    left: 2rem;
 }
 
 .logo_image {
-    width: 30rem;
+    width: 20rem;
+}
+
+.exit_button {
+    position: absolute;
+    width: 3rem;
+    height: 3rem;
+    top: 1rem;
+    right: 1rem;
+
+    background-color: rgba(153, 186, 115, 0.558);
+    border: 2px solid rgb(12, 102, 12);
+    border-radius: 50%;
+    background-image: url("../../public/logout.png");
+    background-size: 80%;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    transition: all 0.3s ease-in-out;
+}
+
+.exit_button:hover {
+    background-color: rgb(224, 220, 145);
+    border: 2px solid rgb(41, 134, 131);
+    transform: scale(1.05) translateY(-2px);
+}
+
+.exit_button:active {
+    transform: scale(0.8);
 }
