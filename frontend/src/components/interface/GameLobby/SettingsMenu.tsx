@@ -1,4 +1,6 @@
+import { useEffect } from 'react';
 import '../../../styles/settings_menu.css';
+import { scroll_reveal } from '../../../utils/consts/ScrollReveal';
 
 interface SettingsMenuProps {
     toggleSettings: (e: React.MouseEvent) => void; 
@@ -8,6 +10,10 @@ const SettingsMenu = ({ toggleSettings } : SettingsMenuProps) => {
     // this will prob utilize a global state
     // so these settings can be saved throughout the game
     // but these are basic visuals for now
+
+    useEffect(() => {
+        scroll_reveal.reveal('.settings_menu', { origin: "center" });
+    }, []);
 
     return (
         <div className='settings_menu'>
