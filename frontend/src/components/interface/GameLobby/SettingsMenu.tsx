@@ -12,6 +12,19 @@ const SettingsMenu = ({ toggleSettings } : SettingsMenuProps) => {
     return (
         <div className='settings_menu'>
             <h1 className='header1'>Game Settings</h1>
+
+            {/* This will prob be a grid container */}
+            <div className='controls_container'>    
+                {/* Sound */}
+
+
+                {/* Keyboard Controls */}
+
+
+                {/* Login */}
+            </div>
+
+            <button onClick={toggleSettings} className='exit_settings_button'>X</button>
         </div>
     );
 }

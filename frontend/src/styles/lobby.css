@@ -30,6 +30,7 @@
     Lobby Menu (Top-Right)
 */
 .lobby_menu_container {
+    width: fit-content;
     position: absolute;
     top: 1rem;
     right: 1rem;
