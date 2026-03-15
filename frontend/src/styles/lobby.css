@@ -42,10 +42,10 @@
     height: 3rem;
 
     background-color: rgba(153, 186, 115, 0.558);
-    border: 2px solid rgb(12, 102, 12);
+    border: none;
+    box-shadow: 0 0 5px 0 rgb(0, 23, 1);
     border-radius: 50%;
-    background-image: url("../../public/logout.png");
-    background-size: 80%;
+    background-size: 65%;
     background-position: center;
     background-repeat: no-repeat;
 
@@ -54,10 +54,26 @@
 
 .menu_button:hover {
     background-color: rgb(224, 220, 145);
-    border: 2px solid rgb(41, 134, 131);
     transform: scale(1.05) translateY(-2px);
 }
 
 .menu_button:active {
     transform: scale(0.8);
+}
+
+/* All the different menu button backgrounds */
+.exit_toggle {
+    background-image: url("../../public/logout.png");
+}
+
+.music_toggle {
+    background-image: url("../../public/music_On.png");
+}
+
+.muted_music_button {
+    background-image: url("../../public/music_Off.png");
+}  
+
+.settings_toggle {
+    background-image: url("../../public/setting.png");
 }
