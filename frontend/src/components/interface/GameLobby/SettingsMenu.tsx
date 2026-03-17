@@ -14,7 +14,11 @@ const SettingsMenu = ({ toggleSettings } : SettingsMenuProps) => {
 
     useLayoutEffect(() => {
         if(menuRef.current) {
-            scroll_reveal.reveal('.settings_menu', { origin: "top" });
+            scroll_reveal.reveal('.settings_menu', { 
+                scale: 0.95,
+                distance: '0px',
+                duration: 1000
+            });
         }
     }, []);
 
