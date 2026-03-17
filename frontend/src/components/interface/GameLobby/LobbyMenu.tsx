@@ -31,19 +31,28 @@ const LobbyMenu = () => {
 
     useEffect(() => {
         const timer = setTimeout(() => {
-            scroll_reveal.reveal('.lobby_menu_container', { origin: 'top', delay: 1000 });
-          }, 10);
-        
-          return () => clearTimeout(timer);
+
+            scroll_reveal.reveal('.menu_button', {
+                delay: 1000,
+                origin: "top",
+                interval: 300
+            })
+        }, 10);
+    
+        return () => clearTimeout(timer);
     }, []);
 
     return (
         <>
             <div className="lobby_menu_container">
-                <div onClick={handlePlayerExit} className="menu_button exit_toggle"></div>
-                <button onClick={handleMusicToggle} className={`menu_button music_toggle ${!isMusicOn ? 'muted_music_button' : ''}`}></button>
+                <button 
+                    onClick={handleMusicToggle} 
+                    className={`menu_button music_toggle`}
+                ></button>
                 <button onClick={handleSettingsToggle} className={`menu_button settings_toggle`}></button>
+                <button onClick={handlePlayerExit} className={`menu_button exit_toggle`}></button>
             </div>        
+
             {isSettingsVisible && (
                 <SettingsMenu toggleSettings={handleSettingsToggle} />
             )}

@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useLayoutEffect, useRef } from 'react';
 import '../../../styles/settings_menu.css';
 import { scroll_reveal } from '../../../utils/consts/ScrollReveal';
 
@@ -10,16 +10,19 @@ const SettingsMenu = ({ toggleSettings } : SettingsMenuProps) => {
     // this will prob utilize a global state
     // so these settings can be saved throughout the game
     // but these are basic visuals for now
+    const menuRef = useRef<HTMLDivElement>(null);
 
-    useEffect(() => {
-        scroll_reveal.reveal('.settings_menu', { origin: "center" });
+    useLayoutEffect(() => {
+        if(menuRef.current) {
+            scroll_reveal.reveal('.settings_menu', { origin: "top" });
+        }
     }, []);
 
     return (
-        <div className='settings_menu'>
+        <div ref={menuRef} className='settings_menu'>
             <h1 className='header1'>Game Settings</h1>
 
-            {/* This will prob be a grid container */}
+            {/* This will prob be a 2x2 grid container */}
             <div className='controls_container'>    
                 {/* Sound */}
 
