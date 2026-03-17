@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader"
 
 const Landscape = () => {
-    const landscape = useGLTF("../../public/low_poly_environment_compressed-v1.glb", true, false, (loader) => {
+    const landscape = useGLTF("/low_poly_environment_compressed-v1.glb", true, false, (loader) => {
         const dracoLoader = new DRACOLoader();
 
         dracoLoader.setDecoderPath('https://www.gstatic.com/draco/versioned/decoders/1.5.5/');

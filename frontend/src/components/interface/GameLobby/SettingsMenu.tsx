@@ -17,7 +17,7 @@ const SettingsMenu = ({ toggleSettings } : SettingsMenuProps) => {
             scroll_reveal.reveal('.settings_menu', { 
                 scale: 0.95,
                 distance: '0px',
-                duration: 1000
+                duration: 500
             });
         }
     }, []);

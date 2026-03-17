@@ -19,7 +19,7 @@ export const VotingContextProvider = ({ children }: VotingContextProviderProps) 
 
     // handling all the different socket event emits and what nots
     useEffect(() => {
-
+        
     }, []);
 
     return (

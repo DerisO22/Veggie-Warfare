@@ -7,10 +7,11 @@
     padding-top: 0.5rem;
 
     font-family: monospace;
-    background-image: url('../../public/background_lobby.jpeg');
+    background-image: url('../../public/background_lobby.jpg');
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
+    user-select: none;
 }
 
 .logo_container {
@@ -18,8 +19,8 @@
     width: fit-content;
     height: fit-content;
 
-    top: 2rem;
-    left: 2rem;
+    top: 0rem;
+    left: 0rem;
 }
 
 .logo_image {
@@ -77,4 +78,91 @@
 
 .settings_toggle {
     background-image: url("../../public/setting.png");
+}
+
+/* 
+    Voting Interface
+*/
+.voting_interface_container {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    gap: 0.5rem;
+    left: 50%;
+    top: 60%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 80%;
+    background-color: transparent;
+}
+
+.vote_header1 {
+    font-size: 2rem;
+    color: white;
+    color: white;
+    text-shadow: 0 0 3px blue;
+    text-decoration: underline;
+    text-decoration-thickness: 0.3rem;
+    text-underline-offset: 1.3rem;
+}
+
+.time_text {
+    font-size: 1.2rem;
+    color: white;
+    font-weight: 600;
+    text-shadow: 0 0 5px blue;
+}
+
+.map_cards_container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    gap: 2rem;
+}
+
+.map_vote_card {
+    width: 25%;
+    height: 90%;
+    display: flex;
+    flex-direction: column;
+    border-radius: 5px;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    transition: all 0.3s ease-in-out;
+}
+
+.map_vote_card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 10px 0 rgb(123, 255, 123);
+}
+
+.map_vote_card:active {
+    transform: scale(0.9);
+}
+
+.map_header {
+    font-size: 2.1rem;
+    color: white;
+    text-shadow: 0 0 5px red;
+}
+
+.vote_card_header1 {
+    margin-top: -0.2rem;
+    font-size: 1rem;
+    color: white;
+    text-shadow: 0 0 5px red;
+    text-decoration: underline;
+    text-decoration-thickness: 0.2rem;
+    text-underline-offset: 0.3rem;
+}
+
+.vote_card_text {
+    font-size: 2rem;
+    color: white;
+    text-shadow: 1px 0 5px red;
 }
