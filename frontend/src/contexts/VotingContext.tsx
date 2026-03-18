@@ -4,7 +4,8 @@ import { useSocket } from "./useSocket";
 interface VotingContextType {
     isVotingActive: boolean;
     votes: VotesType,
-    map_winner: string
+    mapWinner: string,
+    handle_player_vote: (e: React.MouseEvent<HTMLDivElement>, choice: string) => void
 }
 
 interface VotingContextProviderProps {
@@ -38,13 +39,16 @@ export const VotingContextProvider = ({ children }: VotingContextProviderProps) 
         map2: 0,
         map3: 0
     });
-    const [ map_winner, setMapWinner ] = useState<string>("");
+    const [ mapWinner, setMapWinner ] = useState<string>("");
+    const [ votingTime, setVotingTime ] = useState<number>(0);
 
     // handling all the different socket event emits and what nots
     useEffect(() => {
         if(!socket) return;
 
         socket.on("start_vote", ({ duration, serverTime, votes }) => {
+            setVotingTime(duration);
+            setVotes((prev) => ({...prev, ...votes}));
             isSetVotingActive(true);
         });
 
@@ -79,7 +83,8 @@ export const VotingContextProvider = ({ children }: VotingContextProviderProps) 
     const voting_state = {
         isVotingActive,
         votes,
-        map_winner
+        mapWinner,
+        handle_player_vote
     }
 
     return (
