@@ -2,35 +2,71 @@ import { createContext, useContext, useEffect, useState, type ReactNode } from "
 import { useSocket } from "./useSocket";
 
 interface VotingContextType {
-    hasVotingStarted: boolean,
-    hasVotingEnded: boolean,
+    isVotingActive: boolean;
+    votes: VotesType,
+    map_winner: string
 }
 
 interface VotingContextProviderProps {
     children: ReactNode
 }
 
+interface VotesType {
+    map1: number,
+    map2: number,
+    map3: number
+}
+
+export const Maps = {
+    map1: "Valley",
+    map2: "Volcano",
+    map3: "Everest"
+}
+
+// util function for mapping the map names to the server votes map fields
+export const match_mapWinner_to_Name = (winner: keyof typeof Maps) => {
+    return Maps[winner];
+}
+
 const VotingContext = createContext<VotingContextType | undefined>(undefined);
 
 export const VotingContextProvider = ({ children }: VotingContextProviderProps) => {
     const { socket } = useSocket();
-    const [ hasVotingStarted, setHasVotingStarted ] = useState<boolean>(false);
-    const [ hasVotingEnded, setHasVotingEnded ] = useState<boolean>(false);
+    const [ isVotingActive, isSetVotingActive ] = useState<boolean>(false);
+    const [ votes, setVotes ] = useState<VotesType>({
+        map1: 0,
+        map2: 0,
+        map3: 0
+    });
     const [ map_winner, setMapWinner ] = useState<string>("");
 
     // handling all the different socket event emits and what nots
     useEffect(() => {
         if(!socket) return;
 
-        socket.on("start_vote", ({ duration, server_time }) => {
-            setHasVotingStarted(true);
-            setHasVotingEnded(false);
+        socket.on("start_vote", ({ duration, serverTime, votes }) => {
+            isSetVotingActive(true);
         });
 
-        socket.on("end_vote", () => {
-            setHasVotingStarted(false);
-            setHasVotingEnded(true);
+        socket.on("end_vote", ({ winner, finalVotes }) => {
+
+            setMapWinner(winner);
+            setVotes((prev) => ({...prev, ...finalVotes}));
+            isSetVotingActive(false);
         });
+
+        socket.on("update_vote", ({ votes }) => {
+            setVotes((prev) => ({
+                ...prev,
+                ...votes
+            }))
+        });
+
+        return () => {
+            socket.off("start_vote");
+            socket.off("end_vote");
+            socket.off("update_vote");
+        }
     }, []);
 
     const handle_player_vote = (e: React.MouseEvent<HTMLDivElement>, choice: string) => {
@@ -40,8 +76,14 @@ export const VotingContextProvider = ({ children }: VotingContextProviderProps) 
         socket?.emit("player_vote", { choice });
     }
 
+    const voting_state = {
+        isVotingActive,
+        votes,
+        map_winner
+    }
+
     return (
-        <VotingContext.Provider value={{hasVotingStarted, hasVotingEnded}}>
+        <VotingContext.Provider value={voting_state}>
             { children }
         </VotingContext.Provider>
     );
