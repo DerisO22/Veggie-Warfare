@@ -4,9 +4,11 @@ import { usePlayerChat } from "../../utils/custom_hooks/usePlayerChat";
 import GameChatInput from "./GameChatInput";
 import { useSocket } from "../../contexts/useSocket";
 import GameChatToggle from "./GameChatToggle";
+import { useVoting } from "../../contexts/VotingContext";
 
 const GameChat = () => {
     const { socket } = useSocket();
+    const { hasVotingEnded } = useVoting();
     const chatPayload = usePlayerChat(socket);
     const [ isVisible, setIsVisible ] = useState<boolean>(true);
 
@@ -37,36 +39,38 @@ const GameChat = () => {
 
     return (
         <>
-            {isVisible && (
-                <div className="player_chat_container">
-                    <span className="heading">Game Chat</span>
+            {isVisible && hasVotingEnded && (
+                <>
+                    <div className="player_chat_container">
+                        <span className="heading">Game Chat</span>
 
-                    <div className="messages_container">
-                        <>
-                            {/* Need to create a context of the gameState, so color changes and whispers can work */}
-                            {chatPayload && chatPayload.broadcast_messages.map((message, index) => (
-                                <div style={{ color: handleTextColor() }} key={message.from + index} className="message">
-                                    <div style={{ color: handleTextColor()}} className="sender_username">[{message.from}]: </div>
-                                    <div style={{ color: handleTextColor()}} className="sender_message">{message.text}</div>
-                                    <div style={{ color: handleTextColor()}} className="sender_time">[{formatDate(message.time)}]</div>
-                                </div>
-                            ))}
+                        <div className="messages_container">
+                            <>
+                                {/* Need to create a context of the gameState, so color changes and whispers can work */}
+                                {chatPayload && chatPayload.broadcast_messages.map((message, index) => (
+                                    <div style={{ color: handleTextColor() }} key={message.from + index} className="message">
+                                        <div style={{ color: handleTextColor()}} className="sender_username">[{message.from}]: </div>
+                                        <div style={{ color: handleTextColor()}} className="sender_message">{message.text}</div>
+                                        <div style={{ color: handleTextColor()}} className="sender_time">[{formatDate(message.time)}]</div>
+                                    </div>
+                                ))}
 
-                            {chatPayload && chatPayload.whisper_messages.map((message, index) => {
-                                <div key={message.from + index} className="message">
+                                {chatPayload && chatPayload.whisper_messages.map((message, index) => {
+                                    <div key={message.from + index} className="message">
 
-                                </div>
-                            })}
-                        </>
+                                    </div>
+                                })}
+                            </>
+                        </div>
+                        
+                        {socket && (
+                            <GameChatInput socket={socket}/>
+                        )}
                     </div>
                     
-                    {socket && (
-                        <GameChatInput socket={socket}/>
-                    )}
-                </div>
+                    <GameChatToggle handle_toggle={handle_toggle} isVisible={isVisible}/>
+                </>
             )}
-
-            <GameChatToggle handle_toggle={handle_toggle} isVisible={isVisible}/>
         </>
     );
 }
