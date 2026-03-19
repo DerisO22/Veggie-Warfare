@@ -20,13 +20,17 @@ export const SocketProvider = ({ children }: SocketProviderProps) => {
 
     useEffect(() => {
         const newSocket = io(SERVER_URL, {
-            transports: ['websocket'],
+            transports: ['websocket', 'polling'],
+            reconnection: true,
+            reconnectionDelay: 1000,
+            reconnectionDelayMax: 5000,
+            reconnectionAttempts: 5
         });
 
         setSocket(newSocket);
 
         newSocket.on('connect', () => {
-            console.log(`Connected to server: ${socket?.id}`);
+            console.log(`Connected to server: ${newSocket?.id}`);
             setIsConnected(true);
         });
 

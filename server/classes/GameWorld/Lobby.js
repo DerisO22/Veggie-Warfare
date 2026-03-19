@@ -13,6 +13,7 @@ export class Lobby {
         this.player_votes = {};
         this.voting_active = false;
         this.vote_handlers_registered = false;
+        this.voting_start_time = null;
     }
 
     getVotingState() {
@@ -37,6 +38,7 @@ export class Lobby {
         }
  
         this.voting_active = true;
+        this.voting_start_time = Date.now();
         this.votes = { map1: 0, map2: 0, map3: 0 };
         this.player_votes = {};
 
@@ -68,6 +70,21 @@ export class Lobby {
 
     setUpVotingSockets() {
         this.io.on("connection", (socket) => {
+            if (this.voting_active && this.voting_start_time) {
+                const elapsed = Date.now() - this.voting_start_time;
+                const remaining = Math.max(0, this.voting_duration - elapsed);
+                
+                console.log(`[Lobby] Late connection detected! Client ${socket.id} missed start_vote`);
+                console.log(`[Lobby] Sending voting state: elapsed=${elapsed}ms, remaining=${remaining}ms`);
+                
+                // Send voting state directly to this client
+                socket.emit("start_vote", {
+                    duration: remaining,  // How much time is LEFT (in ms)
+                    server_time: new Date(this.voting_start_time),
+                    current_votes: { ...this.votes }
+                });
+            }
+
             // choice will just be map1, map2, map3
             socket.on("player_vote", ({ choice }) => {
                 if (!this.voting_active) {

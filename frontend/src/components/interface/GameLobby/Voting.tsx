@@ -1,38 +1,40 @@
 import { get_map_vote_path } from "../../../utils/helpers/getMapPath";
-import { useVoting } from "../../../contexts/VotingContext";
-
-// Just for testing now
-const maps = [
-    {
-        map_name: "Valley",
-        map_votes: 4,
-    },
-    {
-        map_name: "Volcano",
-        map_votes: 2,
-    },
-    {
-        map_name: "Everest",
-        map_votes: 8,
-    }
-]
+import { useVoting, Maps } from "../../../contexts/VotingContext";
 
 const Voting = () => {
-    const { isVotingActive, votes, mapWinner, handle_player_vote } = useVoting();
+    const { 
+        hasVotingStarted,
+        hasVotingEnded,
+        votes,
+        mapWinner,
+        handle_player_vote,
+        votingTimeRemaining 
+    } = useVoting();
+
+    console.log("Voting started:", hasVotingStarted);
+    console.log("Current votes:", votes);
+
+    // Convert votes to the maps array format for display
+    const mapsWithVotes = Object.entries(Maps).map(([mapKey, mapName]) => ({
+        map_key: mapKey,
+        map_name: mapName,
+        map_votes: votes[mapKey as keyof typeof votes] || 0
+    }));
 
     return (
         <>
-            {isVotingActive && (
+            {hasVotingStarted && !hasVotingEnded && (
                 <div className="voting_interface_container">
                     <h1 className="vote_header1">Map Voting</h1>
-                    <p className="time_text">Time Left: 30.0s</p>
+                    <p className="time_text">Time Left: {votingTimeRemaining.toFixed(1)}s</p>
 
                     <div className="map_cards_container">
-                        {maps.map((map_data, index) => (
-                            <div style={{ backgroundImage: `url(${get_map_vote_path(map_data.map_name)})`}} 
+                        {mapsWithVotes.map((map_data) => (
+                            <div 
+                                style={{ backgroundImage: `url(${get_map_vote_path(map_data.map_name)})` }} 
                                 onClick={(e) => handle_player_vote(e, map_data.map_name)} 
                                 className="map_vote_card" 
-                                key={index}
+                                key={map_data.map_key}
                             >
                                 <h1 className="map_header">{map_data.map_name}</h1>
                                 <p className="vote_card_header1">Total Votes</p>
@@ -42,8 +44,15 @@ const Voting = () => {
                     </div>
                 </div>  
             )}
+
+            {hasVotingEnded && mapWinner && (
+                <div className="voting_interface_container">
+                    <h1 className="vote_header1">Voting Complete!</h1>
+                    <p className="vote_card_header1">Winner: {Maps[mapWinner as keyof typeof Maps]}</p>
+                </div>
+            )}
         </>
     )
 }
 
-export default Voting; 
+export default Voting;
