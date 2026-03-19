@@ -1,4 +1,3 @@
-import { memo } from "react";
 import { get_map_vote_path } from "../../../utils/helpers/getMapPath";
 import { useVoting } from "../../../contexts/VotingContext";
 
@@ -44,7 +43,6 @@ const Voting = () => {
                 </div>  
             )}
         </>
-        
     )
 }
 
