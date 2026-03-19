@@ -44,7 +44,6 @@ export class Lobby {
 
         // make sure vote register once
         if(!this.vote_handlers_registered) {
-            this.setUpVotingSockets();
             this.vote_handlers_registered = true;
         }
         
@@ -68,56 +67,42 @@ export class Lobby {
         });
     };
 
-    setUpVotingSockets() {
-        this.io.on("connection", (socket) => {
-            if (this.voting_active && this.voting_start_time) {
-                console.log("hello")
-                const elapsed = Date.now() - this.voting_start_time;
-                const remaining = Math.max(0, this.voting_duration - elapsed);
-                
-                socket.emit("start_vote", {
-                    duration: remaining,
-                    server_time: new Date(this.voting_start_time),
-                    current_votes: { ...this.votes }
-                });
+    setUpVotingSockets(socket) {
+        // choice will just be map1, map2, map3
+        socket.on("player_vote", ({ choice }) => {
+            console.log(this.voting_active)
+            if (!this.voting_active) {
+                console.warn(`Player ${socket.id} voted after voting ended`);
+                return;
             }
 
-            // choice will just be map1, map2, map3
-            socket.on("player_vote", ({ choice }) => {
-                console.log(this.voting_active)
-                if (!this.voting_active) {
-                    console.warn(`Player ${socket.id} voted after voting ended`);
-                    return;
-                }
- 
-                if (!["map1", "map2", "map3"].includes(choice)) {
-                    console.warn(`Player ${socket.id} voted for invalid map: ${choice}`);
-                    return;
-                }
+            if (!["map1", "map2", "map3"].includes(choice)) {
+                console.warn(`Player ${socket.id} voted for invalid map: ${choice}`);
+                return;
+            }
 
-                const playerId = socket.id;
+            const playerId = socket.id;
 
-                if(this.player_votes[playerId]) return;
+            if(this.player_votes[playerId]) return;
 
-                this.player_votes[playerId] = choice;
-                this.votes[choice]++;
+            this.player_votes[playerId] = choice;
+            this.votes[choice]++;
 
-                this.io.sockets.emit("vote_update", {
-                    current_votes: this.votes
-                });
+            this.io.sockets.emit("vote_update", {
+                current_votes: this.votes
             });
-        
-            socket.on("disconnect", () => {
-                const vote = this.player_votes[socket.id];
+        });
+    
+        socket.on("disconnect", () => {
+            const vote = this.player_votes[socket.id];
 
-                if(vote && this.voting_active) {
-                    this.votes[vote]--;
-                    delete this.player_votes[socket.id];
-                }
+            if(vote && this.voting_active) {
+                this.votes[vote]--;
+                delete this.player_votes[socket.id];
+            }
 
-                this.io.sockets.emit("vote_update", {
-                    current_votes: this.votes
-                });
+            this.io.sockets.emit("vote_update", {
+                current_votes: this.votes
             });
         });
     }

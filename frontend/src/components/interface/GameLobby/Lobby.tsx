@@ -3,27 +3,32 @@ import '../../../styles/lobby.css';
 import { useEffect, useState } from "react";
 import { scroll_reveal } from "../../../utils/consts/ScrollReveal";
 import LobbyMenu from "./LobbyMenu";
+import { useVoting } from "../../../contexts/VotingContext";
 
 const Lobby = () => {
-    const [ isPlayerVoting, setIsPlayerVoting ] = useState<boolean>(true);
+    const { hasVotingStarted, hasVotingEnded } = useVoting();
 
     useEffect(() => {
         scroll_reveal.reveal('.logo_container', { origin: "left" });
     }, []);
 
     return (
-        <div className="lobby_screen_container">
-            {/* Info and Stuff */}
-            <div className="logo_container">
-                <img className="logo_image" src="../../../../public/game_logo.webp"></img>
+        <>
+            {!hasVotingStarted && !hasVotingEnded && (
+                <div className="lobby_screen_container">
+                {/* Info and Stuff */}
+                <div className="logo_container">
+                    <img className="logo_image" src="../../../../public/game_logo.webp"></img>
+                </div>
+                
+                <LobbyMenu />
             </div>
+            )}
 
-            { isPlayerVoting && (
+            { hasVotingStarted && !hasVotingEnded && (
                 <Voting />    
             )}
-            
-            <LobbyMenu />
-        </div>
+        </>
     )
 }
 

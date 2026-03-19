@@ -43,7 +43,7 @@ export class Game {
     async lobbyWait() {
         return new Promise((resolve) => {
             const interval = setInterval(() => {
-                const isEnoughPlayer = Object.keys(this.pending_sockets).length >= 5 ? true : false;
+                const isEnoughPlayer = Object.keys(this.pending_sockets).length >= 1 ? true : false;
                 console.log(isEnoughPlayer)
                 console.log(Object.keys(this.pending_sockets).length);
 
@@ -87,6 +87,9 @@ export class Game {
         this.io.on("connection", (socket) => {
             console.log(`Socket connected: ${socket.id}`);
             this.io.sockets.emit("message", `player at socket ${socket.id} has connected.`);
+
+            // Lobby vote
+            this.Lobby.setUpVotingSockets(socket);
             
             if (this.world) {
                 try {
