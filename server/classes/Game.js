@@ -24,6 +24,9 @@ export class Game {
             
             console.log("Socket events registered, waiting for clients...");
             
+            // testing a timeout to see if we can wait to vote until enough players
+            await this.lobbyWait();
+            
             const map_winner = await this.Lobby.startVoting();
             console.log(`Map ${map_winner} won the vote`);
 
@@ -35,6 +38,25 @@ export class Game {
             console.error("Error starting game:", error);
             throw error;
         }
+    }
+
+    async lobbyWait() {
+        return new Promise((resolve) => {
+            const interval = setInterval(() => {
+                const isEnoughPlayer = Object.keys(this.pending_sockets).length >= 5 ? true : false;
+                console.log(isEnoughPlayer)
+                console.log(Object.keys(this.pending_sockets).length);
+
+                if (isEnoughPlayer) {
+                    console.log("Yes Enough. Start the Voting");
+                    clearInterval(interval);
+                    resolve();
+                } else {
+                    console.log("Waiting for Players");
+                    console.log("will check again in 5sec");
+                }
+            }, 5000);
+        });
     }
 
     async initPhysics(map_winner) {

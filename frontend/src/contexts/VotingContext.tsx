@@ -114,6 +114,7 @@ export const VotingContextProvider = ({ children }: VotingContextProviderProps) 
     const handle_player_vote = (e: React.MouseEvent<HTMLDivElement>, choice: string) => {
         e.preventDefault();
 
+        console.log(isVoteLocked)
         if (!socket || isVoteLocked || playerVote) {
             console.warn("Cannot vote at this time");
             return;

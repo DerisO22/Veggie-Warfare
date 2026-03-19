@@ -71,6 +71,7 @@ export class Lobby {
     setUpVotingSockets() {
         this.io.on("connection", (socket) => {
             if (this.voting_active && this.voting_start_time) {
+                console.log("hello")
                 const elapsed = Date.now() - this.voting_start_time;
                 const remaining = Math.max(0, this.voting_duration - elapsed);
                 
@@ -83,6 +84,7 @@ export class Lobby {
 
             // choice will just be map1, map2, map3
             socket.on("player_vote", ({ choice }) => {
+                console.log(this.voting_active)
                 if (!this.voting_active) {
                     console.warn(`Player ${socket.id} voted after voting ended`);
                     return;
