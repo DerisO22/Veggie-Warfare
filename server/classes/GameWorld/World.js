@@ -8,13 +8,26 @@ import path from "path";
 export class World {
     constructor(world) {
         this.world = world;
+
+        this.map_paths = {
+            map1: "./assets/low_poly_environment_compressed-v1.glb",
+            map2: "./assets/low_poly_environment_compressed-v1(1).glb",
+            map3: "./assets/low_poly_environment_compressed-v1(2).glb",
+        }
+    }
+
+    /**
+     * Handle Map Path
+     */
+    getMapPath(map_winner) {
+        return this.map_paths[map_winner];
     }
 
     /**
      *  This will adapt to any model we give it
      */
-    async initWorldPhysics() {
-        const glbPath = path.resolve('./assets/low_poly_environment_compressed-v1.glb');
+    async initWorldPhysics(map_winner) {
+        const glbPath = path.resolve(`${this.getMapPath(map_winner)}`);
     
         const io = new NodeIO()
             .registerExtensions([KHRDracoMeshCompression])

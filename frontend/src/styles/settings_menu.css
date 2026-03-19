@@ -1,0 +1,47 @@
+.settings_menu {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+
+    top: 0;
+    left: 0;
+    text-align: center;
+
+    background-color: rgba(0, 0, 0, 0.416);
+    backdrop-filter: blur(5px);
+    visibility: hidden;
+}
+
+.exit_settings_button {
+    position: absolute;
+    width: 3rem;
+    height: 3rem;
+    top: 1rem;
+    right: 1rem;
+
+    font-size: 1.9rem;
+    font-weight: 600;
+    background-color: rgba(255, 255, 255, 0.813);
+    text-align: center;
+    border: none;
+    border-radius: 50%;
+    align-content: center;
+    transition: all 0.2s ease-in-out;
+}
+
+.exit_settings_button:hover {
+    background-color: black;
+    color: white;
+    transform: scale(1.1);
+}
+
+.header1 {
+    font-size: 2rem;
+    font-weight: 600;
+    color: white;
+
+    text-decoration: underline;
+    text-decoration-thickness: 0.1rem;
+    text-underline-offset: 0.9rem;
+    text-decoration-style: double;
+}

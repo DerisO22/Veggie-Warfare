@@ -30,8 +30,13 @@ app.use(cors({
 }))
 
 async function start() {
+    server.listen(PORT, () => {
+        console.log(`Listening on port ${PORT}`);
+    })
+    
     const game = new Game(io);
-    await game.initPhysics();
+
+    await game.startGame();
 
     setInterval(() => {
         if (game) {
@@ -39,10 +44,6 @@ async function start() {
             game.sendState();
         }
     }, FRAME_TIME);
-    
-    server.listen(PORT, () => {
-        console.log(`Listening on port ${PORT}`);
-    })
 };
 
 start();
