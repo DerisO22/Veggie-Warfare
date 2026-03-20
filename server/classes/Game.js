@@ -6,6 +6,7 @@ import { GameState } from "./GameState.js";
 import { Lobby } from "./GameWorld/Lobby.js";
 
 const GRAVITY_CONST = -18.81;
+const NEEDED_PLAYERS = 5;
 
 export class Game {
     constructor(io) {
@@ -43,7 +44,7 @@ export class Game {
     async lobbyWait() {
         return new Promise((resolve) => {
             const interval = setInterval(() => {
-                const isEnoughPlayer = Object.keys(this.pending_sockets).length >= 1 ? true : false;
+                const isEnoughPlayer = Object.keys(this.pending_sockets).length >= NEEDED_PLAYERS ? true : false;
                 console.log(isEnoughPlayer)
                 console.log(Object.keys(this.pending_sockets).length);
 

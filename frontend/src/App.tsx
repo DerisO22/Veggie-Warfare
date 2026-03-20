@@ -45,7 +45,7 @@ function App() {
                     <StatsInterface cam={{cameraMode, setCameraMode}}/>
                     <GameChat />
                 </>
-            ): (
+            ) : (
                 <LoadingInterface />
             )}
         </div>

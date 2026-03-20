@@ -56,7 +56,7 @@ const LobbyMenu = () => {
                 <div className="menu_button_container">
                     <button onClick={handlePlayerExit} className={`menu_button exit_toggle`}></button>
                 </div>
-            </div>        
+            </div>
 
             {isSettingsVisible && (
                 <SettingsMenu toggleSettings={handleSettingsToggle} />
