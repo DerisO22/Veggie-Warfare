@@ -22,10 +22,8 @@ export class Game {
     async startGame() {
         try {
             this.setupSocketEvents();
-            
             console.log("Socket events registered, waiting for clients...");
             
-            // testing a timeout to see if we can wait to vote until enough players
             await this.lobbyWait();
             
             const map_winner = await this.Lobby.startVoting();
@@ -88,6 +86,11 @@ export class Game {
         this.io.on("connection", (socket) => {
             console.log(`Socket connected: ${socket.id}`);
             this.io.sockets.emit("message", `player at socket ${socket.id} has connected.`);
+
+            // Lobby menu UI info
+            // Pending Player Count
+            // Probably Player Profiles (After feature to edit usernames in lobby gets implemented)
+            this.io.sockets.emit("lobby_info", { total_players: Object.keys(this.pending_sockets).length });
 
             // Lobby vote
             this.Lobby.setUpVotingSockets(socket);

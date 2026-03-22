@@ -4,9 +4,14 @@ import { useEffect } from "react";
 import { scroll_reveal } from "../../../utils/consts/ScrollReveal";
 import LobbyMenu from "./LobbyMenu";
 import { useVoting } from "../../../contexts/VotingContext";
+import { useGameState } from "../../../contexts/useGameState";
 
 const Lobby = () => {
+    const gameState = useGameState();
     const { hasVotingStarted, hasVotingEnded } = useVoting();
+
+    useEffect(() => {
+    }, [gameState.players]);
 
     useEffect(() => {
         scroll_reveal.reveal('.logo_container', { origin: "left" });
