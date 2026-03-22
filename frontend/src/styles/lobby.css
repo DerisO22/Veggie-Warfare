@@ -80,19 +80,24 @@
     transform: scale(0.9);
 }
 
-.play_icon {
+.lobby_option_button div {
     width: 4rem;
-    height: 4rem;
+    height: 3rem;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.play_icon {
+    background-image: url("../../public/play-button.png");
 }
 
 .player_list_icon {
-    width: 4rem;
-    height: 4rem;
+    background-image: url("../../public/avatar.png");
 }
 
 .vote_icon {
-    width: 4rem;
-    height: 4rem;
+    background-image: url("../../public/vote.png");
 }
 
 /* 

@@ -6,6 +6,7 @@
     top: 0;
     left: 0;
     text-align: center;
+    z-index: 105;
 
     background-color: rgba(0, 0, 0, 0.416);
     backdrop-filter: blur(5px);

@@ -1,6 +1,6 @@
 import Voting from "./Voting";
 import '../../../styles/lobby.css';
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { scroll_reveal } from "../../../utils/consts/ScrollReveal";
 import LobbyMenu from "./LobbyMenu";
 import { useVoting } from "../../../contexts/VotingContext";
@@ -8,16 +8,26 @@ import { useLobby } from "../../../contexts/LobbyContext";
 
 const Lobby = () => {
     const { total_players } = useLobby();
+    const [ test, setTest ] = useState<number>(0);
     const { hasVotingStarted, hasVotingEnded } = useVoting();
+    const [ isPlayerListVisible, setIsPlayerListVisible ] = useState<boolean>(false);
 
     useEffect(() => {
         scroll_reveal.reveal('.logo_container', { origin: "left" });
         scroll_reveal.reveal('.option_button_container', {
             delay: 900,
             origin: 'left',
-            interval: 100
         });
+        scroll_reveal.reveal('.info_text', {origin: "left"})
     }, []);
+
+    useEffect(() => {
+        setTest(total_players);
+    }, [total_players]);
+
+    const toggleLobbyList = () => {
+
+    }
 
     return (
         <>
@@ -38,7 +48,7 @@ const Lobby = () => {
                             </div>
                             
                             <div className="option_button_container">
-                                <button className="lobby_option_button">
+                                <button onClick={toggleLobbyList} className="lobby_option_button">
                                     <div className="player_list_icon"></div>
                                     <span>PEOPLE</span>
                                 </button>
@@ -51,6 +61,8 @@ const Lobby = () => {
                                 </button>
                             </div>
                         </div>
+
+
 
                         <p className="info_text">Players Waiting: <span className="highlight_text">{total_players}</span></p>
                         <p className="info_text">Players Needed To Start: <span className="highlight_text">6</span></p>

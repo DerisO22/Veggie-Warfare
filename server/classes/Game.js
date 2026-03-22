@@ -113,6 +113,11 @@ export class Game {
                 console.log(`Player disconnected: ${socket.id}`);
 
                 this.io.sockets.emit("message", `Player at socket ${socket.id} has disconnected`);
+                
+                // Lobby menu UI info
+                // Pending Player Count
+                // Probably Player Profiles (After feature to edit usernames in lobby gets implemented)
+                this.io.sockets.emit("lobby_info", { total_players: Object.keys(this.pending_sockets).length });
 
                 if (player && this.world) {
                     this.world.removeRigidBody(player.body);
