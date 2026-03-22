@@ -12,6 +12,11 @@ const Lobby = () => {
 
     useEffect(() => {
         scroll_reveal.reveal('.logo_container', { origin: "left" });
+        scroll_reveal.reveal('.option_button_container', {
+            delay: 900,
+            origin: 'left',
+            interval: 100
+        });
     }, []);
 
     return (
@@ -25,20 +30,28 @@ const Lobby = () => {
 
                     <div className="lobby_info_container">
                         <div className="options_menu">
-                            <button className="lobby_option_button">
-                                <div className="play_icon"></div>
-                                <span>PLAY</span>
-                            </button>
-                            <button className="lobby_option_button">
-                                <div className="player_list_icon"></div>
-                                <span>PEOPLE</span>
-                            </button>
-                            <button className="lobby_option_button">
-                                <div className="vote_icon"></div>
-                                <span>VOTE</span>
-                            </button>
+                            <div className="option_button_container">
+                                <button className="lobby_option_button">
+                                    <div className="play_icon"></div>
+                                    <span>PLAY</span>
+                                </button>        
+                            </div>
+                            
+                            <div className="option_button_container">
+                                <button className="lobby_option_button">
+                                    <div className="player_list_icon"></div>
+                                    <span>PEOPLE</span>
+                                </button>
+                            </div>
+
+                            <div className="option_button_container">
+                                <button className="lobby_option_button">
+                                    <div className="vote_icon"></div>
+                                    <span>VOTE</span>
+                                </button>
+                            </div>
                         </div>
-                        
+
                         <p className="info_text">Players Waiting: <span className="highlight_text">{total_players}</span></p>
                         <p className="info_text">Players Needed To Start: <span className="highlight_text">6</span></p>
                     </div>
