@@ -53,6 +53,11 @@ export class Game {
                 } else {
                     console.log("Waiting for Players");
                     console.log("will check again in 5sec");
+
+                    // Lobby menu UI info
+                    // Pending Player Count
+                    // Probably Player Profiles (After feature to edit usernames in lobby gets implemented)
+                    this.io.sockets.emit("lobby_info", { total_players: Object.keys(this.pending_sockets).length, total_active_players: Object.keys(this.players).length });
                 }
             }, 5000);
         });
@@ -86,11 +91,6 @@ export class Game {
         this.io.on("connection", (socket) => {
             console.log(`Socket connected: ${socket.id}`);
             this.io.sockets.emit("message", `player at socket ${socket.id} has connected.`);
-
-            // Lobby menu UI info
-            // Pending Player Count
-            // Probably Player Profiles (After feature to edit usernames in lobby gets implemented)
-            this.io.sockets.emit("lobby_info", { total_players: Object.keys(this.pending_sockets).length });
 
             // Lobby vote
             this.Lobby.setUpVotingSockets(socket);
