@@ -27,6 +27,13 @@
     width: 20rem;
 }
 
+/*
+    Lobby Info Container (Mid)
+*/
+.lobby_info_container {
+    z-index: 100;
+}
+
 /* 
     Lobby Menu (Top-Right)
 */
