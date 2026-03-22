@@ -65,14 +65,19 @@
     align-items: center;
     background-color: rgba(50, 50, 50, 0.629);
 
-    font-size: 3rem;
+    font-size: 3.3rem;
     font-weight: 600;
     color: white;
     border: 4px solid rgba(0, 0, 0, 0.207);
+    transition: all 0.3s ease-in-out;
 }
 
 .lobby_option_button:hover {
+    transform: scale(1.04) translateX(15px);
+}
 
+.lobby_option_button:active {
+    transform: scale(0.9);
 }
 
 .play_icon {

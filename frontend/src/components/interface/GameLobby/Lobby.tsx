@@ -27,15 +27,15 @@ const Lobby = () => {
                         <div className="options_menu">
                             <button className="lobby_option_button">
                                 <div className="play_icon"></div>
-                                <span>Play</span>
+                                <span>PLAY</span>
                             </button>
                             <button className="lobby_option_button">
                                 <div className="player_list_icon"></div>
-                                <span>Player List</span>
+                                <span>PEOPLE</span>
                             </button>
                             <button className="lobby_option_button">
                                 <div className="vote_icon"></div>
-                                <span>Vote</span>
+                                <span>VOTE</span>
                             </button>
                         </div>
                         <p className="info_text">Players Waiting: <span className="highlight_text">{total_players}</span></p>
