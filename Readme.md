@@ -5,7 +5,7 @@
 - TypeScript
 - Express and Node
 - Socket.io
-- Google Firebase (Maybe)
+- PostgreSQL
 
 ## Project Set Up
 1. Clone repository

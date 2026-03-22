@@ -34,7 +34,7 @@ const Lobby = () => {
                                 <button className="lobby_option_button">
                                     <div className="play_icon"></div>
                                     <span>PLAY</span>
-                                </button>        
+                                </button>
                             </div>
                             
                             <div className="option_button_container">
