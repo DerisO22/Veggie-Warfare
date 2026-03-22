@@ -51,7 +51,7 @@ const SettingsMenu = ({ toggleSettings } : SettingsMenuProps) => {
                 {/*       */}
                 <div className="sound_settings_container">
                     <div className='sound_input'>
-                        <label htmlFor='range'>Value: {soundValues.music}</label>
+                        <label htmlFor='range'>Music: {soundValues.music}</label>
                         <input type='range' 
                             min={0} 
                             max={100} 
@@ -62,25 +62,25 @@ const SettingsMenu = ({ toggleSettings } : SettingsMenuProps) => {
                     </div>
 
                     <div className='sound_input'>
-                        <label htmlFor='range'>Value: {soundValues.sfx}</label>
+                        <label htmlFor='range'>SFX: {soundValues.sfx}</label>
                         <input type='range' 
                             min={0} 
                             max={100} 
                             step={1} 
                             value={soundValues.sfx}
                             onChange={(e) => handleSoundValueChange(e, "sfx")}
-                        ></input>       
+                        ></input>
                     </div>
 
                     <div className='sound_input'>
-                        <label htmlFor='range'>Value: {soundValues.other}</label>
-                        <input type='range' 
-                            min={0} 
-                            max={100} 
-                            step={1} 
+                        <label htmlFor='range'>Other: {soundValues.other}</label>
+                        <input type='range'
+                            min={0}
+                            max={100}
+                            step={1}
                             value={soundValues.other}
                             onChange={(e) => handleSoundValueChange(e, "other")}
-                        ></input>       
+                        ></input>
                     </div>
                 </div>
                 
