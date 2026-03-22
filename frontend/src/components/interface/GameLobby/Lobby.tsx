@@ -24,14 +24,29 @@ const Lobby = () => {
                     </div>
 
                     <div className="lobby_info_container">
-                        <h1 className="header1">Total Player: {total_players}</h1>
+                        <div className="options_menu">
+                            <button className="lobby_option_button">
+                                <div className="play_icon"></div>
+                                <span>Play</span>
+                            </button>
+                            <button className="lobby_option_button">
+                                <div className="player_list_icon"></div>
+                                <span>Player List</span>
+                            </button>
+                            <button className="lobby_option_button">
+                                <div className="vote_icon"></div>
+                                <span>Vote</span>
+                            </button>
+                        </div>
+                        <p className="info_text">Players Waiting: <span className="highlight_text">{total_players}</span></p>
+                        <p className="info_text">Players Needed: <span className="highlight_text">6</span></p>
                     </div>
                     
                     <LobbyMenu />
                 </div>
             )}
 
-            { hasVotingStarted && !hasVotingEnded && (
+            {hasVotingStarted && !hasVotingEnded && (
                 <Voting />
             )}
         </>
