@@ -1,13 +1,5 @@
-import { createContext, useContext, useEffect, useState, type Dispatch, type ReactNode, type SetStateAction } from "react";
-
-interface ChatInputContextType {
-    isPlayerInputting: boolean;
-    setIsPlayerInputting: Dispatch<SetStateAction<boolean>>
-}
-
-interface ChatInputProviderProps {
-    children: ReactNode;
-}
+import { createContext, useContext, useEffect, useState } from "react";
+import type { ChatInputContextType, ChatInputProviderProps } from "../utils/types/playerChat";
 
 const ChatInputContext = createContext<ChatInputContextType | undefined>(undefined);
 

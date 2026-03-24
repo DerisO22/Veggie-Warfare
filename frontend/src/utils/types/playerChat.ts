@@ -1,3 +1,5 @@
+import type { Dispatch, ReactNode, SetStateAction } from "react";
+
 export interface BroadcastMessage {
     from: string,
     text: string,
@@ -19,4 +21,16 @@ export interface ChatPayload {
     username: string,
     broadcast_messages: BroadcastMessage[],
     whisper_messages: WhisperMessage[],
+}
+
+/**
+ * For ChatInput Context
+ */
+export interface ChatInputContextType {
+    isPlayerInputting: boolean;
+    setIsPlayerInputting: Dispatch<SetStateAction<boolean>>
+}
+
+export interface ChatInputProviderProps {
+    children: ReactNode;
 }
