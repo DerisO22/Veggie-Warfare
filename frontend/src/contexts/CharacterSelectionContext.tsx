@@ -18,6 +18,7 @@ interface CharacterPayloadData{
 
 interface CharacterSelectionContextType {
     characterData: CharacterPayloadData | undefined,
+    selectedCharacter: string | undefined,
     handleCharacterSelection: (characterType: string) => void
 }
 
@@ -30,6 +31,7 @@ interface CharacterSelectionProviderProps {
 export const CharacterSelectionProvider = ({ children }: CharacterSelectionProviderProps) => {
     const { socket } = useSocket();
     const [ characterData, setCharacterData ] = useState<CharacterPayloadData | undefined>();
+    const [ selectedCharacter, setSelectedCharacter ] = useState<string | undefined>();
 
     useEffect(() => {
         if(!socket) return;
@@ -44,11 +46,12 @@ export const CharacterSelectionProvider = ({ children }: CharacterSelectionProvi
     }, [socket])
 
     const handleCharacterSelection = (characterType: string) => {
+        setSelectedCharacter(characterType);
         socket?.emit("select_character", { character: characterType });
     }
 
     return (
-        <CharacterSelectionContext.Provider value={{ characterData, handleCharacterSelection}}>
+        <CharacterSelectionContext.Provider value={{ characterData, selectedCharacter, handleCharacterSelection}}>
             { children }
         </CharacterSelectionContext.Provider>
     )
