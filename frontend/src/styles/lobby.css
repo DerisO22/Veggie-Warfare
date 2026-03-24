@@ -243,6 +243,8 @@
     width: 100%;
     height: 100%;
     background-image: url("../../public/background_lobby.jpg");
+    background-size: 270%;
+    background-position: center;
     background-repeat: no-repeat;
 }
 
