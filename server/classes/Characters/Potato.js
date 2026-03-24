@@ -3,7 +3,7 @@ export class Potato {
         super(game, socket);
 
         this.character = "potato";
-        this.characterColor = "0xFFFFFF";
+        this.characterColor = 0xFFFFFF;
         this.abilitySystem = new AbilitySystem(this);
         this.abilitySystem.addAbility("sprint", new SprintAbility())
     }
