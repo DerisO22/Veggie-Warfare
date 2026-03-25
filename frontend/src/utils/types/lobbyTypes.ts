@@ -33,6 +33,7 @@ export interface CharacterPayloadData{
 export interface CharacterSelectionContextType {
     characterData: CharacterPayloadData | undefined,
     selectedCharacter: string | undefined,
+    setSelectedCharacter: React.Dispatch<React.SetStateAction<string | undefined>>
     handleCharacterSelection: (characterType: string) => void
 }
 

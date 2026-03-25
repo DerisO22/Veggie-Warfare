@@ -76,7 +76,7 @@ const Lobby = () => {
                     <CharacterSelector />
                     
                     <LobbyMenu />
-
+                    
                     {/* Player List */}
                     {isPlayerListVisible && (
                         <PlayerList />

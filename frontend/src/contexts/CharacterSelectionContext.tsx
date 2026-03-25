@@ -27,7 +27,7 @@ export const CharacterSelectionProvider = ({ children }: CharacterSelectionProvi
     }
 
     return (
-        <CharacterSelectionContext.Provider value={{ characterData, selectedCharacter, handleCharacterSelection}}>
+        <CharacterSelectionContext.Provider value={{ characterData, selectedCharacter, setSelectedCharacter, handleCharacterSelection}}>
             { children }
         </CharacterSelectionContext.Provider>
     )

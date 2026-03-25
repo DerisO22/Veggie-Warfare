@@ -10,16 +10,33 @@
     gap: 1rem;
     justify-content: center;
     align-items: center;
+    overflow: none;
 }
 
 .character_icon {
-    width: 40rem;
+    width: 30rem;
     height: 30rem;
 
-    background-image: url("../../public/carrot.webp");
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
+}
+
+.carrot_model_active {
+    background-image: url('../../public/carrot.webp');
+}
+
+/* Will need to replace with other character display models */
+.cucumber_model_active {
+    background-image: url('../../public/carrot.webp');
+}
+
+.potato_model_active {
+    background-image: url('../../public/carrot.webp');
+}
+
+.tomato_model_active {
+    background-image: url('../../public/carrot.webp');
 }
 
 .character_underline {

@@ -4,7 +4,7 @@ import '../../../styles/character_selector.css';
 import { scroll_reveal } from "../../../utils/consts/ScrollReveal";
 
 const CharacterSelector = () => {
-    const { characterData, selectedCharacter, handleCharacterSelection } = useCharacterSelect();
+    const { characterData, selectedCharacter, setSelectedCharacter, handleCharacterSelection } = useCharacterSelect();
     const [ isSelectorVisible, setIsSelectorVisible ] = useState<boolean>(false);
 
     useLayoutEffect(() => {
@@ -15,10 +15,12 @@ const CharacterSelector = () => {
         });
     }, [isSelectorVisible]);
 
+    console.log(selectedCharacter);
+
     return (
         <>
             <div className="character_info_panel">
-                <div className="character_icon" />
+                <div className={`character_icon ${selectedCharacter}_model_active`} />
                 <div className="character_underline"/>
                 <div className="info_text">Current Class: {selectedCharacter}</div>
                 <button className="choose_player_button" onClick={() => setIsSelectorVisible(prev => !prev)}>
@@ -33,7 +35,7 @@ const CharacterSelector = () => {
 
                     <div className="cards_container">
                         {characterData.characters.map((character, index) => (
-                            <div key={index} className="character_card">
+                            <div onClick={() => setSelectedCharacter(character)} key={index} className={`character_card ${selectedCharacter === character ? "active" : ""}`}>
                                 <h1>{character}</h1>
                             </div>
                         ))}
