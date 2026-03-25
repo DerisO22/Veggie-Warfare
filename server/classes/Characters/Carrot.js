@@ -5,7 +5,7 @@ import { AbilitySystem } from "./CharacterAbilities/AbilitySystem.js";
 export class Carrot extends Player {
     constructor(game, socket) {
         // the {x, y, z} is this character base move speed!!
-        super(game, socket, { x: 3, y: 3, z: 3 });
+        super(game, socket, { x: 1.3, y: 1.3, z: 1.3 });
 
         this.character = "carrot";
         this.characterColor = 0xff9800;

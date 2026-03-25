@@ -4,7 +4,7 @@ import { Player } from "../Player.js";
 
 export class Cucumber extends Player {
     constructor(game, socket) {
-        super(game, socket);
+        super(game, socket, { x: 1, y: 1, z: 1 });
 
         this.character = "cucumber";
         this.characterColor = 0x67ab05;

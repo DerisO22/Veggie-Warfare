@@ -4,7 +4,7 @@ import { AbilitySystem } from "./CharacterAbilities/AbilitySystem.js";
 
 export class Tomato extends Player {
     constructor(game, socket) {
-        super(game, socket);
+        super(game, socket, { x: 1, y: 1, z: 1 });
 
         this.character = "tomato";
         this.characterColor = 0xFF6347;
