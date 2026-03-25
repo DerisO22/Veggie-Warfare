@@ -1,3 +1,4 @@
+import { useVoting } from '../../contexts/VotingContext';
 import '../../styles/abilities.css';
 
 const exampleAbilities = [
@@ -7,14 +8,22 @@ const exampleAbilities = [
 ]
 
 const Abilities = () => {
+    const { hasVotingStarted, hasVotingEnded } = useVoting();
+
     return (
-        <div className="abiltiies_container">
-            {exampleAbilities.map((ability, index) => (
-                <div key={index} className={`abilities_card card${index}`}>
-                    <span>{ability}</span>
+        <>
+            {!hasVotingStarted && hasVotingEnded && (
+                <div className="abiltiies_container">
+                    {exampleAbilities.map((ability, index) => (
+                        <div key={index} className={`abilities_card card${index}`}>
+                            <span>{ability}</span>
+                        </div>
+                    ))}
                 </div>
-            ))}
-        </div>
+            )}
+            
+        </>
+        
     )
 }
 

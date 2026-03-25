@@ -6,7 +6,7 @@ import { JumpPowerModifierSystem } from "./systems/JumpModifierSystem.js";
 const wakeUp = true;
 
 export class Player {
-    constructor(game, socket){
+    constructor(game, socket, baseMoveSpeed = { x: 1, y: 1, z: 1}){
         this.game = game;
         this.socket = socket;
         this.io = socket.id;
@@ -28,7 +28,6 @@ export class Player {
         /**
          * Abilties and Modifiers
          */
-        const baseMoveSpeed = { x: 0.1, y: 0.1, z: 0.1 };
         this.baseMoveSpeed = baseMoveSpeed;
         this.movementModifiers = new MovementModifierSystem(baseMoveSpeed);
 

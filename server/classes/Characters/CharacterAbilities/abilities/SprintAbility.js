@@ -20,7 +20,8 @@ export class SprintAbility extends Ability {
         player.socket.emit("ability_activated", {
             ability: "sprint",
             duration: this.duration,
-            multiplier: this.sprintMultiplier
+            multiplier: this.sprintMultiplier,
+            message: "You can now run much faster"
         });
 
         return true;

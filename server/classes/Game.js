@@ -7,7 +7,7 @@ import { Lobby } from "./Lobby.js";
 import { CharacterFactory } from "./Characters/CharacterFactory.js";
 
 const GRAVITY_CONST = -18.81;
-const NEEDED_PLAYERS = 5;
+const NEEDED_PLAYERS = 1;
 
 export class Game {
     constructor(io) {
