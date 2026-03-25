@@ -8,6 +8,7 @@ import Scene from './components/scene/Scene';
 import { useEffect, useState } from 'react';
 import Lobby from './components/interface/GameLobby/Lobby';
 import { Sky, Stars } from '@react-three/drei';
+import Abilities from './components/interface/Abilities';
 
 // probably just dark for now or could toggle randomly for each map
 const SKY_CONFIG = {
@@ -80,6 +81,7 @@ function App() {
             {/* Game Chat */}
             {isConnected ? (
                 <>
+                    <Abilities />
                     <StatsInterface cam={{cameraMode, setCameraMode}}/>
                     <GameChat />
                 </>
