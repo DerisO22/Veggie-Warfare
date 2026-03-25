@@ -7,7 +7,7 @@ export class Cucumber extends Player {
         super(game, socket);
 
         this.character = "cucumber";
-        this.characterColor = 0xFFFFFF;
+        this.characterColor = 0x67ab05;
         this.abilitySystem = new AbilitySystem(this);
         this.abilitySystem.addAbility("sprint", new SprintAbility())
     }

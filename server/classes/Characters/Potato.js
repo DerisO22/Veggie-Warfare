@@ -7,7 +7,7 @@ export class Potato extends Player {
         super(game, socket);
 
         this.character = "potato";
-        this.characterColor = 0xFFFFFF;
+        this.characterColor = 0xF4ECB5;
         this.abilitySystem = new AbilitySystem(this);
         this.abilitySystem.addAbility("sprint", new SprintAbility())
     }

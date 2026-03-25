@@ -1,7 +1,8 @@
 import { PlayerChat } from "./PlayerChat.js";
-
 import RAPIER from  "@dimforge/rapier3d-compat";
-const jumpImpulse = { x: 0.0, y: 10.0, z: 0}
+import { MovementModifierSystem } from "./systems/MovementModifierSystem.js";
+import { JumpPowerModifierSystem } from "./systems/JumpModifierSystem.js";
+
 const wakeUp = true;
 
 export class Player {
@@ -10,8 +11,8 @@ export class Player {
         this.socket = socket;
         this.io = socket.id;
         this.position = {x: 0, y: 0, z: 0};
-        this.movespeed = {x: 0.1, y: 0.1, z: 0.1};
         this.nickname = `Player_${socket.id.substring(0, 4)}`;
+        
         /**
          * Current Keyboard Inputs
          */
@@ -23,6 +24,17 @@ export class Player {
         this.input = {};
         this.canJump = true;
         this.isGrounded = true;
+
+        /**
+         * Abilties and Modifiers
+         */
+        const baseMoveSpeed = { x: 0.1, y: 0.1, z: 0.1 };
+        this.baseMoveSpeed = baseMoveSpeed;
+        this.movementModifiers = new MovementModifierSystem(baseMoveSpeed);
+
+        const baseJumpPower = 10;
+        this.baseJumpPower = baseJumpPower;
+        this.jumpModifiers = new JumpPowerModifierSystem(baseJumpPower);
 
         /**
          * Animations
@@ -59,6 +71,9 @@ export class Player {
     handleJump() {
         if(!this.isGrounded) return;
         if(!this.canJump) return;
+
+        const adjustedJumpPower = this.jumpModifiers.getAdjustedJumpPower();
+        const jumpImpulse = { x: 0.0, y: adjustedJumpPower, z: 0.0};
         this.body.applyImpulse(jumpImpulse, wakeUp);
         this.input.jump = false;
         this.canJump = false;
@@ -71,6 +86,12 @@ export class Player {
     };
 
     update() {
+        // Movement Modifiers
+        this.movementModifiers.update();
+        this.jumpModifiers.update();
+
+        const adjustedMovespeed = this.movementModifiers.getAdjustedMovespeed();
+
         // Movement Logic
         let xInput = 0;
         if (this.input.left) xInput--;
@@ -82,7 +103,11 @@ export class Player {
 
         const currentVel = this.body.linvel();
         this.body.setLinvel(
-            { x: xInput * 5, y: currentVel.y, z: zInput * 5 },
+            { 
+                x: xInput * adjustedMovespeed.x * 5, 
+                y: currentVel.y, 
+                z: zInput * adjustedMovespeed.z * 5 
+            },
             true
         );
 
@@ -111,5 +136,35 @@ export class Player {
 
     sendMessage(text) {
         this.chat.handleMessage(text);
+    }
+
+    /**
+     *  Movement Modifier Methods
+     */
+    applyMovementModifier(key, multiplier, source, duration = null) {
+        this.movementModifiers.applyModifier(key, multiplier, source, duration);
+    }
+    
+    removeMovementModifier(key) {
+        this.movementModifiers.removeModifier(key);
+    }
+    
+    hasMovementModifier(key) {
+        return this.movementModifiers.hasModifier(key);
+    }
+    
+    /**
+     *  Jump Modifier Methods
+     */
+    applyJumpPowerModifier(key, multiplier, source, duration = null) {
+        this.jumpModifiers.applyModifier(key, multiplier, source, duration);
+    }
+    
+    removeJumpPowerModifier(key) {
+        this.jumpModifiers.removeModifier(key);
+    }
+    
+    hasJumpPowerModifier(key) {
+        return this.jumpModifiers.hasModifier(key);
     }
 }

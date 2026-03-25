@@ -7,9 +7,9 @@ export class Tomato extends Player {
         super(game, socket);
 
         this.character = "tomato";
-        this.characterColor = 0xFFFFFF;
+        this.characterColor = 0xFF6347;
         this.abilitySystem = new AbilitySystem(this);
-        this.abilitySystem.addAbility("sprint", new SprintAbility())
+        this.abilitySystem.addAbility("sprint", new SprintAbility());
     }
 
     update() {
