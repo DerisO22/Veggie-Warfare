@@ -34,7 +34,9 @@ export const useKeyboardControls = (keys: KeyBindings = DEFAULT_KEYS) => {
             if (!pressedKeys.current.has(key)) {
                 pressedKeys.current.add(key);
 
-                // Send button press to server
+                /**
+                 * All button presses to server
+                 */
                 if (key === keys.forward) socket.emit('setButton', { button: 'forward', value: true });
                 if (key === keys.backward) socket.emit('setButton', { button: 'backward', value: true });
                 if (key === keys.left) socket.emit('setButton', { button: 'left', value: true });
