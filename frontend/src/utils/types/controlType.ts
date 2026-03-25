@@ -4,4 +4,6 @@ export interface KeyBindings {
     left: string;
     right: string;
     jump: string;
+    ability1: string,
+    ability2: string,
 }

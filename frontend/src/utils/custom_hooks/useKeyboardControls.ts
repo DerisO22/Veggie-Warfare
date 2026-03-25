@@ -8,7 +8,9 @@ const DEFAULT_KEYS: KeyBindings = {
     backward: 's',
     left: 'a',
     right: 'd',
-    jump: ' '
+    jump: ' ',
+    ability1: 'shift',
+    ability2: 'e'
 };
 
 export const useKeyboardControls = (keys: KeyBindings = DEFAULT_KEYS) => {
@@ -38,6 +40,8 @@ export const useKeyboardControls = (keys: KeyBindings = DEFAULT_KEYS) => {
                 if (key === keys.left) socket.emit('setButton', { button: 'left', value: true });
                 if (key === keys.right) socket.emit('setButton', { button: 'right', value: true });
                 if (key === keys.jump) socket.emit('setButton', { button: 'jump', value: true });
+                if (key === keys.ability1) socket.emit('use_ability', { abilityKey: 'sprint' });
+                if (key === keys.ability2) socket.emit('use_ability', { abilityKey: 'super_jump' });
             }
         };
 
