@@ -1,8 +1,14 @@
 import { Carrot } from "./Carrot.js";
+import { Cucumber } from "./Cucumber.js";
+import { Potato } from "./Potato.js";
+import { Tomato } from "./Tomato.js";
 
 export class CharacterFactory {
     static CHARACTERS = {
         carrot: Carrot,
+        cucumber: Cucumber,
+        potato: Potato,
+        tomato: Tomato
     }
 
     static createCharacter(characterType, game, socket) {
@@ -28,6 +34,27 @@ export class CharacterFactory {
                 color: 0xff9800,
                 abilities: ["Sprint"],
                 playstyle: "Offense/Mobility"
+            },
+            cucumber: {
+                name: "cucumber",
+                description: "Fast and speedy. Can sprint for burst movement.",
+                color: 0x67ab05,
+                abilities: ["Sprint"],
+                playstyle: "Offense/Mobility"
+            },
+            potato: {
+                name: "potato",
+                description: "Slow and Tanky. Can shield itself, significantly reducing damage.",
+                color: 0xF4ECB5,
+                abilities: ["Sprint"],
+                playstyle: "Defensive"
+            },
+            tomato: {
+                name: "tomato",
+                description: "Slow and Tanky. Can shield itself, significantly reducing damage.",
+                color: 0xFF6347,
+                abilities: ["Sprint"],
+                playstyle: "Defensive"
             }
         }
 

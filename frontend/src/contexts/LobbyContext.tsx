@@ -1,14 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { useSocket } from "./useSocket";
-
-interface LobbyContextType {
-    total_players: number,
-    pending_player_ids: string[] | undefined
-}
-
-interface LobbyProviderProps {
-    children: React.ReactNode;
-}
+import type { LobbyContextType, LobbyProviderProps } from "../utils/types/lobbyTypes";
 
 const LobbyContext = createContext<LobbyContextType | undefined>(undefined);
 

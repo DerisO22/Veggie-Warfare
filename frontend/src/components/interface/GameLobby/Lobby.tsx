@@ -6,6 +6,7 @@ import LobbyMenu from "./LobbyMenu";
 import { useVoting } from "../../../contexts/VotingContext";
 import { useLobby } from "../../../contexts/LobbyContext";
 import PlayerList from "./PlayerList";
+import CharacterSelector from "./CharacterSelector";
 
 const Lobby = () => {
     const { total_players } = useLobby();
@@ -68,13 +69,14 @@ const Lobby = () => {
                         {/* Extra Pre-Game Info */}
                         <div className="extra_lobby_info">
                             <div className="info_text">Players Waiting: <span className="highlight_text">{total_players}</span></div>
-                            <div className="info_text">Players Needed To Start: <span className="highlight_text">6</span></div>
+                            <div className="info_text">Players Needed To Start: <span className="highlight_text">5</span></div>
                         </div>
-                        
                     </div>
+
+                    <CharacterSelector />
                     
                     <LobbyMenu />
-
+                    
                     {/* Player List */}
                     {isPlayerListVisible && (
                         <PlayerList />

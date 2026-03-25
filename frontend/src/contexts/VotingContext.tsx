@@ -1,24 +1,6 @@
-import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { useSocket } from "./useSocket";
-
-interface VotingContextType {
-    hasVotingStarted: boolean;
-    hasVotingEnded: boolean;
-    votes: VotesType;
-    mapWinner: string;
-    handle_player_vote: (e: React.MouseEvent<HTMLDivElement>, choice: string) => void;
-    votingTimeRemaining: number;
-}
-
-interface VotingContextProviderProps {
-    children: ReactNode;
-}
-
-interface VotesType {
-    map1: number;
-    map2: number;
-    map3: number;
-}
+import type { VotingContextType, VotingContextProviderProps, VotesType } from "../utils/types/lobbyTypes";
 
 export const Maps = {
     map1: "Valley",

@@ -87,7 +87,7 @@ export class Player {
         );
 
         /**
-         * Jumping Logic 
+         * Jumping Logic
          */
         if(this.input.jump) {
             this.handleJump()

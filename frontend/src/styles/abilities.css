@@ -1,0 +1,41 @@
+.abiltiies_container {
+    width: fit-content;
+    height: 10rem;
+    display: flex;
+    align-items: end;
+    gap: 0.5rem;
+
+    position: absolute;
+    bottom: 1rem;
+    left: 1rem;
+
+    color: white;
+}
+
+.abilities_card {
+    display: flex;
+    justify-content: center;
+    align-items: end;
+    font-family: monospace;
+    user-select: none;
+
+    background-color: rgba(0, 0, 0, 0.43);
+    border-radius: 10px;
+    border: 2px solid rgba(255, 255, 255, 0.552);
+}
+
+.abilities_card.card0 {
+    width: 9rem;
+    height: 9rem;
+    
+    padding-bottom: 1rem;
+    font-size: 1.1rem;
+}
+
+.abilities_card.card1 {
+    width: 5rem;
+    height: 5rem;
+
+    padding-bottom: 0.9rem;
+    font-size: 0.9rem;
+}

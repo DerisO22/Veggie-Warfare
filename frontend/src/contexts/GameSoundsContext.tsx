@@ -1,24 +1,10 @@
 import { createContext, useContext, useState } from "react";
+import type { GameSoundContextType, SoundSettingsType, GameSoundProviderProps } from "../utils/types/gameSettingsTypes";
 
 export const DEFAULT_SOUND_VALUES = {
     sfx: 50,
     music: 50,
     other: 50
-}
-
-interface GameSoundContextType {
-    volumeLevels: SoundSettingsType,
-    handleVolumeChange: (volumeSetting: string, value: number) => void
-}
-
-interface SoundSettingsType {
-    sfx: number,
-    music: number,
-    other: number
-}
-
-interface GameSoundProviderProps {
-    children: React.ReactNode
 }
 
 const GameSoundContext = createContext<GameSoundContextType | undefined>(undefined);

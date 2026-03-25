@@ -8,6 +8,7 @@ import { ChatInputProvider } from './contexts/ChatInput.tsx';
 import { VotingContextProvider } from './contexts/VotingContext.tsx';
 import { LobbyProvider } from './contexts/LobbyContext.tsx';
 import { GameSoundProvider } from './contexts/GameSoundsContext.tsx';
+import { CharacterSelectionProvider } from './contexts/CharacterSelectionContext.tsx';
 
 createRoot(document.getElementById('root')!).render(
     <StrictMode>
@@ -16,9 +17,11 @@ createRoot(document.getElementById('root')!).render(
 				<GameSoundProvider>
 				<LobbyProvider>
 				<VotingContextProvider>
+				<CharacterSelectionProvider>
 				<ChatInputProvider>
 					<App />
 				</ChatInputProvider>
+				</CharacterSelectionProvider>
 				</VotingContextProvider>
 				</LobbyProvider>
 				</GameSoundProvider>
