@@ -1,6 +1,6 @@
 import { Player } from "../Player.js";
+import { ForwardDash } from "./CharacterAbilities/abilities/ForwardDash.js";
 import { SprintAbility } from "./CharacterAbilities/abilities/SprintAbility.js";
-import { SuperJumpAbility } from "./CharacterAbilities/abilities/SuperJumpAbilitiy.js";
 import { AbilitySystem } from "./CharacterAbilities/AbilitySystem.js";
 
 export class Carrot extends Player {
@@ -13,7 +13,7 @@ export class Carrot extends Player {
 
         this.abilitySystem = new AbilitySystem(this);
         this.abilitySystem.addAbility("sprint", new SprintAbility());
-        this.abilitySystem.addAbility("super_jump", new SuperJumpAbility());
+        this.abilitySystem.addAbility("forward_dash", new ForwardDash());
     }
 
     update() {

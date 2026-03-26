@@ -2,6 +2,8 @@ import { useEffect, useRef } from 'react';
 import type { KeyBindings } from '../types/controlType';
 import { useSocket } from '../../contexts/useSocket';
 import { useChatInput } from '../../contexts/ChatInput';
+import { useCharacterSelect } from '../../contexts/CharacterSelectionContext';
+import { ABILITY_MAP } from '../consts/abilites';
 
 const DEFAULT_KEYS: KeyBindings = {
     forward: 'w',
@@ -18,9 +20,14 @@ export const useKeyboardControls = (keys: KeyBindings = DEFAULT_KEYS) => {
     const pressedKeys = useRef<Set<string>>(new Set());
     const { isPlayerInputting } = useChatInput();
 
+    // For Specific Player Abilities
+    const { selectedCharacter } = useCharacterSelect();
+
     useEffect(() => {
-        if (!socket) return;
+        if (!socket || !selectedCharacter) return;
         if(isPlayerInputting) return;
+
+        const characterAbilities = ABILITY_MAP[selectedCharacter];
 
         const handleKeyDown = (e: KeyboardEvent) => {
             const key = e.key.toLowerCase();
@@ -42,8 +49,9 @@ export const useKeyboardControls = (keys: KeyBindings = DEFAULT_KEYS) => {
                 if (key === keys.left) socket.emit('setButton', { button: 'left', value: true });
                 if (key === keys.right) socket.emit('setButton', { button: 'right', value: true });
                 if (key === keys.jump) socket.emit('setButton', { button: 'jump', value: true });
-                if (key === keys.ability1) socket.emit('use_ability', { abilityKey: 'sprint' });
-                if (key === keys.ability2) socket.emit('use_ability', { abilityKey: 'super_jump' });
+
+                if (key === keys.ability1) socket.emit('use_ability', { abilityKey: characterAbilities.ability1 });
+                if (key === keys.ability2) socket.emit('use_ability', { abilityKey: characterAbilities.ability2 });
             }
         };
 
@@ -67,5 +75,5 @@ export const useKeyboardControls = (keys: KeyBindings = DEFAULT_KEYS) => {
             window.removeEventListener('keydown', handleKeyDown);
             window.removeEventListener('keyup', handleKeyUp);
         };
-    }, [socket, keys, isPlayerInputting]);
+    }, [socket, keys, isPlayerInputting, selectedCharacter]);
 };

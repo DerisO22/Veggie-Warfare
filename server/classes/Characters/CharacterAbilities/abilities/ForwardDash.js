@@ -1,10 +1,10 @@
-import { Ability } from "../Ability";
+import { Ability } from "../Ability.js";
 
 export class ForwardDash extends Ability {
     constructor() {
         super("forward_dash", 8000)
         this.duration = 0;
-        this.launchForce = 15.0;
+        this.launchForce = -15.0;
     }
 
     execute(player, params = {}) {
@@ -12,8 +12,8 @@ export class ForwardDash extends Ability {
 
         const dashImpulse = {
             x: 0,
-            y: 2,
-            z: this.launchForce
+            y: 10,
+            z: this.launchForce * 100
         }
 
         player.body.applyImpulse(dashImpulse, true);
