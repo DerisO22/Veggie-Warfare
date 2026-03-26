@@ -26,10 +26,8 @@ const Abilities = () => {
                     ))}
                 </div>
             )}
-            
         </>
-        
-    )
+    );
 }
 
 export default Abilities;
