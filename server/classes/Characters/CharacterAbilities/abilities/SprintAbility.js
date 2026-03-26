@@ -10,7 +10,7 @@ export class SprintAbility extends Ability {
     execute(player, params = {}) {
         if(!super.execute(player, params)) return false;
 
-        player.applyMovementModifier( 
+        player.applyMovementModifier(
             "sprint",
             this.sprintMultiplier,
             "sprint_ability",

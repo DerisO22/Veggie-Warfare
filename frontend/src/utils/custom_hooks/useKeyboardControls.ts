@@ -11,8 +11,8 @@ const DEFAULT_KEYS: KeyBindings = {
     left: 'a',
     right: 'd',
     jump: ' ',
-    ability1: 'shift',
-    ability2: 'e'
+    ability1: 'e',
+    ability2: 'shift'
 };
 
 export const useKeyboardControls = (keys: KeyBindings = DEFAULT_KEYS) => {
