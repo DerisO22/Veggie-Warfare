@@ -8,7 +8,7 @@ import { RateLimiter } from "../utils/RateLimiter.js";
 import { InputValidator } from "../utils/InputValidator.js";
 
 const GRAVITY_CONST = -18.81;
-const NEEDED_PLAYERS = 3;
+const NEEDED_PLAYERS = 1;
 
 export class Game {
     constructor(io) {

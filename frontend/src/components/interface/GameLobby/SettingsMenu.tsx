@@ -43,7 +43,7 @@ const SettingsMenu = ({ toggleSettings } : SettingsMenuProps) => {
             <h1 className='header1'>Game Settings</h1>
 
             {/* This will prob be a 2x2 grid container */}
-            <div className='controls_container'>    
+            <div className='controls_container'>
                 {/*       */}
                 {/* Sound */}
                 {/*       */}
