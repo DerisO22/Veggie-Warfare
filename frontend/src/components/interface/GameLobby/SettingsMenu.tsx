@@ -3,7 +3,6 @@ import '../../../styles/settings_menu.css';
 import { scroll_reveal } from '../../../utils/consts/ScrollReveal';
 import { DEFAULT_SOUND_VALUES, useGameSound } from '../../../contexts/GameSoundsContext';
 import KeyBindsOptions from '../KeyBindsOptions';
-import { SignIn, SignInButton } from '@clerk/clerk-react';
 
 interface SettingsMenuProps {
     toggleSettings: (e: React.MouseEvent) => void; 
