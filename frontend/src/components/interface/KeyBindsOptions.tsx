@@ -13,7 +13,6 @@ const KeyBindsOptions = () => {
     }
 
     const resetKeyBinds = () => {
-        console.log("Hello");
         updatePlayerKeybinds(DEFAULT_KEYBINDS);
     }
 
