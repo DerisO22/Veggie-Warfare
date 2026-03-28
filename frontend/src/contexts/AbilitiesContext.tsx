@@ -17,7 +17,7 @@ interface AbilitiesType {
     message: string
 }
 
-interface KeybindChanges {
+export interface KeybindChanges {
     [key: string]: string
 }
 

@@ -10,6 +10,7 @@ import { LobbyProvider } from './contexts/LobbyContext.tsx';
 import { GameSoundProvider } from './contexts/GameSoundsContext.tsx';
 import { CharacterSelectionProvider } from './contexts/CharacterSelectionContext.tsx';
 import { ClerkProvider } from '@clerk/clerk-react';
+import { AbilitiesProvider } from './contexts/AbilitiesContext.tsx';
 
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
 
@@ -22,6 +23,7 @@ createRoot(document.getElementById('root')!).render(
 		<ClerkProvider publishableKey={PUBLISHABLE_KEY}>
 			<SocketProvider>
 				<GameProvider>
+					<AbilitiesProvider>
 					<GameSoundProvider>
 					<LobbyProvider>
 					<VotingContextProvider>
@@ -33,6 +35,7 @@ createRoot(document.getElementById('root')!).render(
 					</VotingContextProvider>
 					</LobbyProvider>
 					</GameSoundProvider>
+					</AbilitiesProvider>
 				</GameProvider>
 			</SocketProvider>
 		</ClerkProvider>

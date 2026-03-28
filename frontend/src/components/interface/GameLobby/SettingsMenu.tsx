@@ -2,6 +2,8 @@ import { useLayoutEffect, useRef, useState } from 'react';
 import '../../../styles/settings_menu.css';
 import { scroll_reveal } from '../../../utils/consts/ScrollReveal';
 import { DEFAULT_SOUND_VALUES, useGameSound } from '../../../contexts/GameSoundsContext';
+import KeyBindsOptions from '../KeyBindsOptions';
+import { SignIn, SignInButton } from '@clerk/clerk-react';
 
 interface SettingsMenuProps {
     toggleSettings: (e: React.MouseEvent) => void; 
@@ -48,6 +50,7 @@ const SettingsMenu = ({ toggleSettings } : SettingsMenuProps) => {
                 {/* Sound */}
                 {/*       */}
                 <div className="sound_settings_container">
+                    <h1>Sounds</h1>
                     <div className='sound_input'>
                         <label htmlFor='range'>Music: {soundValues.music}</label>
                         <input type='range' 
@@ -85,15 +88,13 @@ const SettingsMenu = ({ toggleSettings } : SettingsMenuProps) => {
                 {/*                   */}
                 {/* Keyboard Controls */}
                 {/*                   */}
-                <div className="keyboard_settings_container">
-
-                </div>
+                <KeyBindsOptions />
 
                 {/*       */}
                 {/* Login */}
                 {/*       */}
                 <div className="auth_settings_container">
-
+                    
                 </div>
             </div>
 
