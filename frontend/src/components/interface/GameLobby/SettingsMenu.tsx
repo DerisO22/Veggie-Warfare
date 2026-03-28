@@ -3,6 +3,7 @@ import '../../../styles/settings_menu.css';
 import { scroll_reveal } from '../../../utils/consts/ScrollReveal';
 import { DEFAULT_SOUND_VALUES, useGameSound } from '../../../contexts/GameSoundsContext';
 import KeyBindsOptions from '../KeyBindsOptions';
+import { SignOutButton } from '@clerk/clerk-react';
 
 interface SettingsMenuProps {
     toggleSettings: (e: React.MouseEvent) => void; 
@@ -93,7 +94,7 @@ const SettingsMenu = ({ toggleSettings } : SettingsMenuProps) => {
                 {/* Login */}
                 {/*       */}
                 <div className="auth_settings_container">
-                    
+                    <SignOutButton />
                 </div>
             </div>
 
