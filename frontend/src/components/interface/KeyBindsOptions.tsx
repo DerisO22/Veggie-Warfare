@@ -1,14 +1,37 @@
-import { useState } from "react";
-import { type KeybindChanges, useAbilities } from "../../contexts/AbilitiesContext";
-
+import { useEffect, useState } from "react";
+import { useAbilities, type KeybindChanges } from "../../contexts/AbilitiesContext";
 
 const KeyBindsOptions = () => {
     const { playerKeybinds, updatePlayerKeybinds } = useAbilities();
-    const [ updatedKeybind, setUpdatedKeybind ] = useState<string>();
+    const [ updatedKeybind, setUpdatedKeybind ] = useState<string | null>(null);
+    const [ isUpdateKeybindVisible, setIsUpdateKeybindVisible ] = useState<boolean>(false);
 
     const handleKeybindChange = (setting: string) => {
-        
+        setIsUpdateKeybindVisible(true);
+        setUpdatedKeybind(setting);
     }
+
+    useEffect(() => {
+        if(!isUpdateKeybindVisible) return;
+
+        const handleKeyDown = (e: KeyboardEvent) => {
+            e.preventDefault();
+
+            if(updatedKeybind) {
+                const changes: KeybindChanges = {
+                    [updatedKeybind]: e.key
+                }
+
+                updatePlayerKeybinds(changes);
+                setIsUpdateKeybindVisible(false);
+                setUpdatedKeybind(null);
+            }
+        }
+
+        window.addEventListener("keydown", handleKeyDown);
+
+        return () => window.removeEventListener("keydown", handleKeyDown);
+    }, [isUpdateKeybindVisible, updatedKeybind, updatePlayerKeybinds]);
 
     return (
         <div className="keybind_settings_container">
@@ -19,6 +42,12 @@ const KeyBindsOptions = () => {
                     <div className="setting_keybind">{keybind}</div>
                 </div>
             ))} 
+
+            {isUpdateKeybindVisible && (
+                <div className="update_keybind_alert">
+                    Click on a Key to Change Keybind {updatedKeybind}
+                </div>
+            )}
         </div>
     )
 }

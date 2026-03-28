@@ -40,14 +40,14 @@ export const AbilitiesProvider = ({ children }: AbilitiesProviderProps ) => {
         })
 
         return () => {
-            socket.off("ability_activated")
+            socket.off("ability_activated");
         }
     }, [socket]);
 
     const updatePlayerKeybinds = (keybind_changes: KeybindChanges) => {
         setPlayerKeybinds(prev => ({
             ...prev,
-            keybind_changes
+            ...keybind_changes
         }))
     }
 
