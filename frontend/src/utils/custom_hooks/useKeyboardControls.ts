@@ -1,23 +1,14 @@
 import { useEffect, useRef } from 'react';
-import type { KeyBindings } from '../types/controlType';
 import { useSocket } from '../../contexts/useSocket';
 import { useChatInput } from '../../contexts/ChatInput';
 import { useCharacterSelect } from '../../contexts/CharacterSelectionContext';
 import { ABILITY_MAP } from '../consts/abilites';
+import { useAbilities } from '../../contexts/AbilitiesContext';
 
-const DEFAULT_KEYS: KeyBindings = {
-    forward: 'w',
-    backward: 's',
-    left: 'a',
-    right: 'd',
-    jump: ' ',
-    ability1: 'e',
-    ability2: 'shift'
-};
-
-export const useKeyboardControls = (keys: KeyBindings = DEFAULT_KEYS) => {
+export const useKeyboardControls = () => {
     const { socket } = useSocket();
     const pressedKeys = useRef<Set<string>>(new Set());
+    const { playerKeybinds } = useAbilities();
     const { isPlayerInputting } = useChatInput();
 
     // For Specific Player Abilities
@@ -33,7 +24,7 @@ export const useKeyboardControls = (keys: KeyBindings = DEFAULT_KEYS) => {
             const key = e.key.toLowerCase();
             
             // Prevent default for game keys
-            if (Object.values(keys).includes(key)) {
+            if (Object.values(playerKeybinds).includes(key)) {
                 e.preventDefault();
             }
 
@@ -44,14 +35,14 @@ export const useKeyboardControls = (keys: KeyBindings = DEFAULT_KEYS) => {
                 /**
                  * All button presses to server
                  */
-                if (key === keys.forward) socket.emit('setButton', { button: 'forward', value: true });
-                if (key === keys.backward) socket.emit('setButton', { button: 'backward', value: true });
-                if (key === keys.left) socket.emit('setButton', { button: 'left', value: true });
-                if (key === keys.right) socket.emit('setButton', { button: 'right', value: true });
-                if (key === keys.jump) socket.emit('setButton', { button: 'jump', value: true });
+                if (key === playerKeybinds.forward) socket.emit('setButton', { button: 'forward', value: true });
+                if (key === playerKeybinds.backward) socket.emit('setButton', { button: 'backward', value: true });
+                if (key === playerKeybinds.left) socket.emit('setButton', { button: 'left', value: true });
+                if (key === playerKeybinds.right) socket.emit('setButton', { button: 'right', value: true });
+                if (key === playerKeybinds.jump) socket.emit('setButton', { button: 'jump', value: true });
 
-                if (key === keys.ability1) socket.emit('use_ability', { abilityKey: characterAbilities.ability1 });
-                if (key === keys.ability2) socket.emit('use_ability', { abilityKey: characterAbilities.ability2 });
+                if (key === playerKeybinds.ability1) socket.emit('use_ability', { abilityKey: characterAbilities.ability1 });
+                if (key === playerKeybinds.ability2) socket.emit('use_ability', { abilityKey: characterAbilities.ability2 });
             }
         };
 
@@ -60,12 +51,12 @@ export const useKeyboardControls = (keys: KeyBindings = DEFAULT_KEYS) => {
             pressedKeys.current.delete(key);
 
             // Send button release to server
-            if (key === keys.forward) socket.emit('setButton', { button: 'forward', value: false });
-            if (key === keys.backward) socket.emit('setButton', { button: 'backward', value: false });
-            if (key === keys.left) socket.emit('setButton', { button: 'left', value: false });
-            if (key === keys.right) socket.emit('setButton', { button: 'right', value: false });
+            if (key === playerKeybinds.forward) socket.emit('setButton', { button: 'forward', value: false });
+            if (key === playerKeybinds.backward) socket.emit('setButton', { button: 'backward', value: false });
+            if (key === playerKeybinds.left) socket.emit('setButton', { button: 'left', value: false });
+            if (key === playerKeybinds.right) socket.emit('setButton', { button: 'right', value: false });
             
-            if (key === keys.jump) socket.emit('setButton', { button: 'jump', value: false });
+            if (key === playerKeybinds.jump) socket.emit('setButton', { button: 'jump', value: false });
         };
 
         window.addEventListener('keydown', handleKeyDown);
@@ -75,5 +66,5 @@ export const useKeyboardControls = (keys: KeyBindings = DEFAULT_KEYS) => {
             window.removeEventListener('keydown', handleKeyDown);
             window.removeEventListener('keyup', handleKeyUp);
         };
-    }, [socket, keys, isPlayerInputting, selectedCharacter]);
+    }, [socket, isPlayerInputting, selectedCharacter, playerKeybinds]);
 };
