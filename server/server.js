@@ -8,6 +8,15 @@ dotenv.config();
 
 import { Game } from './classes/Game.js';
 
+/**
+ * Database
+ */
+import { createClient } from './database/config.js';
+import initializeDatabase from './database/db.js';
+const client = createClient();
+dotenv.config();
+
+// config
 const PORT = process.env.PORT || 3001;
 const FRAME_TIME = Math.floor(1000 / 60);
 
@@ -33,6 +42,12 @@ async function start() {
     server.listen(PORT, () => {
         console.log(`Listening on port ${PORT}`);
     })
+
+    try {
+        await initializeDatabase(client);
+    } catch (err) {
+        console.error("Failed to initialize database schema: ", err);
+    }
     
     const game = new Game(io);
 
