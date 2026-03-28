@@ -18,9 +18,19 @@ CREATE TABLE IF NOT EXISTS player_keybinds (
     FOREIGN KEY (clerk_user_id) REFERENCES players(clerk_user_id) ON DELETE CASCADE
 );
 
+CREATE TABLE IF NOT EXISTS player_sounds (
+    sounds_id SERIAL PRIMARY KEY,
+
+    "music" INTEGER NOT NULL DEFAULT 50,
+    "sfx" INTEGER NOT NULL DEFAULT 50,
+    "other" INTEGER NOT NULL DEFAULT 50,
+
+    clerk_user_id VARCHAR(255) NOT NULL UNIQUE,
+    FOREIGN KEY (clerk_user_id) REFERENCES players(clerk_user_id) ON DELETE CASCADE
+);
+
 CREATE TABLE IF NOT EXISTS player_stats (
     stats_id SERIAL PRIMARY KEY,
-    clerk_user_id VARCHAR(255) NOT NULL UNIQUE,
     
     player_kills INTEGER DEFAULT 0,
     player_deaths INTEGER DEFAULT 0,
@@ -28,5 +38,6 @@ CREATE TABLE IF NOT EXISTS player_stats (
     player_losses INTEGER DEFAULT 0,
     total_games_played INTEGER DEFAULT 0,
 
+    clerk_user_id VARCHAR(255) NOT NULL UNIQUE,
     FOREIGN KEY (clerk_user_id) REFERENCES players(clerk_user_id) ON DELETE CASCADE
 );
