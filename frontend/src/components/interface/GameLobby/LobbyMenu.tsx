@@ -1,20 +1,18 @@
 import { useEffect, useState } from "react";
-import { useSocket } from "../../../contexts/useSocket";
 import { scroll_reveal } from "../../../utils/consts/ScrollReveal";
 import SettingsMenu from "./SettingsMenu";
 import { SignOutButton } from "@clerk/clerk-react";
 
 const LobbyMenu = () => {
-    const { socket } = useSocket();
     const [ isSettingsVisible, setIsSettingsVisible ] = useState<boolean>(false);
     const [ isMusicOn, setIsMusicOn ] = useState<boolean>(true);
 
-    const handlePlayerExit = (e: React.MouseEvent) => {
-        e.preventDefault();
-        if(!socket) return;
+    // const handlePlayerExit = (e: React.MouseEvent) => {
+    //     e.preventDefault();
+    //     if(!socket) return;
 
-        socket.emit("disconnect");
-    };
+    //     socket.emit("disconnect");
+    // };
 
     const handleMusicToggle = (e: React.MouseEvent) => {
         e.preventDefault();
@@ -56,7 +54,7 @@ const LobbyMenu = () => {
 
                 <div className="menu_button_container">
                     <SignOutButton>
-                        <button onClick={handlePlayerExit} className={`menu_button exit_toggle`}></button>
+                        <button className={`menu_button exit_toggle`}></button>
                     </SignOutButton>
                 </div>
             </div>
