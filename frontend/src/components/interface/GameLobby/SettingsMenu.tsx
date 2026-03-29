@@ -19,9 +19,6 @@ interface SoundSettingsType {
 }
 
 const SettingsMenu = ({ toggleSettings } : SettingsMenuProps) => {
-    // this will prob utilize a global state
-    // so these settings can be saved throughout the game
-    // but these are basic visuals for now
     const menuRef = useRef<HTMLDivElement>(null);
     const { handleVolumeChange } = useGameSound();
 
