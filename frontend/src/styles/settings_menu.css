@@ -58,6 +58,68 @@
 }
 
 /*
+    Sounds
+*/
+.sound_settings_container {
+    width: 100%;
+    height: fit-content;
+    
+    display: flex;
+    flex-direction: column;
+}
+
+.sound_inputs_container {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.sound_input {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.sound_input label {
+    width: 10rem;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.sound_slider {
+    width: 10rem;
+    height: fit-content;
+
+    appearance: none;
+    background-color: transparent;
+    cursor: pointer;
+    border: none;
+}
+
+.sound_slider::-webkit-slider-runnable-track {
+    background-color: rgba(0, 0, 0, 0.696);
+    border: 2px solid rgba(255, 255, 255, 0.239);
+    padding: 0.2rem;
+    border-radius: 10px;
+
+    transition: all 0.3s ease-in-out;
+}
+
+.sound_slider::-webkit-slider-runnable-track:hover {
+    border: 2px solid rgba(255, 255, 255, 0.745);
+}
+
+.sound_slider::-webkit-slider-thumb {
+    appearance: none;
+
+    width: 1rem;
+    height: 1rem;
+    background-color: white;
+    border-radius: 50%;
+    box-shadow: 0 0 2px 0 rgb(156, 255, 110);
+}
+
+/*
     Keybinds
 */
 .keybind_settings_container {

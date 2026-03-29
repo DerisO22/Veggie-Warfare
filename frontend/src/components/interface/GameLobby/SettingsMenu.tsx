@@ -55,37 +55,40 @@ const SettingsMenu = ({ toggleSettings } : SettingsMenuProps) => {
                 {/*       */}
                 <div className="sound_settings_container">
                     <h1>Sounds</h1>
-                    <div className='sound_input'>
-                        <label htmlFor='range'>Music: {soundValues.music}</label>
-                        <input type='range' 
-                            min={0} 
-                            max={100} 
-                            step={1} 
-                            value={soundValues.music}
-                            onChange={(e) => handleSoundValueChange(e, "music")}
-                        ></input>
-                    </div>
+                    
+                    <div className="sound_inputs_container">
+                        <div className='sound_input'>
+                            <label htmlFor='range'>Music: {soundValues.music}</label>
+                            <input className='sound_slider' type='range' 
+                                min={0} 
+                                max={100} 
+                                step={1} 
+                                value={soundValues.music}
+                                onChange={(e) => handleSoundValueChange(e, "music")}
+                            ></input>
+                        </div>
 
-                    <div className='sound_input'>
-                        <label htmlFor='range'>SFX: {soundValues.sfx}</label>
-                        <input type='range' 
-                            min={0} 
-                            max={100} 
-                            step={1} 
-                            value={soundValues.sfx}
-                            onChange={(e) => handleSoundValueChange(e, "sfx")}
-                        ></input>
-                    </div>
+                        <div className='sound_input'>
+                            <label htmlFor='range'>SFX: {soundValues.sfx}</label>
+                            <input className='sound_slider' type='range' 
+                                min={0} 
+                                max={100} 
+                                step={1} 
+                                value={soundValues.sfx}
+                                onChange={(e) => handleSoundValueChange(e, "sfx")}
+                            ></input>
+                        </div>
 
-                    <div className='sound_input'>
-                        <label htmlFor='range'>Other: {soundValues.other}</label>
-                        <input type='range'
-                            min={0}
-                            max={100}
-                            step={1}
-                            value={soundValues.other}
-                            onChange={(e) => handleSoundValueChange(e, "other")}
-                        ></input>
+                        <div className='sound_input'>
+                            <label htmlFor='range'>Other: {soundValues.other}</label>
+                            <input className='sound_slider' type='range'
+                                min={0}
+                                max={100}
+                                step={1}
+                                value={soundValues.other}
+                                onChange={(e) => handleSoundValueChange(e, "other")}
+                            ></input>
+                        </div>
                     </div>
                 </div>
                 
