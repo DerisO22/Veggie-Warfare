@@ -34,7 +34,27 @@ const CharacterSelector = () => {
                     <div className="cards_container">
                         {characterData.characters.map((character, index) => (
                             <div onClick={() => {handleCharacterSelection(character)}} key={index} className={`character_card ${selectedCharacter === character ? "active" : ""}`}>
-                                <h1>{character}</h1>
+                                <h1>{character.toUpperCase()}</h1>
+
+                                <div className="character_info">
+                                    {Object.entries(characterData.characterInfo[character])
+                                    .filter(([key]) => !['name', 'color'].includes(key))
+                                    .map(([key, val])=> (
+                                        <>
+                                            {Array.isArray(val) ? (
+                                                <>
+                                                <span className="abilties_header">Abilities</span>
+                                                {val.map((ability, i) => (
+                                                    <span key={i} className="ability_item">{ability}</span>
+                                                ))}
+                                                </>
+                                                
+                                            ) : (
+                                                <p className="info_val">{val}</p>
+                                            )}
+                                        </>
+                                    ))}
+                                </div>
                             </div>
                         ))}
                     </div>
