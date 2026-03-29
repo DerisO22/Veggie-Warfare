@@ -163,9 +163,11 @@
 }
 
 .character_card {
-    width: 10rem;
-    height: 10rem;
+    width: 100%;
+    height: fit-content;
     text-align: center;
+
+    padding: 1rem;
 
     border: 3px solid black;
     border-radius: 10px;
@@ -181,10 +183,24 @@
 }
 
 .character_card:hover {
-    transform: scale(1.05);
+    transform: scale(1.02);
     box-shadow: 0 0 5px 0 rgb(114, 253, 114);
 }
 
 .character_card:active {
     transform: scale(.9);
+}
+
+.character_info {
+    display: flex;
+    flex-direction: column;
+
+    gap: 0.3rem;
+}
+
+.abilties_header {
+    font-size: 1.2rem;
+    font-weight: 600;
+
+    text-decoration: underline;
 }

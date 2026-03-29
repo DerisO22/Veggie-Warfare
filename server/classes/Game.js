@@ -8,7 +8,7 @@ import { RateLimiter } from "../utils/RateLimiter.js";
 import { InputValidator } from "../utils/InputValidator.js";
 
 const GRAVITY_CONST = -18.81;
-const NEEDED_PLAYERS = 1;
+const NEEDED_PLAYERS = 2;
 
 export class Game {
     constructor(io) {
@@ -194,13 +194,13 @@ export class Game {
                     return;
                 }
 
-                // Verify cooldown on server (don't trust client)
-                const ability = player.abilitySystem.abilities[abilityKey];
-                const cooldownCheck = InputValidator.verifyCooldown(ability);
-                if (!cooldownCheck.valid) {
-                    socket.emit("error", cooldownCheck.error);
-                    return;
-                }
+                // Verify cooldown
+                // const ability = player.abilitySystem.abilities[abilityKey];
+                // const cooldownCheck = InputValidator.verifyCooldown(ability);
+                // if (!cooldownCheck.valid) {
+                //     socket.emit("error", cooldownCheck.error);
+                //     return;
+                // }
             
                 // Rate limit
                 if(!this.abilityRateLimit.isAllowed(socket.id)){

@@ -11,6 +11,9 @@
     background-color: rgba(0, 0, 0, 0.416);
     backdrop-filter: blur(5px);
     visibility: hidden;
+    overflow: hidden;
+    color: white;
+    overflow-y: auto;
 }
 
 .exit_settings_button {
@@ -46,3 +49,181 @@
     text-underline-offset: 0.9rem;
     text-decoration-style: double;
 }
+
+.controls_container {
+    height: fit-content;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+}
+
+/*
+    Sounds
+*/
+.sound_settings_container {
+    width: 100%;
+    height: fit-content;
+    
+    display: flex;
+    flex-direction: column;
+}
+
+.sound_inputs_container {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.sound_input {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.sound_input label {
+    width: 10rem;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.sound_slider {
+    width: 10rem;
+    height: fit-content;
+
+    appearance: none;
+    background-color: transparent;
+    cursor: pointer;
+    border: none;
+}
+
+.sound_slider::-webkit-slider-runnable-track {
+    background-color: rgba(0, 0, 0, 0.696);
+    border: 2px solid rgba(255, 255, 255, 0.239);
+    padding: 0.2rem;
+    border-radius: 10px;
+
+    transition: all 0.3s ease-in-out;
+}
+
+.sound_slider::-webkit-slider-runnable-track:hover {
+    border: 2px solid rgba(255, 255, 255, 0.745);
+}
+
+.sound_slider::-webkit-slider-thumb {
+    appearance: none;
+
+    width: 1rem;
+    height: 1rem;
+    background-color: white;
+    border-radius: 50%;
+    box-shadow: 0 0 2px 0 rgb(156, 255, 110);
+}
+
+/*
+    Keybinds
+*/
+.keybind_settings_container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    color: white;
+}
+
+.keybind_setting {
+    width: 20rem;
+    height: 3rem;
+    padding-left: 1rem;
+    padding-right: 2rem;
+    border-radius: 3px;
+    border: 2px solid rgba(255, 255, 255, 0.223);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    background-color: rgba(0, 0, 0, 0.775);
+    color: white;
+    font-size: 1.1rem;
+    transition: all 0.3s ease-in-out;
+}
+
+.keybind_setting.reset_button {
+    justify-content: center;
+}
+
+.keybind_setting:hover {
+    border: 2px solid white;
+}
+
+.keybind_setting:active {
+    transform: scale(0.8);
+}
+
+.update_keybind_alert {
+    position: absolute;
+    top: 0; 
+    width: 100%;
+    height: 100vh;
+    z-index: 106;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    gap: 1rem;
+
+    background-color: rgba(0, 0, 0, 0.761);
+    color: white;
+
+    font-size: 2rem;
+}
+
+/*
+    Authentication Section
+*/
+.auth_settings_container {
+    position: relative;
+    width: 20rem;  
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    gap: 1rem;
+    padding-bottom: 1rem;
+    margin-top: 2rem;
+}
+
+.clerk_signout_button {
+    z-index: 1000;
+    width: 10rem;
+    height: 3rem;
+    background-color: rgba(0, 0, 0, 0.673);
+    border: 2px solid rgba(255, 255, 255, 0.342);
+    color: white;
+    transition: all 0.3s ease-in-out;
+}
+
+.clerk_signout_button:hover {
+    border: 2px solid white;
+    transform: scale(1.04);
+    border-radius: 5px;
+}
+
+/* ScrollBar */
+::-webkit-scrollbar {
+    width: 0.7rem;
+    height: 0.03rem;
+}
+
+::-webkit-scrollbar-thumb {
+    background: white;
+
+    border-radius: 0.6px;
+}
+
+::-webkit-scrollbar-track {
+    width: 0.2rem;
+}
+

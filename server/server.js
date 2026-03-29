@@ -8,6 +8,20 @@ dotenv.config();
 
 import { Game } from './classes/Game.js';
 
+/**
+ * Database
+ */
+import { createClient } from './database/config.js';
+import initializeDatabase from './database/db.js';
+const client = createClient();
+dotenv.config();
+
+/**
+ * Routers
+ */
+import playerRoutes from "./routes/players.js";
+
+// config
 const PORT = process.env.PORT || 3001;
 const FRAME_TIME = Math.floor(1000 / 60);
 
@@ -29,13 +43,30 @@ app.use(cors({
     credentials: true,
 }))
 
+app.use(express.json());
+
 async function start() {
     server.listen(PORT, () => {
         console.log(`Listening on port ${PORT}`);
     })
-    
-    const game = new Game(io);
 
+    /* Database */
+    try {
+        await initializeDatabase(client);
+    } catch (err) {
+        console.error("Failed to initialize database schema: ", err);
+    }
+
+    /* Routing */
+    app.use((req, res, next) => {
+        req.pgClient = client;
+        next();
+    })
+    
+    app.use('/players', playerRoutes);
+    
+    /* Game Stuffs */
+    const game = new Game(io);
     await game.startGame();
 
     setInterval(() => {
