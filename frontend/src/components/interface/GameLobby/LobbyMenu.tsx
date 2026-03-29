@@ -56,7 +56,7 @@ const LobbyMenu = () => {
 
                 <div className="menu_button_container">
                     <SignOutButton>
-                        <button className={`menu_button exit_toggle`}></button>
+                        <button onClick={handlePlayerExit} className={`menu_button exit_toggle`}></button>
                     </SignOutButton>
                 </div>
             </div>
