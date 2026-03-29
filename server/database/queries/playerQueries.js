@@ -18,10 +18,10 @@ export const playerQueries = {
         RETURNING *;`,
     
     UPSERT_PLAYER_KEYBINDS:
-        `INSERT INTO player_keybinds (clerk_user_id, forward, backward, left, right, jump, ability1, ability2)
+        `INSERT INTO player_keybinds (clerk_user_id, forward, backward, "left", "right", jump, ability1, ability2)
         VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
         ON CONFLICT (clerk_user_id)
-        DO UPDATE SET forward = $2, backward = $3, left = $4, right = $5, jump = $6, ability1 = $7, ability2 = $8
+        DO UPDATE SET forward = $2, backward = $3, "left" = $4, "right" = $5, jump = $6, ability1 = $7, ability2 = $8
         RETURNING *;`,
     
     UPSERT_PLAYER_SOUNDS:

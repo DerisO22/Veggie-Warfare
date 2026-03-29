@@ -1,5 +1,5 @@
 import express from 'express';
-import { getAllPlayerInformation, savePlayerInformation } from '../services/playersService';
+import { getAllPlayerInformation, savePlayerInformation } from '../services/playersService.js';
 
 const router = express.Router();
 
@@ -9,7 +9,7 @@ router.get('/:clerk_user_id', async(req, res) => {
 
         const result = await getAllPlayerInformation(req.pgClient, clerk_user_id);
 
-        if(result.length === 0){
+        if(!result){ 
             return res.status(404).json({ error: "Player Not Found"});
         }
 
@@ -20,7 +20,7 @@ router.get('/:clerk_user_id', async(req, res) => {
     }
 });
 
-router.put(':clerk_user_id', async(req, res) => {
+router.put('/:clerk_user_id', async(req, res) => {
     try {
         const { clerk_user_id } = req.params;
         const playerData = req.body;

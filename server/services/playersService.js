@@ -1,4 +1,4 @@
-import { playerQueries, UPSERT_PLAYER, UPSERT_PLAYER_KEYBINDS, UPSERT_PLAYER_SOUNDS, UPSERT_PLAYER_STATS } from "../database/queries/playerQueries.js";
+import { playerQueries } from "../database/queries/playerQueries.js";
 
 export const getAllPlayerInformation = async(pgClient, clerk_user_id) => {
     try {

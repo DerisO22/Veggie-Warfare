@@ -43,6 +43,8 @@ app.use(cors({
     credentials: true,
 }))
 
+app.use(express.json());
+
 async function start() {
     server.listen(PORT, () => {
         console.log(`Listening on port ${PORT}`);
