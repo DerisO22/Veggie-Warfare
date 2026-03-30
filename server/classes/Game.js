@@ -9,7 +9,8 @@ import { RateLimiter } from "../utils/RateLimiter.js";
 import { InputValidator } from "../utils/InputValidator.js";
 
 const GRAVITY_CONST = -18.81;
-const NEEDED_PLAYERS = 2;
+const NEEDED_PLAYERS = 1;
+let teamInfoCounter = 0;
 
 export class Game {
     constructor(io) {
@@ -292,6 +293,11 @@ export class Game {
 
     sendState() {
         const state = this.getGameState();
+
+        if(teamInfoCounter++ % 10 !== 0) {
+            delete state.teamInfo;
+        }
+
         this.io.sockets.emit("sendState", state);
     }
 

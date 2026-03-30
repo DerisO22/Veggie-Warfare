@@ -32,7 +32,7 @@ export class Player {
         this.baseMoveSpeed = baseMoveSpeed;
         this.movementModifiers = new MovementModifierSystem(baseMoveSpeed);
 
-        const baseJumpPower = 10;
+        const baseJumpPower = 20;
         this.baseJumpPower = baseJumpPower;
         this.jumpModifiers = new JumpPowerModifierSystem(baseJumpPower);
 
@@ -148,7 +148,11 @@ export class Player {
     getDrawInfo() {
         const position = this.body.translation();
         return {
-            position: { x: position.x, y: position.y, z: position.z },
+            position: { 
+                x: Math.round(position.x * 100) / 100, 
+                y: Math.round(position.y * 100) / 100,
+                z: Math.round(position.z * 100) / 100
+            },
             team: this.team,
             kills: this.kills,
             deaths: this.deaths,

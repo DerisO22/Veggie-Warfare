@@ -71,7 +71,7 @@ const Game = () => {
 
             {/* Interface */}
             <Lobby />
-            <TeamScoreboard />
+
             
             {/* Game Chat */}
             {isConnected ? (
@@ -79,6 +79,7 @@ const Game = () => {
                     <Abilities />
                     <StatsInterface cam={{cameraMode, setCameraMode}}/>
                     <GameChat />
+                    <TeamScoreboard />
                 </>
             ) : (
                 <LoadingInterface />
