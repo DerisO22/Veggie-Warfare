@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react";
 import { useAbilities, type KeybindChanges } from "../../contexts/AbilitiesContext";
 import { DEFAULT_KEYBINDS } from "../../utils/consts/Keybinds";
+import { usePlayerData } from "../../contexts/PlayerContext";
 
 const KeyBindsOptions = () => {
     const { playerKeybinds, updatePlayerKeybinds } = useAbilities();
     const [ updatedKeybind, setUpdatedKeybind ] = useState<string | null>(null);
     const [ isUpdateKeybindVisible, setIsUpdateKeybindVisible ] = useState<boolean>(false);
+
+    const { updateKeybinds } = usePlayerData();
 
     const handleKeybindChange = (setting: string) => {
         setIsUpdateKeybindVisible(true);
@@ -30,6 +33,9 @@ const KeyBindsOptions = () => {
                 updatePlayerKeybinds(changes);
                 setIsUpdateKeybindVisible(false);
                 setUpdatedKeybind(null);
+
+                const updatedKeybinds = { ...playerKeybinds, ...changes };
+                updateKeybinds(updatedKeybinds);
             }
         }
 

@@ -6,7 +6,9 @@ import { getAllPlayerInformation, savePlayerInformation } from "../services/play
 export interface PlayerContextType {
     playerData: PlayerDataType | undefined,
     get_player_data: (player_clerk_id: string) => void,
-    save_player_data: () => void
+    save_player_data: () => void,
+    updateSoundSettings: (soundData: PlayerSounds) => void,
+    updateKeybinds: (keybinds: KeyBindings) => void
 }
 
 export interface PlayerDataType {
@@ -52,7 +54,7 @@ export const PlayerProvider = ({ children } : PlayerProviderPropsType) => {
     const [ playerData, setPlayerData ] = useState<PlayerDataType | undefined>();
 
     const get_player_data = async(player_clerk_id: string) => {
-        try {   
+        try {
             const data = await getAllPlayerInformation(player_clerk_id);
             console.log(data);
 
@@ -68,15 +70,32 @@ export const PlayerProvider = ({ children } : PlayerProviderPropsType) => {
     }
 
     const save_player_data = async() => {
+        if (!playerData) return;
+    
         try {
-            // const data = await save
+            await savePlayerInformation(playerData);
+            console.log("Player data saved successfully");
         } catch (err) {
-            
+            console.error("Failed to save player data: ", err);
         }
     }
 
+    const updateSoundSettings = (soundData: PlayerSounds) => {
+        setPlayerData(prev => prev ? { 
+            ...prev, 
+            player_sounds: soundData 
+        } : undefined);
+    }
+    
+    const updateKeybinds = (keybinds: KeyBindings) => {
+        setPlayerData(prev => prev ? { 
+            ...prev, 
+            player_keybinds: keybinds 
+        } : undefined);
+    }
+
     return (
-        <PlayerContext.Provider value={{ playerData, get_player_data, save_player_data}}>
+        <PlayerContext.Provider value={{ playerData, get_player_data, save_player_data, updateSoundSettings, updateKeybinds}}>
             { children }
         </PlayerContext.Provider>
     )

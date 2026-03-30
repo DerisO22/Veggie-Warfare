@@ -2,6 +2,7 @@ import { PlayerChat } from "./PlayerChat.js";
 import RAPIER from  "@dimforge/rapier3d-compat";
 import { MovementModifierSystem } from "./systems/MovementModifierSystem.js";
 import { JumpPowerModifierSystem } from "./systems/JumpModifierSystem.js";
+import { DamageSystem } from "./systems/DamageSystem.js";
 
 const wakeUp = true;
 
@@ -57,6 +58,18 @@ export class Player {
 
         let colliderDesc = RAPIER.ColliderDesc.capsule(0.5, 0.5);
         this.game.world.createCollider(colliderDesc, this.body);
+
+        this.collider = this.game.world.createCollider(colliderDesc, this.body);
+
+        // Team & Stats
+        // Will be red or blue for team
+        this.team = null;
+        this.kills = 0;
+        this.deaths = 0;
+        this.lastKillTime = null;
+    
+        // Damage system
+        this.damageSystem = new DamageSystem(this, game);
     };
 
     checkGrounded() {
@@ -116,6 +129,12 @@ export class Player {
         if(this.input.jump) {
             this.handleJump()
         };
+
+        // of the map death
+        const position = this.body.translation();
+        if (position.y < -50 && !this.damageSystem.isDead) {
+            this.damageSystem.die(null); 
+        }
     };
 
     setButton(button, value) {
@@ -130,8 +149,16 @@ export class Player {
         const position = this.body.translation();
         return {
             position: { x: position.x, y: position.y, z: position.z },
-        }
-    };
+            team: this.team,
+            kills: this.kills,
+            deaths: this.deaths,
+            health: this.damageSystem.currentHealth,
+            healthPercentage: this.damageSystem.getHealthPercentage(),
+            isDead: this.damageSystem.isDead,
+            character: this.character,
+            nickname: this.nickname
+        };
+    }
 
     sendMessage(text) {
         this.chat.handleMessage(text);
@@ -165,5 +192,20 @@ export class Player {
     
     hasJumpPowerModifier(key) {
         return this.jumpModifiers.hasModifier(key);
+    }
+
+    /**
+     * Damage Methods
+     */
+    takeDamage(amount, damageDealer) {
+        this.damageSystem.takeDamage(amount, damageDealer);
+    }
+    
+    die(killer) {
+        this.damageSystem.die(killer);
+    }
+    
+    respawn() {
+        this.damageSystem.respawn();
     }
 }

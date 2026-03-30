@@ -5,6 +5,7 @@ import { DEFAULT_SOUND_VALUES, useGameSound } from '../../../contexts/GameSounds
 import KeyBindsOptions from '../KeyBindsOptions';
 import { SignOutButton, UserProfile } from '@clerk/clerk-react';
 import { dark } from '@clerk/themes';
+import { usePlayerData } from '../../../contexts/PlayerContext';
 
 interface SettingsMenuProps {
     toggleSettings: (e: React.MouseEvent) => void; 
@@ -17,12 +18,16 @@ interface SoundSettingsType {
 }
 
 const SettingsMenu = ({ toggleSettings } : SettingsMenuProps) => {
-    // this will prob utilize a global state
-    // so these settings can be saved throughout the game
-    // but these are basic visuals for now
     const menuRef = useRef<HTMLDivElement>(null);
-    const [ soundValues, setSoundValues ] = useState<SoundSettingsType>(DEFAULT_SOUND_VALUES);
     const { handleVolumeChange } = useGameSound();
+
+    // For saving player sound/keybind settings
+    const [ soundValues, setSoundValues ] = useState<SoundSettingsType>(DEFAULT_SOUND_VALUES);
+    const { save_player_data, updateSoundSettings } = usePlayerData();
+
+    const handleSaveSettings = () => {
+        save_player_data()
+    }
 
     useLayoutEffect(() => {
         if(menuRef.current) {
@@ -36,9 +41,11 @@ const SettingsMenu = ({ toggleSettings } : SettingsMenuProps) => {
 
     const handleSoundValueChange = (e: React.ChangeEvent<HTMLInputElement>, soundType: string) => {
         const value = parseInt(e.target.value);
+        const newSoundValues = { ...soundValues, [soundType]: value}
         setSoundValues(prev => ({ ...prev, [soundType]: value }));
 
         handleVolumeChange(soundType, value);
+        updateSoundSettings(newSoundValues);
     }
 
     return (
@@ -47,6 +54,8 @@ const SettingsMenu = ({ toggleSettings } : SettingsMenuProps) => {
                 <h1 className='header1'>Game Settings</h1>
                 <button onClick={toggleSettings} className='exit_settings_button'>X</button>
             </div>
+
+            <button onClick={handleSaveSettings} className='save_button'>Save Settings</button>
 
             {/* This will prob be a 2x2 grid container */}
             <div className='controls_container'>

@@ -4,9 +4,44 @@ export interface PlayerPosition {
     z: number;
 }
 
-export interface PlayerDrawInfo {
+export interface GameState {
+    players: PlayerDrawInfo[];
+    gameState: "WAITING" | "VOTING" | "PLAYING" | "ENDED";
+    teamScores: {
+        red: number;
+        blue: number;
+    };
+    timeRemaining: number;
+    timeRemainingSeconds: number;
+    teamInfo: {
+        red: TeamMember[];
+        blue: TeamMember[];
+        teamScores: {
+            red: number;
+            blue: number;
+        };
+    };
+}
+
+export interface TeamMember {
+    socketId: string;
+    nickname: string;
+    kills: number;
+    deaths: number;
+    character: string;
+}
+
+export interface PlayerDrawInfo extends PlayerPosition {
     id: string;
     position: PlayerPosition;
+    team: "red" | "blue";
+    kills: number;
+    deaths: number;
+    health: number;
+    healthPercentage: number;
+    isDead: boolean;
+    character: string;
+    nickname: string;
 }
 
 export interface PlayerStats {
@@ -22,10 +57,6 @@ export interface PlayerSounds {
     music: number,
     sfx: number,
     other: number
-}
-
-export interface GameState {
-    players: PlayerDrawInfo[];
 }
 
 export interface Position {

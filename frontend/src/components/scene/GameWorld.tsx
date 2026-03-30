@@ -27,6 +27,8 @@ const GameWorld = ({ cameraMode } : GameWorldProps) => {
                     key={player.id}
                     position={player.position}
                     isLocalPlayer={player.id === socket?.id}
+                    team={player.team}
+                    isDead={player.isDead}
                 />
             ))}
 

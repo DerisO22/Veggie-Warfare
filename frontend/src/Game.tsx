@@ -16,6 +16,7 @@ import { useKeyboardControls } from './utils/custom_hooks/useKeyboardControls'
  */
 import { useUser } from '@clerk/clerk-react';
 import { usePlayerData } from './contexts/PlayerContext'
+import TeamScoreboard from './components/interface/TeamScoreboard'
 
 const Game = () => {
     const { socket, isConnected } = useSocket();
@@ -70,6 +71,7 @@ const Game = () => {
 
             {/* Interface */}
             <Lobby />
+            <TeamScoreboard />
             
             {/* Game Chat */}
             {isConnected ? (
