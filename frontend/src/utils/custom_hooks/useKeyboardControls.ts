@@ -8,7 +8,7 @@ import { useAbilities } from '../../contexts/AbilitiesContext';
 export const useKeyboardControls = () => {
     const { socket } = useSocket();
     const pressedKeys = useRef<Set<string>>(new Set());
-    const { playerKeybinds } = useAbilities();
+    const { playerKeybinds, abilityButtonRefs } = useAbilities();
     const { isPlayerInputting } = useChatInput();
 
     // For Specific Player Abilities
@@ -41,8 +41,26 @@ export const useKeyboardControls = () => {
                 if (key === playerKeybinds.right) socket.emit('setButton', { button: 'right', value: true });
                 if (key === playerKeybinds.jump) socket.emit('setButton', { button: 'jump', value: true });
 
-                if (key === playerKeybinds.ability1) socket.emit('use_ability', { abilityKey: characterAbilities.ability1 });
-                if (key === playerKeybinds.ability2) socket.emit('use_ability', { abilityKey: characterAbilities.ability2 });
+                if (key === playerKeybinds.ability1) {
+                    const abilityName = characterAbilities.ability1; 
+                    const element = abilityButtonRefs.current[abilityName];
+                
+                    if (element) {
+                        element.style.backgroundColor = "rgba(0, 0, 0, 0.13)"; 
+                    }
+
+                    socket.emit('use_ability', { abilityKey: characterAbilities.ability1 })
+                };
+                if (key === playerKeybinds.ability2) {
+                    const abilityName = characterAbilities.ability2; 
+                    const element = abilityButtonRefs.current[abilityName];
+                
+                    if (element) {
+                        element.style.backgroundColor = "rgba(0, 0, 0, 0.13)"; 
+                    }
+
+                    socket.emit('use_ability', { abilityKey: characterAbilities.ability2 })
+                };
             }
         };
 
@@ -57,6 +75,24 @@ export const useKeyboardControls = () => {
             if (key === playerKeybinds.right) socket.emit('setButton', { button: 'right', value: false });
             
             if (key === playerKeybinds.jump) socket.emit('setButton', { button: 'jump', value: false });
+
+            if (key === playerKeybinds.ability1) {
+                const abilityName = characterAbilities.ability1; 
+                const element = abilityButtonRefs.current[abilityName];
+            
+                if (element) {
+                    element.style.backgroundColor = "rgba(0, 0, 0, 0.43)"; 
+                }
+            }
+
+            if (key === playerKeybinds.ability2) {
+                const abilityName = characterAbilities.ability2; 
+                const element = abilityButtonRefs.current[abilityName];
+            
+                if (element) {
+                    element.style.backgroundColor = "rgba(0, 0, 0, 0.43)"; 
+                }
+            }
         };
 
         window.addEventListener('keydown', handleKeyDown);

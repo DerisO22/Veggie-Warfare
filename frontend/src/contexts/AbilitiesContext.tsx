@@ -1,13 +1,15 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useRef, useState } from "react";
 import { useSocket } from "./useSocket";
 import type { KeyBindings } from "../utils/types/controlType";
 import { DEFAULT_KEYBINDS } from "../utils/consts/Keybinds";
 
+type AbilityRefs = Record<string, HTMLDivElement | null>;
+
 interface AbilitiesContextType {
     abilityData: AbilitiesType | undefined,
     playerKeybinds: KeyBindings,
-    updatePlayerKeybinds: (keybind_changes: KeybindChanges) => void
-
+    updatePlayerKeybinds: (keybind_changes: KeybindChanges) => void,
+    abilityButtonRefs: React.MutableRefObject<AbilityRefs>
 }
 
 interface AbilitiesType {
@@ -31,6 +33,7 @@ export const AbilitiesProvider = ({ children }: AbilitiesProviderProps ) => {
     const { socket } = useSocket();
     const [ abilityData, setAbilityData ] = useState<AbilitiesType>();
     const [ playerKeybinds, setPlayerKeybinds ] = useState<KeyBindings>(DEFAULT_KEYBINDS);
+    const abilityButtonRefs = useRef<AbilityRefs>({});
 
     useEffect(() => {
         if(!socket) return;
@@ -52,7 +55,7 @@ export const AbilitiesProvider = ({ children }: AbilitiesProviderProps ) => {
     }
 
     return (
-        <AbilitiesContext.Provider value={{abilityData, playerKeybinds, updatePlayerKeybinds}}>
+        <AbilitiesContext.Provider value={{abilityData, playerKeybinds, updatePlayerKeybinds, abilityButtonRefs}}>
             { children }
         </AbilitiesContext.Provider>
     )
