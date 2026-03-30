@@ -1,5 +1,4 @@
 import { Ability } from "../Ability.js";
-import RAPIER from  "@dimforge/rapier3d-compat";
 
 export class ForwardDash extends Ability {
     constructor() {
