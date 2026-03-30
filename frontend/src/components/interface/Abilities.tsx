@@ -8,7 +8,7 @@ import { useAbilities } from '../../contexts/AbilitiesContext';
 const Abilities = () => {
     const { hasVotingStarted, hasVotingEnded } = useVoting();
     const { selectedCharacter } = useCharacterSelect();
-    const { abilityButtonRefs } = useAbilities();
+    const { abilityButtonRefs, playerKeybinds } = useAbilities();
     const [ characterAbilties, setCharacterAbilities ] = useState<CharacterAbilities>();
 
     useEffect(() => {
@@ -23,6 +23,7 @@ const Abilities = () => {
                 <div className="abiltiies_container">
                     {Object.values(characterAbilties).map((ability, index) => (
                         <div ref={(el) => (abilityButtonRefs.current[ability] = el)} key={index} className={`abilities_card card${index}`}>
+                            <span>{playerKeybinds?.[`ability${(index + 1)}`]}</span>
                             <span>{ability}</span>
                         </div>
                     ))}

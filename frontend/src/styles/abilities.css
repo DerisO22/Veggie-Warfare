@@ -14,10 +14,12 @@
 
 .abilities_card {
     display: flex;
-    justify-content: center;
-    align-items: end;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
     font-family: monospace;
     user-select: none;
+    gap: 1rem;
 
     background-color: rgba(0, 0, 0, 0.43);
     border-radius: 10px;
