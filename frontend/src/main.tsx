@@ -23,27 +23,7 @@ if (!PUBLISHABLE_KEY) {
 createRoot(document.getElementById('root')!).render(
     <StrictMode>
 		<ClerkProvider publishableKey={PUBLISHABLE_KEY}>
-			<SocketProvider>
-				<GameProvider>
-				<TeamProvider>
-					<PlayerProvider>
-					<AbilitiesProvider>
-					<GameSoundProvider>
-					<LobbyProvider>
-					<VotingContextProvider>
-					<CharacterSelectionProvider>
-					<ChatInputProvider>
-						<App />
-					</ChatInputProvider>
-					</CharacterSelectionProvider>
-					</VotingContextProvider>
-					</LobbyProvider>
-					</GameSoundProvider>
-					</AbilitiesProvider>
-					</PlayerProvider>
-				</TeamProvider>
-				</GameProvider>
-			</SocketProvider>
+			<App />
 		</ClerkProvider>
     </StrictMode>,
 )

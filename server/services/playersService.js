@@ -42,10 +42,10 @@ export const getAllPlayerInformation = async(pgClient, clerk_user_id) => {
 
 export const savePlayerInformation = async(pgClient, playerData) => {
     try {
-        const { player_clerk_id, player_keybinds, player_sounds, player_stats } = playerData;
+        const { player_clerk_id, username, player_keybinds, player_sounds, player_stats } = playerData;
         
         // Upsert all tables
-        await pgClient.query(playerQueries.UPSERT_PLAYER, [player_clerk_id, 'Player']); 
+        await pgClient.query(playerQueries.UPSERT_PLAYER, [player_clerk_id, username]); 
         
         await pgClient.query(playerQueries.UPSERT_PLAYER_KEYBINDS, [
             player_clerk_id,
