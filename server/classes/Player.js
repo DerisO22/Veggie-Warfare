@@ -32,7 +32,7 @@ export class Player {
         this.baseMoveSpeed = baseMoveSpeed;
         this.movementModifiers = new MovementModifierSystem(baseMoveSpeed);
 
-        const baseJumpPower = 20;
+        const baseJumpPower = 10;
         this.baseJumpPower = baseJumpPower;
         this.jumpModifiers = new JumpPowerModifierSystem(baseJumpPower);
 

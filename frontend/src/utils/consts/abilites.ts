@@ -20,7 +20,7 @@ export const ABILITY_MAP: AbilityMapType = {
         ability2: 'sprint'
     },
     cucumber: {
-        ability1: 'forward_dash',
+        ability1: 'super_jump',
         ability2: 'sprint'
     },
     tomato: {
