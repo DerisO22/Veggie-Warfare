@@ -1,9 +1,10 @@
 export class GameState {
-    constructor() {
+    constructor(io) {
         /**
          * Game State Vals
          * WAITING -> VOTING -> PLAYING -> ENDED
          */
+        this.io = io;
         this.gameState = "WAITING";
         this.teamScores = { red: 0, blue: 0 };
         this.gameStartTime = null;
@@ -26,6 +27,7 @@ export class GameState {
 
     startGame() {
         this.gameState = "PLAYING";
+        this.sendCurrentGameState(this.io);
         this.gameStartTime = Date.now();
         this.teamScores = { red: 0, blue: 0 };
         console.log("Game started!");
@@ -33,6 +35,7 @@ export class GameState {
 
     getTimeRemaining() {
         if (!this.gameStartTime) return this.gameDuration;
+
         const elapsed = Date.now() - this.gameStartTime;
         return Math.max(0, this.gameDuration - elapsed);
     }
@@ -47,6 +50,7 @@ export class GameState {
 
     endGame() {
         this.gameState = "ENDED";
+        this.sendCurrentGameState();
         console.log("Game ended!");
     }
 
@@ -68,8 +72,13 @@ export class GameState {
 
     reset() {
         this.gameState = "WAITING";
+        this.sendCurrentGameState();
         this.teamScores = { red: 0, blue: 0 };
         this.gameStartTime = null;
         this.teams = { red: [], blue: [] };
+    }
+
+    sendCurrentGameState() {
+        this.io.sockets.emit("current_game_state", this.gameState);
     }
 }

@@ -17,7 +17,8 @@ export class Game {
         this.players = {};
         this.world = null;
         this.pending_sockets = {}; 
-        this.GameState = new GameState();
+        this.GameState = new GameState(io);
+        this.GameState.sendCurrentGameState();
         // 4 players per team
         this.TeamManager = new TeamManager(4);
         this.Lobby = new Lobby(io);
@@ -115,10 +116,7 @@ export class Game {
         // Start the game
         this.GameState.startGame();
 
-        // Broadcast team info to all players
         this.broadcastTeamInfo();
-
-        // Setup game end condition checker
         this.setupGameEndChecker();
     }
 
