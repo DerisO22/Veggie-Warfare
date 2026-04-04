@@ -57,6 +57,9 @@ export class GameState {
         this.gameState = "ENDED";
         this.sendCurrentGameState();
         console.log("Game ended!");
+
+        this.gameState = "WAITING";
+        this.sendCurrentGameState();
     }
 
     updateTeamScores(killerTeam) {
