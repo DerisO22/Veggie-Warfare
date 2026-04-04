@@ -1,7 +1,6 @@
 import { SignedIn, SignedOut, SignIn } from '@clerk/clerk-react';
 import { dark } from '@clerk/themes';
 import './styles/login_screen.css';
-import Game from './Game';
 import GameWrapper from './GameWrapper';
 
 function App() {

@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { useSocket } from "./useSocket";
-import type { CharacterSelectionContextType, CharacterPayloadData, CharacterInfo, CharacterSelectionProviderProps } from "../utils/types/lobbyTypes";
+import type { CharacterSelectionContextType, CharacterPayloadData, CharacterSelectionProviderProps } from "../utils/types/lobbyTypes";
 
 const CharacterSelectionContext = createContext<CharacterSelectionContextType | undefined>(undefined);
 
