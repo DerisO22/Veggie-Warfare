@@ -23,10 +23,10 @@ export const GameProvider = ({ children }: GameProviderProps) => {
         }
     });
 
-    const updateCurrentGameState = (payload: "WAITING" | "VOTING" | "PLAYING" | "ENDED") => {
+    const updateCurrentGameState = (current_game_state: "WAITING" | "VOTING" | "PLAYING" | "ENDED") => {
         setGameState(prev => ({
             ...prev,
-            ["gameState"]: payload
+            ["gameState"]: current_game_state
         }))
     }
 

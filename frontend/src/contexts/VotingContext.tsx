@@ -52,8 +52,6 @@ export const VotingContextProvider = ({ children }: VotingContextProviderProps) 
         if (!socket) return;
 
         socket.on("start_vote", (payload) => {
-            console.log("Received start_vote event:", payload);
-            
             const duration = payload.duration || 30000;
             const currentVotes = payload.current_votes || { map1: 0, map2: 0, map3: 0 };
             
@@ -66,15 +64,11 @@ export const VotingContextProvider = ({ children }: VotingContextProviderProps) 
         });
 
         socket.on("vote_update", (payload) => {
-            console.log("Received vote_update event:", payload);
-            
             const currentVotes = payload.current_votes || { map1: 0, map2: 0, map3: 0 };
             setVotes(currentVotes);
         });
 
         socket.on("end_vote", (payload) => {
-            console.log("Received end_vote event:", payload);
-            
             const winner = payload.winner || "";
             const finalVotes = payload.final_votes || { map1: 0, map2: 0, map3: 0 };
             

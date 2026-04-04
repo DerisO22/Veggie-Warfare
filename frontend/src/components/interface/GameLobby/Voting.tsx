@@ -1,5 +1,6 @@
 import { get_map_vote_path } from "../../../utils/helpers/getMapPath";
 import { useVoting, Maps } from "../../../contexts/VotingContext";
+import { memo } from "react";
 
 const Voting = () => {
     const { 
@@ -10,9 +11,6 @@ const Voting = () => {
         handle_player_vote,
         votingTimeRemaining 
     } = useVoting();
-
-    console.log("Voting started:", hasVotingStarted);
-    console.log("Current votes:", votes);
 
     // Convert votes to the maps array format for display
     const mapsWithVotes = Object.entries(Maps).map(([mapKey, mapName]) => ({
@@ -55,4 +53,4 @@ const Voting = () => {
     )
 }
 
-export default Voting;
+export default memo(Voting);
