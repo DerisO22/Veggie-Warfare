@@ -2,10 +2,10 @@ import { get_map_vote_path } from "../../../utils/helpers/getMapPath";
 import { useVoting, Maps, useVotingTimer } from "../../../contexts/VotingContext";
 import { memo } from "react";
 import { useCurrentGameState } from "../../../contexts/CurrentGameState";
+import VotingTimer from "./VotingTImer";
 
 const Voting = () => {
-    const { 
-        hasVotingStarted,
+    const {
         hasVotingEnded,
         votes,
         mapWinner,
@@ -13,8 +13,6 @@ const Voting = () => {
         isVotingVisible,
         toggleVotingVisibility
     } = useVoting();
-
-    const votingTimeRemaining = useVotingTimer();
 
     const currentGameState = useCurrentGameState();
 
@@ -25,7 +23,7 @@ const Voting = () => {
         map_votes: votes[mapKey as keyof typeof votes] || 0
     }));
 
-    console.log({ isVotingVisible, hasVotingStarted, hasVotingEnded, mapWinner });
+    console.log("Hello pls don't spam")
 
     return (
         <>
@@ -34,7 +32,7 @@ const Voting = () => {
                     {currentGameState === "VOTING" && (
                         <div className="voting_interface_container">
                             <h1 className="vote_header1">Map Voting</h1>
-                            <p className="time_text">Time Left: {votingTimeRemaining.toFixed(1)}s</p>
+                            <VotingTimer />
 
                             <div className="map_cards_container">
                                 {mapsWithVotes.map((map_data) => (

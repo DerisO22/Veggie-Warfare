@@ -25,8 +25,6 @@ const Lobby = () => {
         scroll_reveal.reveal('.info_text', {origin: "left"})
     }, []);
 
-    console.log(currentGameState);
-
     useEffect(() => {
         // Just looking at forcing re-renders here
         setTest(total_players);
