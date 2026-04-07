@@ -43,7 +43,7 @@ const CharacterSelector = () => {
                                         <>
                                             {Array.isArray(val) ? (
                                                 <>
-                                                <span className="abilties_header">Abilities</span>
+                                                <span key={key} className="abilties_header">Abilities</span>
                                                 {val.map((ability, i) => (
                                                     <span key={i} className="ability_item">{ability}</span>
                                                 ))}

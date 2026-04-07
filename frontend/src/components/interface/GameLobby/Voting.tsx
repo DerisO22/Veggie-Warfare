@@ -23,8 +23,6 @@ const Voting = () => {
         map_votes: votes[mapKey as keyof typeof votes] || 0
     }));
 
-    console.log("Hello pls don't spam")
-
     return (
         <>
             {isVotingVisible && (
