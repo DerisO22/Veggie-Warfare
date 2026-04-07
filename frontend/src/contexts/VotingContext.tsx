@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useMemo, useState } from "react";
+import { createContext, useContext, useEffect, useMemo, useState, useCallback } from "react";
 import { useSocket } from "./useSocket";
 import type { VotingContextType, VotingContextProviderProps, VotesType } from "../utils/types/lobbyTypes";
 
@@ -8,30 +8,25 @@ export const Maps = {
     map3: "Everest"
 };
 
-// Util function for mapping the map names to the server votes map fields
 export const match_mapWinner_to_Name = (winner: keyof typeof Maps) => {
     return Maps[winner];
 };
 
 const VotingContext = createContext<VotingContextType | undefined>(undefined);
+const VotingTimerContext = createContext<number>(0);
 
 export const VotingContextProvider = ({ children }: VotingContextProviderProps) => {
     const { socket } = useSocket();
     const [hasVotingStarted, setHasVotingStarted] = useState(false);
     const [hasVotingEnded, setHasVotingEnded] = useState(false);
-    const [votes, setVotes] = useState<VotesType>({
-        map1: 0,
-        map2: 0,
-        map3: 0
-    });
+    const [votes, setVotes] = useState<VotesType>({ map1: 0, map2: 0, map3: 0 });
     const [mapWinner, setMapWinner] = useState<string>("");
     const [votingTimeRemaining, setVotingTimeRemaining] = useState<number>(0);
     const [playerVote, setPlayerVote] = useState<string | null>(null);
     const [isVoteLocked, setIsVoteLocked] = useState(false);
+    const [isVotingVisible, setIsVotingVisible] = useState<boolean>(false);
 
-    const [ isVotingVisible, setIsVotingVisible ] = useState<boolean>(false);
-
-    // Handle the voting timer countdown
+    // Timer
     useEffect(() => {
         if (!hasVotingStarted || hasVotingEnded) return;
 
@@ -41,7 +36,6 @@ export const VotingContextProvider = ({ children }: VotingContextProviderProps) 
                     clearInterval(interval);
                     return 0;
                 }
-
                 return Math.max(prev - 0.1, 0);
             });
         }, 100);
@@ -49,7 +43,6 @@ export const VotingContextProvider = ({ children }: VotingContextProviderProps) 
         return () => clearInterval(interval);
     }, [hasVotingStarted, hasVotingEnded]);
 
-    // Handle all socket events
     useEffect(() => {
         if (!socket) return;
 
@@ -80,11 +73,9 @@ export const VotingContextProvider = ({ children }: VotingContextProviderProps) 
             setHasVotingStarted(false);
             setHasVotingEnded(true);
             setIsVoteLocked(true);
-
             setIsVotingVisible(false);
         });
 
-        // Cleanup listeners
         return () => {
             socket.off("start_vote");
             socket.off("vote_update");
@@ -92,15 +83,13 @@ export const VotingContextProvider = ({ children }: VotingContextProviderProps) 
         };
     }, [socket]);
 
-    const toggleVotingVisibility = () => {
+    const toggleVotingVisibility = useCallback(() => {
         setIsVotingVisible(prev => !prev);
-        console.log(isVotingVisible)
-    }
+    }, []);
 
-    const handle_player_vote = (e: React.MouseEvent<HTMLDivElement>, choice: string) => {
+    const handle_player_vote = useCallback((e: React.MouseEvent<HTMLDivElement>, choice: string) => {
         e.preventDefault();
 
-        console.log(isVoteLocked)
         if (!socket || isVoteLocked || playerVote) {
             console.warn("Cannot vote at this time");
             return;
@@ -108,31 +97,28 @@ export const VotingContextProvider = ({ children }: VotingContextProviderProps) 
 
         let mapKey = "map1";
         Object.entries(Maps).forEach(([key, value]) => {
-            if (value === choice) {
-                mapKey = key;
-            }
+            if (value === choice) mapKey = key;
         });
 
         setPlayerVote(mapKey);
-        socket?.emit("player_vote", { choice: mapKey });
-    };
+        socket.emit("player_vote", { choice: mapKey });
+    }, [socket, isVoteLocked, playerVote]);
 
-    const voting_state = useMemo(() => {
-        return {
-            hasVotingStarted,
-            hasVotingEnded,
-            votes,
-            mapWinner,
-            handle_player_vote,
-            votingTimeRemaining,
-            isVotingVisible,
-            toggleVotingVisibility
-        }
-    }, [hasVotingStarted, hasVotingEnded, votes, mapWinner, handle_player_vote, votingTimeRemaining, isVotingVisible, toggleVotingVisibility]);
+    const voting_state = useMemo(() => ({
+        hasVotingStarted,
+        hasVotingEnded,
+        votes,
+        mapWinner,
+        handle_player_vote,
+        isVotingVisible,
+        toggleVotingVisibility
+    }), [ hasVotingStarted, hasVotingEnded, votes, mapWinner, handle_player_vote, isVotingVisible, toggleVotingVisibility ]);
 
     return (
         <VotingContext.Provider value={voting_state}>
-            {children}
+            <VotingTimerContext.Provider value={votingTimeRemaining}>
+                {children}
+            </VotingTimerContext.Provider>
         </VotingContext.Provider>
     );
 };
@@ -141,8 +127,13 @@ export const useVoting = () => {
     const context = useContext(VotingContext);
 
     if (context === undefined) {
-        throw new Error("useVoting must be used within a VotingContextProvider");
+        throw new Error("useVoting must be used within VotingContextProvider");
     }
 
+    return context;
+};
+
+export const useVotingTimer = () => {
+    const context = useContext(VotingTimerContext);
     return context;
 };

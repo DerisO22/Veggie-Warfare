@@ -1,5 +1,5 @@
 import { get_map_vote_path } from "../../../utils/helpers/getMapPath";
-import { useVoting, Maps } from "../../../contexts/VotingContext";
+import { useVoting, Maps, useVotingTimer } from "../../../contexts/VotingContext";
 import { memo } from "react";
 import { useCurrentGameState } from "../../../contexts/CurrentGameState";
 
@@ -10,10 +10,11 @@ const Voting = () => {
         votes,
         mapWinner,
         handle_player_vote,
-        votingTimeRemaining,
         isVotingVisible,
         toggleVotingVisibility
     } = useVoting();
+
+    const votingTimeRemaining = useVotingTimer();
 
     const currentGameState = useCurrentGameState();
 
