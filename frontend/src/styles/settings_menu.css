@@ -57,6 +57,26 @@
     gap: 1rem;
 }
 
+.save_button {
+    width: 13rem;
+    height: 3rem;
+    border: 2px solid rgba(255, 255, 255, 0.223);
+
+    background-color: rgba(0, 0, 0, 0.775);
+    color: white;
+    font-size: 1.1rem;
+    font-weight: 600;
+    transition: all 0.3s ease-in-out;
+}
+
+.save_button:hover { 
+    border: 2px solid white;
+}
+
+.save_button:active { 
+    transform: scale(0.7);
+}
+
 /*
     Sounds
 */
