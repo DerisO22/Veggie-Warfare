@@ -247,6 +247,7 @@
     background-position: center;
     background-repeat: no-repeat;
     font-family: monospace;
+    user-select: none;
 }
 
 .return_to_lobby_button {
