@@ -28,15 +28,15 @@
 
 /* Will need to replace with other character display models */
 .cucumber_model_active {
-    background-image: url('../../public/carrot.webp');
+    background-image: url('../../public/cucumber.webp');
 }
 
 .potato_model_active {
-    background-image: url('../../public/carrot.webp');
+    background-image: url('../../public/potato.webp');
 }
 
 .tomato_model_active {
-    background-image: url('../../public/carrot.webp');
+    background-image: url('../../public/tomoato.webp');
 }
 
 .character_underline {
@@ -82,6 +82,15 @@
 
 .carrot_icon {
     background-image: url("../../public/carrot_select_icon.png");
+}
+.cucumber_icon{
+    background-image: url("../../public/cucumber.png");
+}
+.potato_icon{
+    background-image: url("../../public/potato.png");
+}
+.tomato_icon{
+    background-image: url("../../public/tomato.png");
 }
 
 @media screen and (max-width: 1200px) {
