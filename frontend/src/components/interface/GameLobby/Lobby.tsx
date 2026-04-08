@@ -11,7 +11,6 @@ import { useVoting } from "../../../contexts/VotingContext";
 
 const Lobby = () => {
     const { total_players } = useLobby();
-    const [ test, setTest ] = useState<number>(0);
     const currentGameState = useCurrentGameState();
     const [ isPlayerListVisible, setIsPlayerListVisible ] = useState<boolean>(false);
     const { isVotingVisible, toggleVotingVisibility } = useVoting();
@@ -24,12 +23,7 @@ const Lobby = () => {
         });
         scroll_reveal.reveal('.info_text', {origin: "left"})
     }, []);
-
-    useEffect(() => {
-        // Just looking at forcing re-renders here
-        setTest(total_players);
-    }, [total_players]);
-
+    
     const toggleLobbyList = (e: React.MouseEvent) => {
         e.preventDefault();
         setIsPlayerListVisible(prev => !prev);
