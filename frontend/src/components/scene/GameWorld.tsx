@@ -19,8 +19,6 @@ const GameWorld = ({ cameraMode } : GameWorldProps) => {
     const localPlayer = gameState.players.find(player => player.id === socket?.id);
     const localPlayerPosition = localPlayer?.position || null;
 
-    console.log(localPlayer);
-
     return (
         <>
             {/* Render all players */}
