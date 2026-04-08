@@ -2,6 +2,8 @@ import { useLayoutEffect } from "react";
 import { useLobby } from "../../../contexts/LobbyContext";
 import '../../../styles/lobby.css';
 import { scroll_reveal } from "../../../utils/consts/ScrollReveal";
+import { generateRandomRGBAColor } from "../../../utils/helpers/colors";
+
 
 const PlayerList = () => {
     const { total_players, pending_player_ids } = useLobby();
@@ -12,14 +14,6 @@ const PlayerList = () => {
             duration: 500
         });
     }, []);
-
-    const generateRandomRGBAColor = () => {
-        const red = `${Math.floor(Math.random() * 255)}`;
-        const blue = `${Math.floor(Math.random() * 255)}`;
-        const green = `${Math.floor(Math.random() * 255)}`;
-
-        return `rgba(${red}, ${blue}, ${green}, 0.7)`;
-    }
 
     return (
         <div className="player_list_container">
