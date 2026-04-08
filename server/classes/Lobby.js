@@ -2,7 +2,7 @@ export class Lobby {
     constructor(io) {
         this.io = io;
         // going to be 30 seconds for voting
-        this.voting_duration = 3000000;
+        this.voting_duration = 10000;
 
         this.votes = {
             map1: 0,

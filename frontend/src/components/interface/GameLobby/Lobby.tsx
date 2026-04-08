@@ -36,10 +36,11 @@ const Lobby = () => {
     }
 
     const shouldShowVoting = currentGameState === "VOTING" || (currentGameState === "WAITING" && isVotingVisible);
+    const shouldShowLobby = currentGameState === "WAITING" || currentGameState === "VOTING";
 
     return (
         <>
-            {!isVotingVisible && (
+            {!isVotingVisible && shouldShowLobby && (
                 <div className="lobby_screen_container">
                     <div className="logo_container">
                         <img className="logo_image" src="../../../../public/game_logo.webp"></img>
