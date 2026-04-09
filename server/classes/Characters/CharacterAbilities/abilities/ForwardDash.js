@@ -5,7 +5,7 @@ export class ForwardDash extends Ability {
         super("forward_dash", 8000);
         this.duration = 0;
         this.launchForce = -200.0;
-        this.damageAmount = 25;
+        this.damageAmount = 15;
         this.dashRange = 10; 
     }
 
@@ -20,8 +20,12 @@ export class ForwardDash extends Ability {
 
         player.body.applyImpulse(dashImpulse, true);
 
-        // Check for enemies in dash range
-        this.checkForEnemiesHit(player);
+        let checksLeft = 2;
+        const checkInterval = setInterval(() => {
+            this.checkForEnemiesHit(player);
+            checksLeft--;
+            if (checksLeft <= 0) clearInterval(checkInterval);
+        }, 50);
 
         player.socket.emit("ability_activated", {
             ability: "forward_dash",
@@ -38,28 +42,24 @@ export class ForwardDash extends Ability {
         const playerPos = player.body.translation();
         const dashDirX = Math.sin(player.rotation);
         const dashDirZ = Math.cos(player.rotation);
-
+    
         Object.values(player.game.players).forEach(otherPlayer => {
             if (!otherPlayer || otherPlayer === player || otherPlayer.damageSystem.isDead) {
                 return;
             }
-
+    
             const otherPos = otherPlayer.body.translation();
-            
-            // Calculate distance between players
             const dx = otherPos.x - playerPos.x;
-            const dy = otherPos.y - playerPos.y;
             const dz = otherPos.z - playerPos.z;
-            const distance = Math.sqrt(dx * dx + dy * dy + dz * dz);
-
-            // Check if in range and in front of dash direction
-            if (distance < this.dashRange && distance > 0) {
-                // Dot product: is target in front of dash direction?
-                const dotProduct = (dx * dashDirX + dz * dashDirZ);
-                
-                if (dotProduct > 0) {
-                    otherPlayer.takeDamage(this.damageAmount, player);
-                }
+            const distance = Math.sqrt(dx * dx + dz * dz);
+    
+            const dotProduct = (dx * dashDirX + dz * dashDirZ);
+            
+            console.log(`Checking ${otherPlayer.nickname}: distance=${distance.toFixed(2)}, dot=${dotProduct.toFixed(2)}, inRange=${distance < this.dashRange}, inFront=${dotProduct > 0}`);
+    
+            if (distance < this.dashRange && dotProduct > 0) {
+                otherPlayer.takeDamage(this.damageAmount, player);
+                console.log(`✅ HIT!`);
             }
         });
     }
