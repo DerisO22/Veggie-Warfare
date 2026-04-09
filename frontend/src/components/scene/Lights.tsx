@@ -7,7 +7,7 @@ const Lights = () => {
             
             {/* Fill light for daytime */}
             <directionalLight 
-                position={[0, 30, -30]}
+                position={[0, 10, -30]}
                 castShadow 
                 intensity={1.5} 
                 shadow-camera-left={-100}  
