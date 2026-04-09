@@ -49,7 +49,7 @@ export class Game {
             await this.lobbyWait();
             
             const map_winner = await this.Lobby.startVoting();
-            console.log(`✓ Map ${map_winner} won the vote`);
+            console.log(`Map ${map_winner} won the vote`);
 
             await this.initPhysics(map_winner);
             
