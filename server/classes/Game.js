@@ -8,6 +8,7 @@ import { CharacterFactory } from "./Characters/CharacterFactory.js";
 import { RateLimiter } from "../utils/RateLimiter.js";
 import { InputValidator } from "../utils/InputValidator.js";
 
+// bru
 const GRAVITY_CONST = -18.81;
 const NEEDED_PLAYERS = 2;
 
