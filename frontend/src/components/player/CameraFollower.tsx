@@ -2,21 +2,35 @@ import { useFrame, useThree } from "@react-three/fiber";
 import { useRef } from "react";
 import { Mesh, Vector3 } from "three";
 
-// Camera follower component
-export function CameraFollower({ targetRef }: { targetRef: React.RefObject<Mesh> }) {
+interface CameraFollowerProps {
+    targetRef: React.RefObject<Mesh>;
+    rotationY?: number;
+}
+
+export function CameraFollower({ targetRef, rotationY = 0 }: CameraFollowerProps) {
     const { camera } = useThree();
     const cameraTarget = useRef(new Vector3());
 
     useFrame((_, delta) => {
         if (targetRef.current) {
             const { x, y, z } = targetRef.current.position;
+            
+            const distance = 8;
+            const height = 3.5;
+            
+            const offsetX = Math.sin(rotationY) * distance;
+            const offsetZ = Math.cos(rotationY) * distance;
+            
             cameraTarget.current.set(
-                x,
-                y + 4,
-                z + 10
+                x + offsetX,
+                y + height,
+                z + offsetZ
             );
-            camera.position.lerp(cameraTarget.current, 1 - Math.pow(0.01, delta));
-            camera.lookAt(x, y, z);
+            
+            // Smooth camera movement
+            camera.position.lerp(cameraTarget.current, Math.min(delta * 5, 1));
+            
+            camera.lookAt(x, y + 1.5, z);
         }
     });
 

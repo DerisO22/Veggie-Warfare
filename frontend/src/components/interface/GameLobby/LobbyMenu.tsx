@@ -7,25 +7,14 @@ const LobbyMenu = () => {
     const [ isSettingsVisible, setIsSettingsVisible ] = useState<boolean>(false);
     const [ isMusicOn, setIsMusicOn ] = useState<boolean>(true);
 
-    // const handlePlayerExit = (e: React.MouseEvent) => {
-    //     e.preventDefault();
-    //     if(!socket) return;
-
-    //     socket.emit("disconnect");
-    // };
-
     const handleMusicToggle = (e: React.MouseEvent) => {
         e.preventDefault();
         setIsMusicOn(prev => !prev);
-
-        // some logic for toggling music. This could prob be some global state
     }
 
     const handleSettingsToggle = (e: React.MouseEvent) => {
         e.preventDefault();
         setIsSettingsVisible(prev => !prev);
-
-        // some logic for saving settings. This could prob be some global state
     }
 
     useEffect(() => {

@@ -1,6 +1,5 @@
 import { useCurrentGameState } from "../../contexts/CurrentGameState";
 import { useTeam } from "../../contexts/TeamContext";
-
 import '../../styles/end_game.css';
 
 const EndGame = () => {

@@ -34,6 +34,7 @@ export interface TeamMember {
 export interface PlayerDrawInfo extends PlayerPosition {
     id: string;
     position: PlayerPosition;
+    rotation: number;
     team: "red" | "blue";
     kills: number;
     deaths: number;

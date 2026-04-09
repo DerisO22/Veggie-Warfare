@@ -4,6 +4,7 @@ import { PlayerCube } from "../player/PlayerCube";
 import { useRef } from "react";
 import { Mesh } from "three";
 import { CameraFollower } from "../player/CameraFollower";
+import { OrbitControls } from "@react-three/drei";
 
 interface GameWorldProps {
     cameraMode: 'follow' | 'orbit',
@@ -25,6 +26,7 @@ const GameWorld = ({ cameraMode } : GameWorldProps) => {
                 <PlayerCube
                     ref={player.id === socket?.id ? localPlayerRef : null}
                     key={player.id}
+                    rotation={player.rotation}
                     position={player.position}
                     isLocalPlayer={player.id === socket?.id}
                     team={player.team}
@@ -33,11 +35,11 @@ const GameWorld = ({ cameraMode } : GameWorldProps) => {
             ))}
 
             {/* Camera controls */}
-            {cameraMode === 'follow' && localPlayerPosition && (
-                <CameraFollower targetRef={localPlayerRef} />
-            )}
+            {cameraMode === 'follow' ? (
+                <CameraFollower targetRef={localPlayerRef} rotationY={localPlayer?.rotation} />
+            ) : <OrbitControls />}
         </>
     )
 }
 
-export default GameWorld
+export default GameWorld;

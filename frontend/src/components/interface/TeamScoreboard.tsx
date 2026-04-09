@@ -21,6 +21,7 @@ const TeamScoreboard = () => {
                         </div>
 
                         {/* Timer */}
+                        {/* To-do: Move this into separate component. This could possibly prevent re-renders */}
                         <div className="game_timer">
                             <div className="time_value">
                                 {String(Math.floor(gameState.timeRemainingSeconds / 60)).padStart(2, "0")}:

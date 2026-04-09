@@ -50,7 +50,8 @@ export interface VotingContextType {
     votes: VotesType;
     mapWinner: string;
     handle_player_vote: (e: React.MouseEvent<HTMLDivElement>, choice: string) => void;
-    votingTimeRemaining: number;
+    isVotingVisible: boolean;
+    toggleVotingVisibility: () => void
 }
 
 export interface VotingContextProviderProps {

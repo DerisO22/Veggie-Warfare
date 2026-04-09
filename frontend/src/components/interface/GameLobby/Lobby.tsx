@@ -7,12 +7,13 @@ import { useLobby } from "../../../contexts/LobbyContext";
 import PlayerList from "./PlayerList";
 import CharacterSelector from "./CharacterSelector";
 import { useCurrentGameState } from "../../../contexts/CurrentGameState";
+import { useVoting } from "../../../contexts/VotingContext";
 
 const Lobby = () => {
     const { total_players } = useLobby();
-    const [ test, setTest ] = useState<number>(0);
     const currentGameState = useCurrentGameState();
     const [ isPlayerListVisible, setIsPlayerListVisible ] = useState<boolean>(false);
+    const { isVotingVisible, toggleVotingVisibility } = useVoting();
 
     useEffect(() => {
         scroll_reveal.reveal('.logo_container', { origin: "left" });
@@ -22,22 +23,18 @@ const Lobby = () => {
         });
         scroll_reveal.reveal('.info_text', {origin: "left"})
     }, []);
-
-    console.log(currentGameState);
-
-    useEffect(() => {
-        // Just looking at forcing re-renders here
-        setTest(total_players);
-    }, [total_players]);
-
+    
     const toggleLobbyList = (e: React.MouseEvent) => {
         e.preventDefault();
         setIsPlayerListVisible(prev => !prev);
     }
 
+    const shouldShowVoting = currentGameState === "VOTING" || (currentGameState === "WAITING" && isVotingVisible);
+    const shouldShowLobby = currentGameState === "WAITING" || currentGameState === "VOTING";
+
     return (
         <>
-            {currentGameState === "WAITING" && (
+            {!isVotingVisible && shouldShowLobby && (
                 <div className="lobby_screen_container">
                     <div className="logo_container">
                         <img className="logo_image" src="../../../../public/game_logo.webp"></img>
@@ -61,7 +58,7 @@ const Lobby = () => {
                             </div>
 
                             <div className="option_button_container">
-                                <button className="lobby_option_button">
+                                <button onClick={toggleVotingVisibility} className="lobby_option_button">
                                     <div className="vote_icon"></div>
                                     <span>VOTE</span>
                                 </button>
@@ -86,7 +83,7 @@ const Lobby = () => {
                 </div>
             )}
 
-            {currentGameState === "VOTING" && (
+            {shouldShowVoting && (
                 <Voting />
             )}
         </>
