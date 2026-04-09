@@ -38,15 +38,15 @@ const Game = () => {
     
     return (
         <div style={{ width: '100vw', height: '100vh' }}>
-            <Canvas camera={{ position: [1000, 100, 100], fov: 75 }}>
-                {/* Lighting */}
-                <ambientLight intensity={0.5} />
-                <directionalLight position={[10, 10, 5]} intensity={1} />
-                <pointLight castShadow={true} position={[0, 5, 0]} intensity={10.5} />
-
+            <Canvas 
+                camera={{ position: [1000, 100, 100], fov: 75 }} 
+                shadows 
+                gl={{ antialias: true, powerPreference: "default"}}
+                dpr={[1, 2]}
+            >
                 {/* Skybox */}
                 <Sky
-                    distance={300}
+                    distance={400}
                     sunPosition={[0, -1, 0]}
                     inclination={SKY_CONFIG.dark.inclination}
                     azimuth={SKY_CONFIG.dark.azimuth}

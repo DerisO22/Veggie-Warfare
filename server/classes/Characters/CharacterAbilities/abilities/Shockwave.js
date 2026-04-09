@@ -4,7 +4,7 @@ export class Shockwave extends Ability {
     constructor() {
         super("shockwave", 8000);
         this.radius = 5;
-        this.knockbackForce = 1.2;
+        this.knockbackForce = 400;
     }
 
     execute(player, params = {}) {
@@ -39,7 +39,7 @@ export class Shockwave extends Ability {
 
                 otherPlayer.body.applyImpulse({
                     x: (dx / normalized) * this.knockbackForce,
-                    y: 0.3,
+                    y: 20,
                     z: (dz / normalized) * this.knockbackForce
                 });
 

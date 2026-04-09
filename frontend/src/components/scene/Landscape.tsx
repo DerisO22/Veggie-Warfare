@@ -1,29 +1,27 @@
 import { useGLTF } from "@react-three/drei";
 import { useEffect } from "react";
-import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader"
+
+useGLTF.preload("/low_poly_environment_compressed-v1.glb", "https://www.gstatic.com/draco/versioned/decoders/1.5.5/");
 
 const Landscape = () => {
-    const landscape = useGLTF("/low_poly_environment_compressed-v1.glb", true, false, (loader) => {
-        const dracoLoader = new DRACOLoader();
-
-        dracoLoader.setDecoderPath('https://www.gstatic.com/draco/versioned/decoders/1.5.5/');
-        dracoLoader.setDecoderConfig({ type: 'js' });
-
-        loader.setDRACOLoader(dracoLoader);
-    });
+    const { scene } = useGLTF(
+        "/low_poly_environment_compressed-v1.glb",
+        "https://www.gstatic.com/draco/versioned/decoders/1.5.5/"
+    );
 
     useEffect(() => {
-        landscape.scene.traverse((child) => {
+        scene.traverse((child) => {
             child.receiveShadow = true;
             child.castShadow = true;
-            child.matrixWorldNeedsUpdate = true;
-        })
-    }, []);
+        });
+    }, [scene]);
 
     return (
         <>
             <primitive 
-                object={landscape.scene} 
+                castShadow
+                receiveShadow
+                object={scene} 
                 position={[-14, -5, -42]} 
                 scale={[2, 2, 2]}
                 rotation-y={Math.PI / 2}

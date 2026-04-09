@@ -54,7 +54,7 @@ export const PlayerCube = forwardRef<Mesh, PlayerProps>((
         const playerColor = getPlayerColor();
 
         return (
-            <mesh ref={meshRef}>
+            <mesh castShadow receiveShadow ref={meshRef}>
                 <capsuleGeometry args={[0.5, 1, 4, 8]} />
                 <meshStandardMaterial 
                     color={playerColor}

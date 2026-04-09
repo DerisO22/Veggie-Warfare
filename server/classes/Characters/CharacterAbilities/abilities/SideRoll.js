@@ -4,7 +4,7 @@ export class SideRoll extends Ability {
     constructor() {
         super("side_roll", 5000);
         this.duration = 1000;
-        this.rollForce = 1.5;
+        this.rollForce = 200;
     }
 
     execute(player, params = {}) {

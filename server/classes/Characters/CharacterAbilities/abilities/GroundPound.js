@@ -7,7 +7,7 @@ export class GroundPound extends Ability {
         this.duration = 500;
 
         this.damageAmount = 40;
-        this.knockbackForce = 1;
+        this.knockbackForce = 200;
         
         // will adjust this later on
         this.radius = 3;
@@ -52,7 +52,7 @@ export class GroundPound extends Ability {
 
                 otherPlayer.body.applyImpulse({
                     x: (dx / normalized * this.knockbackForce),
-                    y: 0.5,
+                    y: 5,
                     z: (dz / normalized * this.knockbackForce),
                 })
 
