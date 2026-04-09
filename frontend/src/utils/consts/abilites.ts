@@ -21,12 +21,12 @@ export const ABILITY_MAP: AbilityMapType = {
     potato: {
         ability1: 'super_jump',
         ability2: 'sprint',
-        ability3: 'shockwave',
+        ability3: 'ground_pound',
     },
     cucumber: {
         ability1: 'super_jump',
         ability2: 'sprint',
-        ability3: 'ground_pound',
+        ability3: 'shockwave',
     },
     tomato: {
         ability1: 'super_jump',

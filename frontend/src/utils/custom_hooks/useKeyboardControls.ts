@@ -63,9 +63,9 @@ export const useKeyboardControls = () => {
 
                     socket.emit('use_ability', { abilityKey: characterAbilities.ability2 })
                 };
-                
-                if (key === playerKeybinds.ability2) {
-                    const abilityName = characterAbilities.ability2; 
+
+                if (key === playerKeybinds.ability3) {
+                    const abilityName = characterAbilities.ability3; 
                     const element = abilityButtonRefs.current[abilityName];
                 
                     if (element) {
