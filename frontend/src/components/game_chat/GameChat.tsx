@@ -64,6 +64,7 @@ const GameChat = () => {
                             <GameChatInput socket={socket}/>
                         )}
                     </div>
+                    <button className="toggle_light_button" onClick={toggle_light_mode}>Current Light Mode: {lightMode}</button>
                 </>
             )}
 
@@ -71,7 +72,6 @@ const GameChat = () => {
                 <GameChatToggle handle_toggle={handle_toggle} isVisible={isVisible}/>
             )}
 
-            <button onClick={toggle_light_mode}>Current Light Mode: {lightMode}</button>
         </>
     );
 }

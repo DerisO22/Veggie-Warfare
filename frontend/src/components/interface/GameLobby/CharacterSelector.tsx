@@ -1,4 +1,4 @@
-import { useLayoutEffect, useState } from "react";
+import { Fragment, useLayoutEffect, useState } from "react";
 import { useCharacterSelect } from "../../../contexts/CharacterSelectionContext";
 import '../../../styles/character_selector.css';
 import { scroll_reveal } from "../../../utils/consts/ScrollReveal";
@@ -33,25 +33,25 @@ const CharacterSelector = () => {
 
                     <div className="cards_container">
                         {characterData.characters.map((character, index) => (
-                            <div onClick={() => {handleCharacterSelection(character)}} key={index} className={`character_card ${selectedCharacter === character ? "active" : ""}`}>
+                            <div onClick={() => {handleCharacterSelection(character)}} key={character + index} className={`character_card ${selectedCharacter === character ? "active" : ""}`}>
                                 <h1>{character.toUpperCase()}</h1>
 
                                 <div className="character_info">
                                     {Object.entries(characterData.characterInfo[character])
                                     .filter(([key]) => !['name', 'color'].includes(key))
                                     .map(([key, val])=> (
-                                        <>
+                                        <Fragment key={key + val}>
                                             {Array.isArray(val) ? (
                                                 <>
-                                                    <span key={key} className="abilties_header">Abilities</span>
+                                                    <span key={key + val} className="abilties_header">Abilities</span>
                                                     {val.map((ability, i) => (
-                                                        <span key={i} className="ability_item">{ability}</span>
+                                                        <span key={ability + i} className="ability_item">{ability}</span>
                                                     ))}
                                                 </>
                                             ) : (
                                                 <p className="info_val">{val}</p>
                                             )}
-                                        </>
+                                        </Fragment>
                                     ))}
                                 </div>
                             </div>

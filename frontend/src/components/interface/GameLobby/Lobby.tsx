@@ -31,6 +31,8 @@ const Lobby = () => {
 
     const shouldShowVoting = currentGameState === "VOTING" || (currentGameState === "WAITING" && isVotingVisible);
     const shouldShowLobby = currentGameState === "WAITING" || currentGameState === "VOTING";
+    
+    console.log("Pls no")
 
     return (
         <>
