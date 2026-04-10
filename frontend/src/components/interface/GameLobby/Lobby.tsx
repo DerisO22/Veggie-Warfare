@@ -1,6 +1,6 @@
 import Voting from "./Voting";
 import '../../../styles/lobby.css';
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { scroll_reveal } from "../../../utils/consts/ScrollReveal";
 import LobbyMenu from "./LobbyMenu";
 import { useLobby } from "../../../contexts/LobbyContext";
@@ -8,9 +8,11 @@ import PlayerList from "./PlayerList";
 import CharacterSelector from "./CharacterSelector";
 import { useCurrentGameState } from "../../../contexts/CurrentGameState";
 import { useVoting } from "../../../contexts/VotingContext";
+import { useSocket } from "../../../contexts/useSocket";
 
 const Lobby = () => {
     const { pending_player_ids } = useLobby();
+    const { socket } = useSocket();
     const currentGameState = useCurrentGameState();
     const [ isPlayerListVisible, setIsPlayerListVisible ] = useState<boolean>(false);
     const { isVotingVisible, toggleVotingVisibility, hasVotingStarted, hasVotingEnded } = useVoting();
@@ -29,8 +31,13 @@ const Lobby = () => {
         setIsPlayerListVisible(prev => !prev);
     }
 
+    // handling conditional rendering
+    const isPlayerPending = useMemo(() => {
+        return (currentGameState === "WAITING" && pending_player_ids?.includes(socket?.id || "")) ?? false;
+    }, [currentGameState, pending_player_ids, socket?.id]);
+
     const shouldShowVoting = currentGameState === "VOTING" || (currentGameState === "WAITING" && isVotingVisible);
-    const shouldShowLobby = currentGameState === "WAITING" || currentGameState === "VOTING";
+    const shouldShowLobby = isPlayerPending || currentGameState === "WAITING" || currentGameState === "VOTING";
 
     return (
         <>

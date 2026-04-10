@@ -7,7 +7,7 @@ import Scene from './components/scene/Scene';
 import { Canvas } from '@react-three/fiber';
 import { Sky, Stars } from '@react-three/drei';
 import { SKY_CONFIG } from './utils/consts/environment';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useSocket } from './contexts/useSocket';
 import { useKeyboardControls } from './utils/custom_hooks/useKeyboardControls';
 
@@ -18,6 +18,8 @@ import { useUser } from '@clerk/clerk-react';
 import { usePlayerData } from './contexts/PlayerContext';
 import TeamScoreboard from './components/interface/TeamScoreboard';
 import EndGame from './components/interface/EndGame';
+import { useLobby } from './contexts/LobbyContext';
+import { useCurrentGameState } from './contexts/CurrentGameState';
 
 const Game = () => {
     const { socket, isConnected } = useSocket();
@@ -25,6 +27,8 @@ const Game = () => {
     const [cameraMode, setCameraMode] = useState<'follow' | 'orbit'>('follow');
     const { user } = useUser();
     const { get_player_data } = usePlayerData();
+    const { pending_player_ids } = useLobby();
+    const currentGameState = useCurrentGameState();
 
     useEffect(() => {
         if(!user?.id) return;
@@ -35,6 +39,18 @@ const Game = () => {
     useEffect(() => {
         console.log("isConnected: ", isConnected);
     }, [socket]);
+
+    const isPlayerPending = useMemo(() => {
+        return (currentGameState === "WAITING" && pending_player_ids?.includes(socket?.id || "")) ?? false;
+    }, [ currentGameState, pending_player_ids, socket?.id ]);
+
+    if (isPlayerPending) {
+        return <Lobby />;
+    }
+
+    if (currentGameState === "ENDED") {
+        return <EndGame />;
+    }
     
     return (
         <div style={{ width: '100vw', height: '100vh' }}>
@@ -80,7 +96,6 @@ const Game = () => {
                     <StatsInterface cam={{cameraMode, setCameraMode}}/>
                     <GameChat />
                     <TeamScoreboard />
-                    <EndGame />
                 </>
             ) : (
                 <LoadingInterface />
