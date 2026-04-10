@@ -59,7 +59,7 @@ export class ForwardDash extends Ability {
     
             if (distance < this.dashRange && dotProduct > 0) {
                 otherPlayer.takeDamage(this.damageAmount, player);
-                console.log(`✅ HIT!`);
+                console.log(`HIT!`);
             }
         });
     }

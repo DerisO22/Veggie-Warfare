@@ -154,6 +154,7 @@ export class Game {
             if (this.GameState.gameState === "ENDED" && this.GameState.isEndGameScreenComplete()) {
                 console.log("End game screen duration complete. Resetting game...");
                 this.resetGame();
+                this.broadcastLobbyInfo();
             }
         }, 1000);
     }
@@ -164,8 +165,6 @@ export class Game {
      */
     resetGame() {
         console.log("\n=== RESETTING GAME ===");
-
-        // Stop game running flag
         this.is_game_running = false;
 
         // Clear game loop interval
@@ -178,9 +177,7 @@ export class Game {
         Object.entries(this.players).forEach(([socketId, player]) => {
             try {
                 if (player && this.world) {
-                    // Remove from team
                     this.TeamManager.removePlayer(socketId);
-                    // Remove rigid body
                     this.world.removeRigidBody(player.body);
                 }
             } catch (error) {
@@ -271,10 +268,7 @@ export class Game {
                 this.pending_sockets[socket.id] = socket;
 
                 // Lobby menu UI info
-                this.io.sockets.emit("lobby_info", { 
-                    total_players: Object.keys(this.pending_sockets).length, 
-                    pending_socket_ids: Object.keys(this.pending_sockets) 
-                });
+                this.broadcastLobbyInfo();
             }
 
             socket.on("disconnect", (reason) => {
@@ -303,6 +297,7 @@ export class Game {
 
                 // Broadcast updated team info
                 this.broadcastTeamInfo();
+                this.broadcastLobbyInfo();
             });
 
             socket.on("setButton", ({ button, value }) => {
@@ -466,6 +461,7 @@ export class Game {
     endGame() {
         this.is_game_running = false;
         this.GameState.endGame();
+        this.broadcastLobbyInfo();
         
         const redScore = this.TeamManager.getTeamScore("red");
         const blueScore = this.TeamManager.getTeamScore("blue");
@@ -490,5 +486,16 @@ export class Game {
         if (this.gameLoopInterval) {
             clearInterval(this.gameLoopInterval);
         }
+    }
+
+    // help for updating lobby info
+    broadcastLobbyInfo() {
+        const pendingPlayerCount = Object.keys(this.pending_sockets).length;
+        const totalPlayerCount = Object.keys(this.io.sockets.sockets).length;
+
+        this.io.sockets.emit("lobby_info", { 
+            total_players: totalPlayerCount, 
+            pending_socket_ids: Object.keys(this.pending_sockets)
+        });
     }
 }

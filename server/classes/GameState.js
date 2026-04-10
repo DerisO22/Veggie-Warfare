@@ -12,15 +12,15 @@ export class GameState {
 
         // 20 seconds for game
         this.gameStartTime = null;
-        this.gameDuration = 2000000;
+        this.gameDuration = 20000;
 
         // 20 secs to view leaderboard and stats
         this.endGameStartTime = null;
         this.endGameDuration = 5000;
         
         // 30 second voting time
-        this.votingDuration = 3000000;
-        this.votingStartTime = null;
+        // this.votingDuration = 3000000;
+        // this.votingStartTime = null;
 
         // 5 second countdown before voting starts
         this.lobbyCountdownDuration = 5000;
@@ -143,12 +143,14 @@ export class GameState {
     reset() {
         this.gameState = "WAITING";
         this.sendCurrentGameState();
+
         this.teamScores = { red: 0, blue: 0 };
         this.gameStartTime = null;
         this.endGameStartTime = null;
         this.lobbyCountdownStartTime = null;
         this.votingStartTime = null;
         this.teams = { red: [], blue: [] };
+
         console.log("GameState reset to WAITING");
     }
 
