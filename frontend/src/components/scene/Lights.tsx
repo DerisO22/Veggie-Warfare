@@ -3,7 +3,16 @@ import { useLightMode } from "../../contexts/game/LightContext";
 import { useHelper } from "@react-three/drei";
 import { DirectionalLightHelper } from "three";
 
-export const LightConfigs = {
+export interface LightConfigsType {
+    [key: string]: {
+        ambient_light_intensity: number,
+        direction_light_intensity: number,
+        point_light_intensity: number,
+        castShadow: boolean
+    }
+}
+
+export const LightConfigs: LightConfigsType = {
     mode0: {
         ambient_light_intensity: 2,
         direction_light_intensity: 0,
