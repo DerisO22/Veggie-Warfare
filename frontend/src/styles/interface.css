@@ -1,8 +1,8 @@
 
 .game_info_container {
     position: absolute;
-    top: 20px;
-    left: 20px;
+    bottom: 1rem;
+    right: 1rem;
     color: white;
     font-family: monospace;
     background: rgba(0,0,0,0.7);

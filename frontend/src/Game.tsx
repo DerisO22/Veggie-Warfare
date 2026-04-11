@@ -20,6 +20,7 @@ import TeamScoreboard from './components/interface/TeamScoreboard';
 import EndGame from './components/interface/EndGame';
 import { useLobby } from './contexts/LobbyContext';
 import { useCurrentGameState } from './contexts/CurrentGameState';
+import { useLightMode } from './contexts/game/LightContext';
 
 const Game = () => {
     const { socket, isConnected } = useSocket();
@@ -29,6 +30,7 @@ const Game = () => {
     const { get_player_data } = usePlayerData();
     const { pending_player_ids } = useLobby();
     const currentGameState = useCurrentGameState();
+    const { lightMode, toggle_light_mode } = useLightMode();
 
     useEffect(() => {
         if(!user?.id) return;
@@ -96,6 +98,7 @@ const Game = () => {
                     <StatsInterface cam={{cameraMode, setCameraMode}}/>
                     <GameChat />
                     <TeamScoreboard />
+                    <button className="toggle_light_button" onClick={toggle_light_mode}>Current Light Mode: {lightMode}</button>
                 </>
             ) : (
                 <LoadingInterface />
