@@ -22,10 +22,12 @@ export class TeamManager {
         if (redCount <= blueCount && redCount < this.maxPlayersPerTeam) {
             this.teams.red.push({ socketId, player });
             player.team = "red";
+            console.log(this.teams);
             return "red";
         } else if (blueCount < this.maxPlayersPerTeam) {
             this.teams.blue.push({ socketId, player });
             player.team = "blue";
+            console.log(this.teams);
             return "blue";
         }
 
