@@ -12,11 +12,11 @@ export class GameState {
 
         // 20 seconds for game
         this.gameStartTime = null;
-        this.gameDuration = 20000;
+        this.gameDuration = 2000000;
 
         // 20 secs to view leaderboard and stats
         this.endGameStartTime = null;
-        this.endGameDuration = 5000;
+        this.endGameDuration = 200000;
         
         // 30 second voting time
         // this.votingDuration = 3000000;
