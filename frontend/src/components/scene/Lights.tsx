@@ -42,7 +42,7 @@ const Lights = () => {
 
     const config = LightConfigs[`mode${lightMode}`] || LightConfigs.mode0;
 
-    useHelper(directionalLightRef, DirectionalLightHelper, 5, 'red')
+    //useHelper(directionalLightRef, DirectionalLightHelper, 5, 'red')
     
     return (
         <>
