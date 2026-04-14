@@ -1,6 +1,6 @@
 import Voting from "./Voting";
 import '../../../styles/lobby.css';
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { scroll_reveal } from "../../../utils/consts/ScrollReveal";
 import LobbyMenu from "./LobbyMenu";
 import { useLobby } from "../../../contexts/LobbyContext";
@@ -8,12 +8,14 @@ import PlayerList from "./PlayerList";
 import CharacterSelector from "./CharacterSelector";
 import { useCurrentGameState } from "../../../contexts/CurrentGameState";
 import { useVoting } from "../../../contexts/VotingContext";
+import { useSocket } from "../../../contexts/useSocket";
 
 const Lobby = () => {
-    const { total_players } = useLobby();
+    const { pending_player_ids } = useLobby();
+    const { socket } = useSocket();
     const currentGameState = useCurrentGameState();
     const [ isPlayerListVisible, setIsPlayerListVisible ] = useState<boolean>(false);
-    const { isVotingVisible, toggleVotingVisibility } = useVoting();
+    const { isVotingVisible, toggleVotingVisibility, hasVotingStarted, hasVotingEnded } = useVoting();
 
     useEffect(() => {
         scroll_reveal.reveal('.logo_container', { origin: "left" });
@@ -29,8 +31,13 @@ const Lobby = () => {
         setIsPlayerListVisible(prev => !prev);
     }
 
+    // handling conditional rendering
+    const isPlayerPending = useMemo(() => {
+        return (currentGameState === "WAITING" && pending_player_ids?.includes(socket?.id || "")) ?? false;
+    }, [currentGameState, pending_player_ids, socket?.id]);
+
     const shouldShowVoting = currentGameState === "VOTING" || (currentGameState === "WAITING" && isVotingVisible);
-    const shouldShowLobby = currentGameState === "WAITING" || currentGameState === "VOTING";
+    const shouldShowLobby = isPlayerPending || currentGameState === "WAITING" || currentGameState === "VOTING";
 
     return (
         <>
@@ -58,7 +65,7 @@ const Lobby = () => {
                             </div>
 
                             <div className="option_button_container">
-                                <button onClick={toggleVotingVisibility} className="lobby_option_button">
+                                <button disabled={(hasVotingStarted && !hasVotingEnded) ? false : true} onClick={toggleVotingVisibility} className="lobby_option_button">
                                     <div className="vote_icon"></div>
                                     <span>VOTE</span>
                                 </button>
@@ -67,7 +74,7 @@ const Lobby = () => {
 
                         {/* Extra Pre-Game Info */}
                         <div className="extra_lobby_info">
-                            <div className="info_text">Players Waiting: <span className="highlight_text">{total_players}</span></div>
+                            <div className="info_text">Players Waiting: <span className="highlight_text">{pending_player_ids?.length}</span></div>
                             <div className="info_text">Players Needed To Start: <span className="highlight_text">5</span></div>
                         </div>
                     </div>

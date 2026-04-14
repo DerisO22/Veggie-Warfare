@@ -2,6 +2,7 @@ import { AbilitiesProvider } from "./contexts/AbilitiesContext";
 import { CharacterSelectionProvider } from "./contexts/CharacterSelectionContext";
 import { ChatInputProvider } from "./contexts/ChatInput";
 import { CurrentGameStateProvider } from "./contexts/CurrentGameState";
+import { LightContextProvider } from "./contexts/game/LightContext";
 import { GameSoundProvider } from "./contexts/GameSoundsContext";
 import { LobbyProvider } from "./contexts/LobbyContext";
 import { PlayerProvider } from "./contexts/PlayerContext";
@@ -20,6 +21,7 @@ const GameWrapper = () => {
                 <PlayerProvider>
                 <AbilitiesProvider>
                 <GameSoundProvider>
+                <LightContextProvider>
                 <LobbyProvider>
                 <VotingContextProvider>
                 <CharacterSelectionProvider>
@@ -29,6 +31,7 @@ const GameWrapper = () => {
                 </CharacterSelectionProvider>
                 </VotingContextProvider>
                 </LobbyProvider>
+                </LightContextProvider>
                 </GameSoundProvider>
                 </AbilitiesProvider>
                 </PlayerProvider>

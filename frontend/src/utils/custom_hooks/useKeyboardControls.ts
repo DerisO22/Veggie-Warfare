@@ -41,6 +41,7 @@ export const useKeyboardControls = () => {
                 if (key === playerKeybinds.right) socket.emit('setButton', { button: 'right', value: true });
                 if (key === playerKeybinds.jump) socket.emit('setButton', { button: 'jump', value: true });
 
+                // Abilities Key Mappings
                 if (key === playerKeybinds.ability1) {
                     const abilityName = characterAbilities.ability1; 
                     const element = abilityButtonRefs.current[abilityName];
@@ -51,6 +52,7 @@ export const useKeyboardControls = () => {
 
                     socket.emit('use_ability', { abilityKey: characterAbilities.ability1 })
                 };
+
                 if (key === playerKeybinds.ability2) {
                     const abilityName = characterAbilities.ability2; 
                     const element = abilityButtonRefs.current[abilityName];
@@ -60,6 +62,17 @@ export const useKeyboardControls = () => {
                     }
 
                     socket.emit('use_ability', { abilityKey: characterAbilities.ability2 })
+                };
+
+                if (key === playerKeybinds.ability3) {
+                    const abilityName = characterAbilities.ability3; 
+                    const element = abilityButtonRefs.current[abilityName];
+                
+                    if (element) {
+                        element.classList.add('active-ability');
+                    }
+
+                    socket.emit('use_ability', { abilityKey: characterAbilities.ability3 })
                 };
             }
         };
@@ -76,6 +89,7 @@ export const useKeyboardControls = () => {
             
             if (key === playerKeybinds.jump) socket.emit('setButton', { button: 'jump', value: false });
 
+            // Abilities
             if (key === playerKeybinds.ability1) {
                 const abilityName = characterAbilities.ability1; 
                 const element = abilityButtonRefs.current[abilityName];
@@ -87,6 +101,14 @@ export const useKeyboardControls = () => {
 
             if (key === playerKeybinds.ability2) {
                 const abilityName = characterAbilities.ability2; 
+                const element = abilityButtonRefs.current[abilityName];
+            
+                if (element) {
+                    element.classList.remove("active-ability"); 
+                }
+            }
+            if (key === playerKeybinds.ability3) {
+                const abilityName = characterAbilities.ability3; 
                 const element = abilityButtonRefs.current[abilityName];
             
                 if (element) {

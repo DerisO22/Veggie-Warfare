@@ -1,5 +1,6 @@
 import GameWorld from "./GameWorld"
 import Landscape from "./Landscape"
+import Lights from "./Lights";
 
 interface SceneProps {
     cameraMode: 'follow' | 'orbit',
@@ -10,6 +11,7 @@ const Scene = ({ cameraMode }: SceneProps) => {
         <>
             <GameWorld cameraMode={cameraMode}/>
             <Landscape />
+            <Lights />
         </>
     )
 }

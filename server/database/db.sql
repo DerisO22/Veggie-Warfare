@@ -13,6 +13,7 @@ CREATE TABLE IF NOT EXISTS player_keybinds (
     "jump" VARCHAR(10) DEFAULT ' ',
     "ability1" VARCHAR(10) NOT NULL DEFAULT 'e',
     "ability2" VARCHAR(10) NOT NULL DEFAULT 'shift',
+    "ability3" VARCHAR(10) NOT NULL DEFAULT 'r',
 
     clerk_user_id VARCHAR(255) NOT NULL UNIQUE,
     FOREIGN KEY (clerk_user_id) REFERENCES players(clerk_user_id) ON DELETE CASCADE

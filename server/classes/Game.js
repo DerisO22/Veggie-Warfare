@@ -8,7 +8,6 @@ import { CharacterFactory } from "./Characters/CharacterFactory.js";
 import { RateLimiter } from "../utils/RateLimiter.js";
 import { InputValidator } from "../utils/InputValidator.js";
 
-// bru
 const GRAVITY_CONST = -18.81;
 const NEEDED_PLAYERS = 2;
 
@@ -18,10 +17,12 @@ export class Game {
         this.players = {};
         this.world = null;
         this.pending_sockets = {}; 
+
         this.GameState = new GameState(io);
         this.GameState.sendCurrentGameState();
         this.TeamManager = new TeamManager(4);
         this.Lobby = new Lobby(io);
+
         this.is_game_running = false;
         this.teamInfoCounter = 0;
 
@@ -50,7 +51,7 @@ export class Game {
             await this.lobbyWait();
             
             const map_winner = await this.Lobby.startVoting();
-            console.log(`✓ Map ${map_winner} won the vote`);
+            console.log(`Map ${map_winner} won the vote`);
 
             await this.initPhysics(map_winner);
             
@@ -155,6 +156,7 @@ export class Game {
             if (this.GameState.gameState === "ENDED" && this.GameState.isEndGameScreenComplete()) {
                 console.log("End game screen duration complete. Resetting game...");
                 this.resetGame();
+                this.broadcastLobbyInfo();
             }
         }, 1000);
     }
@@ -165,8 +167,6 @@ export class Game {
      */
     resetGame() {
         console.log("\n=== RESETTING GAME ===");
-
-        // Stop game running flag
         this.is_game_running = false;
 
         // Clear game loop interval
@@ -179,9 +179,7 @@ export class Game {
         Object.entries(this.players).forEach(([socketId, player]) => {
             try {
                 if (player && this.world) {
-                    // Remove from team
                     this.TeamManager.removePlayer(socketId);
-                    // Remove rigid body
                     this.world.removeRigidBody(player.body);
                 }
             } catch (error) {
@@ -272,10 +270,7 @@ export class Game {
                 this.pending_sockets[socket.id] = socket;
 
                 // Lobby menu UI info
-                this.io.sockets.emit("lobby_info", { 
-                    total_players: Object.keys(this.pending_sockets).length, 
-                    pending_socket_ids: Object.keys(this.pending_sockets) 
-                });
+                this.broadcastLobbyInfo();
             }
 
             socket.on("disconnect", (reason) => {
@@ -304,6 +299,7 @@ export class Game {
 
                 // Broadcast updated team info
                 this.broadcastTeamInfo();
+                this.broadcastLobbyInfo();
             });
 
             socket.on("setButton", ({ button, value }) => {
@@ -467,6 +463,7 @@ export class Game {
     endGame() {
         this.is_game_running = false;
         this.GameState.endGame();
+        this.broadcastLobbyInfo();
         
         const redScore = this.TeamManager.getTeamScore("red");
         const blueScore = this.TeamManager.getTeamScore("blue");
@@ -491,5 +488,17 @@ export class Game {
         if (this.gameLoopInterval) {
             clearInterval(this.gameLoopInterval);
         }
+    }
+
+    // help for updating lobby info
+    broadcastLobbyInfo() {
+        const pendingPlayerCount = Object.keys(this.pending_sockets).length;
+        const gamePlayerCount = Object.keys(this.players).length;
+        const totalPlayerCount = pendingPlayerCount + gamePlayerCount;
+
+        this.io.sockets.emit("lobby_info", { 
+            total_players: totalPlayerCount, 
+            pending_socket_ids: Object.keys(this.pending_sockets)
+        });
     }
 }

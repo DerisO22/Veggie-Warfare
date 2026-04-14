@@ -32,28 +32,28 @@ export class CharacterFactory {
                 name: "carrot",
                 description: "Fast and speedy. Can sprint for burst movement.",
                 color: 0xff9800,
-                abilities: ["Sprint", "Forward Dash"],
+                abilities: ["Sprint", "Forward Dash", "Side Roll"],
                 playstyle: "Offense/Mobility"
             },
             cucumber: {
                 name: "cucumber",
-                description: "Fast and speedy. Can sprint for burst movement.",
+                description: "Agile and Has Hops. Can super jump for burst vertical movement.",
                 color: 0x67ab05,
-                abilities: ["Sprint", "Super Jump"],
-                playstyle: "Offense/Mobility"
+                abilities: ["Sprint", "Super Jump", "Shockwave"],
+                playstyle: "Mobility/Support"
             },
             potato: {
                 name: "potato",
                 description: "Slow and Tanky. Can shield itself, significantly reducing damage.",
                 color: 0xF4ECB5,
-                abilities: ["Sprint", "Forward Dash"],
+                abilities: ["Sprint", "Forward Dash", "Ground Pound"],
                 playstyle: "Defensive"
             },
             tomato: {
                 name: "tomato",
                 description: "Slow and Tanky. Can shield itself, significantly reducing damage.",
                 color: 0xFF6347,
-                abilities: ["Sprint", "Super Jump"],
+                abilities: ["Sprint", "Super Jump", "Ground Pound"],
                 playstyle: "Defensive"
             }
         }

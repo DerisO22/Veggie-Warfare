@@ -1,10 +1,10 @@
-import { useLayoutEffect, useState } from "react";
+import { Fragment, useLayoutEffect, useState } from "react";
 import { useCharacterSelect } from "../../../contexts/CharacterSelectionContext";
 import '../../../styles/character_selector.css';
 import { scroll_reveal } from "../../../utils/consts/ScrollReveal";
 
 const CharacterSelector = () => {
-    const { characterData, selectedCharacter, setSelectedCharacter, handleCharacterSelection } = useCharacterSelect();
+    const { characterData, selectedCharacter, handleCharacterSelection } = useCharacterSelect();
     const [ isSelectorVisible, setIsSelectorVisible ] = useState<boolean>(false);
 
     useLayoutEffect(() => {
@@ -22,7 +22,7 @@ const CharacterSelector = () => {
                 <div className="character_underline"/>
                 <div className="info_text">Current Class: {selectedCharacter}</div>
                 <button className="choose_player_button" onClick={() => setIsSelectorVisible(prev => !prev)}>
-                    <div className="carrot_icon"></div>
+                    <div className={`${selectedCharacter}_icon`}></div>
                     <span>Choose Player</span>
                 </button>
             </div>
@@ -33,25 +33,25 @@ const CharacterSelector = () => {
 
                     <div className="cards_container">
                         {characterData.characters.map((character, index) => (
-                            <div onClick={() => {handleCharacterSelection(character)}} key={index} className={`character_card ${selectedCharacter === character ? "active" : ""}`}>
+                            <div onClick={() => {handleCharacterSelection(character)}} key={character + index} className={`character_card ${selectedCharacter === character ? "active" : ""}`}>
                                 <h1>{character.toUpperCase()}</h1>
 
                                 <div className="character_info">
                                     {Object.entries(characterData.characterInfo[character])
                                     .filter(([key]) => !['name', 'color'].includes(key))
                                     .map(([key, val])=> (
-                                        <>
+                                        <Fragment key={key + val}>
                                             {Array.isArray(val) ? (
                                                 <>
-                                                    <span key={key} className="abilties_header">Abilities</span>
+                                                    <span key={key + val} className="abilties_header">Abilities</span>
                                                     {val.map((ability, i) => (
-                                                        <span key={i} className="ability_item">{ability}</span>
+                                                        <span key={ability + i} className="ability_item">{ability}</span>
                                                     ))}
                                                 </>
                                             ) : (
                                                 <p className="info_val">{val}</p>
                                             )}
-                                        </>
+                                        </Fragment>
                                     ))}
                                 </div>
                             </div>

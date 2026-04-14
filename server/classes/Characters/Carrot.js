@@ -1,5 +1,6 @@
 import { Player } from "../Player.js";
 import { ForwardDash } from "./CharacterAbilities/abilities/ForwardDash.js";
+import { SideRoll } from "./CharacterAbilities/abilities/SideRoll.js";
 import { SprintAbility } from "./CharacterAbilities/abilities/SprintAbility.js";
 import { AbilitySystem } from "./CharacterAbilities/AbilitySystem.js";
 
@@ -11,9 +12,11 @@ export class Carrot extends Player {
         this.character = "carrot";
         this.characterColor = 0xff9800;
 
+        // carrot abilities are mostly movement
         this.abilitySystem = new AbilitySystem(this);
         this.abilitySystem.addAbility("sprint", new SprintAbility());
         this.abilitySystem.addAbility("forward_dash", new ForwardDash());
+        this.abilitySystem.addAbility("side_roll", new SideRoll());
     }
 
     update() {

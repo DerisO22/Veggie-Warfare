@@ -162,3 +162,40 @@
 .game_chat_toggle_button:active {
     transform: scale(0.6);
 }
+
+/* 
+    Lighting Mode Toggle Button
+*/
+.toggle_light_button {
+    width: fit-content;
+    height: fit-content;
+    position: absolute;
+    top: 1rem;
+    left: 1.5rem;
+
+    border: 2px solid rgba(255, 255, 255, 0.286);
+    border-radius: 5px;
+    padding: 1rem;
+
+    background-color: rgba(0, 0, 0, 0.704);
+    color: white;
+    font-weight: 600;
+    font-size: 1rem;
+
+    transition: all 0.3s ease-in-out;
+}
+
+.toggle_light_button:hover {
+    border: 2px solid white;
+}
+
+.toggle_light_button:active {
+    transform: scale(0.7);
+}   
+
+@media screen and (max-width: 1000px) {
+    .toggle_light_button {
+        width: 8rem;
+        height: fit-content;
+    }        
+}

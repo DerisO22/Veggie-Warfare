@@ -40,7 +40,7 @@ export const TeamProvider = ({ children }: TeamProviderProps) => {
     useEffect(() => {
         if (!gameState.teamInfo) return;
 
-        if(currentGameState === "ENDED"|| isFrozen) {
+        if(currentGameState === "ENDED" && isFrozen) {
             return;
         }
 

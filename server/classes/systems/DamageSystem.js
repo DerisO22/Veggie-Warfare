@@ -55,9 +55,6 @@ export class DamageSystem {
 
             console.log(`${actualKiller.nickname} killed ${this.player.nickname}`);
 
-            // Update team score
-            this.game.GameState.updateTeamScores(actualKiller.team);
-
             // Emit kill event
             this.game.io.sockets.emit("player_killed", {
                 killer: actualKiller.nickname,

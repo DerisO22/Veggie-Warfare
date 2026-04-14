@@ -68,6 +68,7 @@ const GameChat = () => {
             { currentGameState !== "VOTING" && currentGameState !== "WAITING" && (
                 <GameChatToggle handle_toggle={handle_toggle} isVisible={isVisible}/>
             )}
+
         </>
     );
 }

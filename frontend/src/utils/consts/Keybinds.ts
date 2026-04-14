@@ -5,5 +5,6 @@ export const DEFAULT_KEYBINDS = {
     right: 'd',
     jump: ' ',
     ability1: 'e',
-    ability2: 'shift'
+    ability2: 'shift',
+    ability3: 'r'
 };

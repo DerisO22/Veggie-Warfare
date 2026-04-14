@@ -6,7 +6,7 @@ import { generateRandomRGBAColor } from "../../../utils/helpers/colors";
 
 
 const PlayerList = () => {
-    const { total_players, pending_player_ids } = useLobby();
+    const { pending_player_ids } = useLobby();
 
     useLayoutEffect(() => {
         scroll_reveal.reveal('.player_list_container', { 
@@ -17,7 +17,7 @@ const PlayerList = () => {
 
     return (
         <div className="player_list_container">
-            <div className="player_list_header">Total Players: {total_players}</div>
+            <div className="player_list_header">Total Players: {pending_player_ids?.length}</div>
 
             <div className="players_container">
                 {pending_player_ids?.map((player_id, index) => (

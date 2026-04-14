@@ -39,7 +39,8 @@ export const DEFAULT_PLAYER_DATA = (clerk_user_id: string, email?: string): Play
             right: 'd',
             jump: ' ',
             ability1: 'e',
-            ability2: 'shift'
+            ability2: 'shift',
+            ability3: 'r'
         },
         player_stats: {
             stats_id: 0,

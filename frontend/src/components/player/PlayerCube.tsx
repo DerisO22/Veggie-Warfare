@@ -1,6 +1,7 @@
 import { useFrame } from '@react-three/fiber';
 import { forwardRef, useRef } from 'react';
-import { Mesh, Vector3, MathUtils } from 'three';
+import { Group, Vector3, MathUtils } from 'three';
+import Character from './Character';
 
 interface PlayerProps {
     position: { x: number; y: number; z: number };
@@ -8,62 +9,40 @@ interface PlayerProps {
     isLocalPlayer?: boolean;
     team?: 'red' | 'blue';
     isDead?: boolean;
+    characterType: string
 }
 
-export const PlayerCube = forwardRef<Mesh, PlayerProps>((
-    { position, rotation, isLocalPlayer = false, team = 'red', isDead = false }, 
+export const PlayerCube = forwardRef<Group, PlayerProps>((
+    { position, rotation, isLocalPlayer = false, team = 'red', isDead = false, characterType = "carrot" }, 
     ref
 ) => {
-        const internalRef = useRef<Mesh>(null);
-        const lerpTarget = useRef(new Vector3());
-        const rotationTarget = useRef(0);
-        const currentRotation = useRef(0);
+    const internalRef = useRef<Group>(null);
+    const lerpTarget = useRef(new Vector3());
+    const rotationTarget = useRef(0);
+    const currentRotation = useRef(0);
 
-        const meshRef = (ref && 'current' in ref ? ref : internalRef) as React.RefObject<Mesh>;
+    const groupRef = (ref && 'current' in ref ? ref : internalRef) as React.RefObject<Group>;
 
-        useFrame((_, delta) => {
-            if (meshRef.current) {
-                lerpTarget.current.set(position.x, position.y, position.z);
-                meshRef.current.position.lerp(lerpTarget.current, 0.2);
+    useFrame((_, delta) => {
+        if (groupRef.current) {
+            lerpTarget.current.set(position.x, position.y, position.z);
+            groupRef.current.position.lerp(lerpTarget.current, 0.2);
 
-                rotationTarget.current = rotation ?? 0;
-                currentRotation.current = MathUtils.lerp(
-                    currentRotation.current,
-                    rotationTarget.current,
-                    0.1
-                );
-                meshRef.current.rotation.y = currentRotation.current;
-            
-            }
-        });
+            rotationTarget.current = rotation ?? 0;
+            currentRotation.current = MathUtils.lerp(
+                currentRotation.current,
+                rotationTarget.current,
+                0.1
+            );
+            groupRef.current.rotation.y = currentRotation.current;
+        }
+    });
 
-        const getPlayerColor = () => {
-            if (isDead) return '#444444';
-            if (isLocalPlayer) return '#ffff00'; 
-            
-            switch (team) {
-                case 'red':
-                    return '#ff4444';
-                case 'blue':
-                    return '#4444ff';
-                default:
-                    return '#ffffff';
-            }
-        };
-
-        const playerColor = getPlayerColor();
-
-        return (
-            <mesh ref={meshRef}>
-                <capsuleGeometry args={[0.5, 1, 4, 8]} />
-                <meshStandardMaterial 
-                    color={playerColor}
-                    emissive={isLocalPlayer ? 0xffff00 : undefined}
-                    emissiveIntensity={isLocalPlayer ? 0.3 : 0}
-                />
-            </mesh>
-        );
-    }
-);
+    return (
+        <group ref={groupRef}>
+            <Character modelType={characterType} />
+        </group>
+    );
+});
 
 PlayerCube.displayName = 'PlayerCube';

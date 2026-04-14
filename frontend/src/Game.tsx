@@ -7,7 +7,7 @@ import Scene from './components/scene/Scene';
 import { Canvas } from '@react-three/fiber';
 import { Sky, Stars } from '@react-three/drei';
 import { SKY_CONFIG } from './utils/consts/environment';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useSocket } from './contexts/useSocket';
 import { useKeyboardControls } from './utils/custom_hooks/useKeyboardControls';
 
@@ -18,6 +18,10 @@ import { useUser } from '@clerk/clerk-react';
 import { usePlayerData } from './contexts/PlayerContext';
 import TeamScoreboard from './components/interface/TeamScoreboard';
 import EndGame from './components/interface/EndGame';
+import { useLobby } from './contexts/LobbyContext';
+import { useCurrentGameState } from './contexts/CurrentGameState';
+import { useLightMode } from './contexts/game/LightContext';
+import { PCFShadowMap } from 'three';
 
 const Game = () => {
     const { socket, isConnected } = useSocket();
@@ -25,6 +29,9 @@ const Game = () => {
     const [cameraMode, setCameraMode] = useState<'follow' | 'orbit'>('follow');
     const { user } = useUser();
     const { get_player_data } = usePlayerData();
+    const { pending_player_ids } = useLobby();
+    const currentGameState = useCurrentGameState();
+    const { lightMode, toggle_light_mode } = useLightMode();
 
     useEffect(() => {
         if(!user?.id) return;
@@ -35,18 +42,30 @@ const Game = () => {
     useEffect(() => {
         console.log("isConnected: ", isConnected);
     }, [socket]);
+
+    const isPlayerPending = useMemo(() => {
+        return (currentGameState === "WAITING" && pending_player_ids?.includes(socket?.id || "")) ?? false;
+    }, [ currentGameState, pending_player_ids, socket?.id ]);
+
+    if (isPlayerPending) {
+        return <Lobby />;
+    }
+
+    if (currentGameState === "ENDED") {
+        return <EndGame />;
+    }
     
     return (
         <div style={{ width: '100vw', height: '100vh' }}>
-            <Canvas camera={{ position: [1000, 100, 100], fov: 75 }}>
-                {/* Lighting */}
-                <ambientLight intensity={0.5} />
-                <directionalLight position={[10, 10, 5]} intensity={1} />
-                <pointLight castShadow={true} position={[0, 5, 0]} intensity={10.5} />
-
+            <Canvas 
+                camera={{ position: [1000, 100, 100], fov: 75 }} 
+                shadows
+                gl={{ antialias: true, powerPreference: "default" }}
+                dpr={[1, 2]}
+            >
                 {/* Skybox */}
                 <Sky
-                    distance={300}
+                    distance={400}
                     sunPosition={[0, -1, 0]}
                     inclination={SKY_CONFIG.dark.inclination}
                     azimuth={SKY_CONFIG.dark.azimuth}
@@ -80,7 +99,9 @@ const Game = () => {
                     <StatsInterface cam={{cameraMode, setCameraMode}}/>
                     <GameChat />
                     <TeamScoreboard />
-                    <EndGame />
+                    {currentGameState === "PLAYING" && (
+                        <button className="toggle_light_button" onClick={toggle_light_mode}>Current Light Mode: {lightMode}</button>
+                    )}
                 </>
             ) : (
                 <LoadingInterface />

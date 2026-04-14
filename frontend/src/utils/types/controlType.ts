@@ -6,5 +6,6 @@ export interface KeyBindings {
     jump: string;
     ability1: string,
     ability2: string,
+    ability3: string,
     [key: string]: string;
 }

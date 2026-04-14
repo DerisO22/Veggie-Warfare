@@ -18,7 +18,8 @@ export const getAllPlayerInformation = async(pgClient, clerk_user_id) => {
                 right: row.right,
                 jump: row.jump,
                 ability1: row.ability1,
-                ability2: row.ability2
+                ability2: row.ability2,
+                ability3: row.ability3
             },
             player_stats: {
                 stats_id: row.stats_id,
@@ -55,7 +56,8 @@ export const savePlayerInformation = async(pgClient, playerData) => {
             player_keybinds.right,
             player_keybinds.jump,
             player_keybinds.ability1,
-            player_keybinds.ability2
+            player_keybinds.ability2,
+            player_keybinds.ability3
         ]);
         
         await pgClient.query(playerQueries.UPSERT_PLAYER_SOUNDS, [
