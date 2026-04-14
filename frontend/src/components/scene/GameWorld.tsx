@@ -2,7 +2,7 @@ import { useGameState } from "../../contexts/useGameState"
 import { useSocket } from "../../contexts/useSocket";
 import { PlayerCube } from "../player/PlayerCube";
 import { useRef } from "react";
-import { Mesh } from "three";
+import { Group } from "three";
 import { CameraFollower } from "../player/CameraFollower";
 import { OrbitControls } from "@react-three/drei";
 
@@ -13,7 +13,7 @@ interface GameWorldProps {
 const GameWorld = ({ cameraMode } : GameWorldProps) => {
     const gameState = useGameState();
     const { socket } = useSocket();
-    const localPlayerRef = useRef<Mesh>(null!);
+    const localPlayerRef = useRef<Group>(null);
 
     // Find local player
     const localPlayer = gameState.players.find(player => player.id === socket?.id);
@@ -31,6 +31,7 @@ const GameWorld = ({ cameraMode } : GameWorldProps) => {
                     isLocalPlayer={player.id === socket?.id}
                     team={player.team}
                     isDead={player.isDead}
+                    characterType={player.character}
                 />
             ))}
 
