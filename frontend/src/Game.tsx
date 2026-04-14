@@ -99,7 +99,9 @@ const Game = () => {
                     <StatsInterface cam={{cameraMode, setCameraMode}}/>
                     <GameChat />
                     <TeamScoreboard />
-                    <button className="toggle_light_button" onClick={toggle_light_mode}>Current Light Mode: {lightMode}</button>
+                    {currentGameState === "PLAYING" && (
+                        <button className="toggle_light_button" onClick={toggle_light_mode}>Current Light Mode: {lightMode}</button>
+                    )}
                 </>
             ) : (
                 <LoadingInterface />
