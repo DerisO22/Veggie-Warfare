@@ -1,9 +1,9 @@
 import { useFrame, useThree } from "@react-three/fiber";
 import { useRef } from "react";
-import { Mesh, Vector3 } from "three";
+import { Vector3, Group} from "three";
 
 interface CameraFollowerProps {
-    targetRef: React.RefObject<Mesh>;
+    targetRef: React.RefObject<Group>;
     rotationY?: number;
 }
 
