@@ -1,5 +1,5 @@
 import express from 'express';
-import { getAllPlayerInformation, savePlayerInformation } from '../services/playersService.js';
+import { getAllPlayerInformation, savePlayerInformation, savePlayerStats } from '../services/playersService.js';
 
 const router = express.Router();
 
@@ -20,6 +20,7 @@ router.get('/:clerk_user_id', async(req, res) => {
     }
 });
 
+// Upserts
 router.put('/:clerk_user_id', async(req, res) => {
     try {
         const { clerk_user_id } = req.params;
@@ -35,6 +36,21 @@ router.put('/:clerk_user_id', async(req, res) => {
         res.json({ success: true });
     } catch (err) {
         console.error('Error saving player data:', err);
+        res.status(500).json({ error: err.message });
+    }
+});
+
+// Saving player stats after match ends
+router.put('/player-stats/:clerk_user_id', async(req, res) => {
+    try {
+        const { clerk_user_id } = req.params;
+        const playerStats = req.body;
+
+        await savePlayerStats(req.pgClient, clerk_user_id, playerStats);
+
+        res.json({ success: true });
+    } catch (err) {
+        console.error('Error saving player stats:', err);
         res.status(500).json({ error: err.message });
     }
 });

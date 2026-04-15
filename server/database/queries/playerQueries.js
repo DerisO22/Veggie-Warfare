@@ -37,6 +37,16 @@ export const playerQueries = {
         ON CONFLICT (clerk_user_id)
         DO UPDATE SET player_kills = $2, player_deaths = $3, player_wins = $4, player_losses = $5, total_games_played = $6
         RETURNING *;`,
+
+    SAVE_PLAYER_STATS_AFTER_GAME:
+        `UPDATE player_stats ps
+        SET player_kills = player_kills + $1, 
+            player_deaths = player_deaths + $2, 
+            player_wins = player_wins + $3, 
+            player_losses = player_losses + $4, 
+            total_games_played = total_games_played + 1
+        WHERE ps.clerk_user_id = $5
+        RETURNING *;`,
     
     // Player Clans
     CREATE_PLAYER_GUILD:
