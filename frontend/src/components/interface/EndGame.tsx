@@ -1,10 +1,44 @@
+import { useEffect, useRef } from "react";
 import { useCurrentGameState } from "../../contexts/CurrentGameState";
 import { useTeam } from "../../contexts/TeamContext";
 import '../../styles/end_game.css';
+import { useUser } from "@clerk/clerk-react";
+import { useGameState } from "../../contexts/useGameState";
+import { savePlayerStats } from "../../services/playerService";
+import { useSocket } from "../../contexts/useSocket";
 
 const EndGame = () => {
     const currentGameState = useCurrentGameState();
     const { redTeam, blueTeam, redScore, blueScore } = useTeam();
+    const { user } = useUser();
+    const { socket } = useSocket();
+    const gameState = useGameState();
+    const hasStatsSaved = useRef(false);
+
+    useEffect(() => {
+        if (currentGameState === "ENDED" && user?.id && !hasStatsSaved.current) {
+            hasStatsSaved.current = true; 
+            
+            const localPlayer = gameState.players.find(p => p.id === socket?.id);
+
+            if (localPlayer) {
+                const player_data = {
+                    player_kills: localPlayer.kills,
+                    player_deaths: localPlayer.deaths,
+                    player_team: localPlayer.team,
+                    red_score: gameState.teamScores.red,
+                    blue_score: gameState.teamScores.blue
+                }
+                
+                savePlayerStats(user.id, player_data)
+                    .catch(err => console.error('Failed to save stats:', err));
+            }
+        }
+
+        if (currentGameState !== "ENDED") {
+            hasStatsSaved.current = false;
+        }
+    }, [currentGameState, user?.id]);
 
     if(currentGameState !== "ENDED") return;
 
@@ -51,7 +85,7 @@ const EndGame = () => {
                                 <span className="leaderboard_header blue_team">K/D</span>
                             </div>
                             {blueTeam.map((player, index) => (
-                                <div className="player_entry blue_roster" key={player.nickname}>
+                                <div className="player_entry blue_roster" key={player.nickname + index}>
                                     <div className="player_info">{player.nickname.substring(0, 4)}</div>
                                     <div className="player_info">{player.kills}</div>
                                     <div className="player_info">{player.deaths}</div>

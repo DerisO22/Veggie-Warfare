@@ -1,4 +1,5 @@
 import type { PlayerDataType } from "../contexts/PlayerContext";
+import type { SavePlayerInformationType } from "../utils/types/player";
 
 const API_URL: string = (import.meta.env.VITE_NODE_ENVIRONMENT === "production") ? 
     import.meta.env.VITE_PROD_URL :
@@ -46,4 +47,26 @@ export const savePlayerInformation = async(player_data: PlayerDataType) => {
         console.error("Error in getAllPlayerInformation service ", err);
         throw err;
     }   
+}
+
+export const savePlayerStats = async(clerk_user_id: string, player_data: SavePlayerInformationType) => {
+    try {
+        const res = await fetch(`${API_URL}/players/player-stats/${clerk_user_id}`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json "},
+            credentials: 'include',
+            body: JSON.stringify(player_data)
+        });
+
+        if(!res.ok) {
+            const errorText = await res.text();
+            throw new Error(`API error (${res.status}): ${errorText || 'Unknown error'}`);
+        }
+
+        const data = await res.json();
+        return data;
+    } catch (err) {
+        console.error("Error in savePlayerStats service ", err);
+        throw err;
+    }
 }

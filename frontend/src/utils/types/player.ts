@@ -31,6 +31,14 @@ export interface TeamMember {
     character: string;
 }
 
+export interface SavePlayerInformationType {
+    player_kills: number | undefined,
+    player_deaths: number | undefined,
+    player_team: 'red' | 'blue' | undefined,
+    red_score: number,
+    blue_score: number
+}
+
 export interface PlayerDrawInfo extends PlayerPosition {
     id: string;
     position: PlayerPosition;

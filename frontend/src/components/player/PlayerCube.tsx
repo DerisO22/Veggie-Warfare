@@ -6,14 +6,11 @@ import Character from './Character';
 interface PlayerProps {
     position: { x: number; y: number; z: number };
     rotation?: number; 
-    isLocalPlayer?: boolean;
-    team?: 'red' | 'blue';
-    isDead?: boolean;
     characterType: string
 }
 
 export const PlayerCube = forwardRef<Group, PlayerProps>((
-    { position, rotation, isLocalPlayer = false, team = 'red', isDead = false, characterType = "carrot" }, 
+    { position, rotation, characterType = "carrot" }, 
     ref
 ) => {
     const internalRef = useRef<Group>(null);
@@ -23,7 +20,7 @@ export const PlayerCube = forwardRef<Group, PlayerProps>((
 
     const groupRef = (ref && 'current' in ref ? ref : internalRef) as React.RefObject<Group>;
 
-    useFrame((_, delta) => {
+    useFrame((_) => {
         if (groupRef.current) {
             lerpTarget.current.set(position.x, position.y, position.z);
             groupRef.current.position.lerp(lerpTarget.current, 0.2);

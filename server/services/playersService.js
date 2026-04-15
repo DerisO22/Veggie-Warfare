@@ -82,3 +82,26 @@ export const savePlayerInformation = async(pgClient, playerData) => {
         throw err;
     }
 }
+
+export const savePlayerStats = async(pgClient, clerk_user_id, playerStats) => {
+    try {
+        const { player_kills, player_deaths, player_team, red_score, blue_score } = playerStats;
+
+        const isWin = (player_team === 'red' && red_score > blue_score) ||
+                      (player_team === 'blue' && blue_score > red_score) ? 1 : 0;
+        const isLoss = isWin ? 0 : 1;
+
+        await pgClient.query(playerQueries.SAVE_PLAYER_STATS_AFTER_GAME, [
+            player_kills, 
+            player_deaths,
+            isWin,
+            isLoss,
+            clerk_user_id
+        ])
+
+        return { success: true };
+    } catch (err) {
+        console.error("Service Error saving player stats: ", err);
+        throw err;
+    }
+}

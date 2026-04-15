@@ -21,7 +21,6 @@ import EndGame from './components/interface/EndGame';
 import { useLobby } from './contexts/LobbyContext';
 import { useCurrentGameState } from './contexts/CurrentGameState';
 import { useLightMode } from './contexts/game/LightContext';
-import { PCFShadowMap } from 'three';
 
 const Game = () => {
     const { socket, isConnected } = useSocket();

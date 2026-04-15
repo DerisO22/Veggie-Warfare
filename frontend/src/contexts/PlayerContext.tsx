@@ -84,7 +84,11 @@ export const PlayerProvider = ({ children } : PlayerProviderPropsType) => {
         if (!playerData) return;
     
         try {
-            await savePlayerInformation(playerData);
+            const username = user?.primaryEmailAddress 
+            ? user.primaryEmailAddress.emailAddress.split('@')[0] 
+            : `Player_${playerData.player_clerk_id.substring(0, 8)}`;
+
+            await savePlayerInformation({...playerData, username: username});
             console.log("Player data saved successfully");
         } catch (err) {
             console.error("Failed to save player data: ", err);

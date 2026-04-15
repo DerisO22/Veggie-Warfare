@@ -1,9 +1,9 @@
-import { useLayoutEffect, useRef, useState } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import '../../../styles/settings_menu.css';
 import { scroll_reveal } from '../../../utils/consts/ScrollReveal';
 import { DEFAULT_SOUND_VALUES, useGameSound } from '../../../contexts/GameSoundsContext';
 import KeyBindsOptions from '../KeyBindsOptions';
-import { SignOutButton, UserProfile } from '@clerk/clerk-react';
+import { SignOutButton, UserProfile, useUser } from '@clerk/clerk-react';
 import { dark } from '@clerk/themes';
 import { usePlayerData } from '../../../contexts/PlayerContext';
 
@@ -20,6 +20,8 @@ interface SoundSettingsType {
 const SettingsMenu = ({ toggleSettings } : SettingsMenuProps) => {
     const menuRef = useRef<HTMLDivElement>(null);
     const { handleVolumeChange } = useGameSound();
+    const { user } = useUser();
+    const { playerData } = usePlayerData();
 
     // For saving player sound/keybind settings
     const [ soundValues, setSoundValues ] = useState<SoundSettingsType>(DEFAULT_SOUND_VALUES);
@@ -38,6 +40,15 @@ const SettingsMenu = ({ toggleSettings } : SettingsMenuProps) => {
             });
         }
     }, []);
+
+    useEffect(() => {
+        if(!user?.id) return;
+
+        /**
+         * Set initial values of the saved sound vals from db
+         */
+        setSoundValues(playerData?.player_sounds ?? DEFAULT_SOUND_VALUES);
+    }, [])
 
     const handleSoundValueChange = (e: React.ChangeEvent<HTMLInputElement>, soundType: string) => {
         const value = parseInt(e.target.value);
