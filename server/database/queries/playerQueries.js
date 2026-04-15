@@ -44,7 +44,7 @@ export const playerQueries = {
             player_deaths = player_deaths + $2, 
             player_wins = player_wins + $3, 
             player_losses = player_losses + $4, 
-            total_games_played = total_games_played + 1
+            total_games_played = COALESCE(total_games_played, 0) + 1
         WHERE ps.clerk_user_id = $5
         RETURNING *;`,
     

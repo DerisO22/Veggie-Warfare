@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useCurrentGameState } from "../../contexts/CurrentGameState";
 import { useTeam } from "../../contexts/TeamContext";
 import '../../styles/end_game.css';
@@ -13,24 +13,32 @@ const EndGame = () => {
     const { user } = useUser();
     const { socket } = useSocket();
     const gameState = useGameState();
+    const hasStatsSaved = useRef(false);
 
     useEffect(() => {
-        if (currentGameState === "ENDED" && user?.id) {
+        if (currentGameState === "ENDED" && user?.id && !hasStatsSaved.current) {
+            hasStatsSaved.current = true; 
+            
             const localPlayer = gameState.players.find(p => p.id === socket?.id);
 
-            const player_data = {
-                player_kills: localPlayer?.kills,
-                player_deaths: localPlayer?.deaths,
-                player_team: localPlayer?.team,
-                red_score: gameState.teamScores.red,
-                blue_score: gameState.teamScores.blue
-            }
-            
-            if (localPlayer && player_data) {
+            if (localPlayer) {
+                const player_data = {
+                    player_kills: localPlayer.kills,
+                    player_deaths: localPlayer.deaths,
+                    player_team: localPlayer.team,
+                    red_score: gameState.teamScores.red,
+                    blue_score: gameState.teamScores.blue
+                }
+                
                 savePlayerStats(user.id, player_data)
+                    .catch(err => console.error('Failed to save stats:', err));
             }
         }
-    }, [currentGameState]);
+
+        if (currentGameState !== "ENDED") {
+            hasStatsSaved.current = false;
+        }
+    }, [currentGameState, user?.id]);
 
     if(currentGameState !== "ENDED") return;
 
