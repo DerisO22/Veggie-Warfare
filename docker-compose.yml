@@ -20,6 +20,7 @@ services:
     ports:
       - "3001:3001"
     environment:
+      - NODE_ENV:development
       - DATABASE_URL=postgres://example-database-user:HmxWFa4EgEYJnjs7ABdLRELS4fpv86vL@example-database:5432/example-database
     depends_on:
       - example-database
