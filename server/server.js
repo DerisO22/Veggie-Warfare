@@ -30,7 +30,7 @@ const server = http.Server(app);
 const io = new Server(server, { 
     pingInterval: 1000,
     cors: {
-        origin: "http://localhost:5173",
+        origin: process.env.CORS_ORIGIN || "http://localhost:5173",
         methods: ["GET", "POST"],
         credentials: true
     }
@@ -39,9 +39,9 @@ const io = new Server(server, {
 app.set('port', PORT);
 
 app.use(cors({
-    origin: "http://localhost:5173",
-    credentials: true,
-}))
+    origin: process.env.CORS_ORIGIN || 'http://localhost:3000' || "http://localhost:5173",
+    credentials: true
+}));
 
 app.use(express.json());
 

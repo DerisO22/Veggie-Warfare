@@ -44,7 +44,7 @@ const Lobby = () => {
             {!isVotingVisible && shouldShowLobby && (
                 <div className="lobby_screen_container">
                     <div className="logo_container">
-                        <img className="logo_image" src="../../../../public/game_logo.webp"></img>
+                        <img className="logo_image" src="/game_logo.webp"></img>
                     </div>
 
                     {/* Main Lobby Buttons */}

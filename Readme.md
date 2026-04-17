@@ -10,11 +10,19 @@
 ## Project Set Up (Locally)
 1. Clone repository
 2. Open Project in VS Code
-3. Open multiple terminals in VS Code. One for frontend, server, and git stuff.
+3. Open multiple terminals in VS Code. One for frontend, server, and git related stuff.
 
-4. Using `Railway` (*Free Trial*), create a postgreSQL instance and use your given environment variables under the "variables" tab. Use these to create the `.env` for the server directory based on the `.env.example` file. 
+3. Also create an account on Clerk (its free). Create a project and then use the given CLERK_PUBLISHABLE_KEY to create a `.env` for the frontend directory based on the `.env.example`.
 
-5. Also create an account on Clerk (its free). Create a project and then use the given CLERK_PUBLISHABLE_KEY to create a `.env` for the frontend directory based on the `.env.example`
+## Method 1
+### On Root Directory
+Install and open Docker Desktop. run `docker compose up` to run the project.
+
+### Method 2
+### PostgreSQL Database
+- You can set up your own local database with PGAdmin by downloading PostgrSQL. 
+Or you can create a Railway account and deploy a PostgreSQL instance (with Free Trial). Then just
+use the DATABASE_PUBLIC_URL environment variable that Railway gives you.
 
 ### Frontend/Client
 1. cd to frontend and run `npm install`
