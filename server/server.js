@@ -30,7 +30,7 @@ const server = http.Server(app);
 const io = new Server(server, { 
     pingInterval: 1000,
     cors: {
-        origin: process.env.CORS_ORIGIN || "http://localhost:5173",
+        origin: "https://knowledge-encouraged-bargains-parenting.trycloudflare.com" || "http://localhost:5173",
         methods: ["GET", "POST"],
         credentials: true
     }
@@ -39,7 +39,7 @@ const io = new Server(server, {
 app.set('port', PORT);
 
 app.use(cors({
-    origin: process.env.CORS_ORIGIN || 'http://localhost:3000' || "http://localhost:5173",
+    origin: "https://knowledge-encouraged-bargains-parenting.trycloudflare.com" || 'http://localhost:3000' || "http://localhost:5173",
     credentials: true
 }));
 
