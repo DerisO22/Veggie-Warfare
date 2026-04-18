@@ -24,13 +24,14 @@ import playerRoutes from "./routes/players.js";
 // config
 const PORT = process.env.PORT || 3001;
 const FRAME_TIME = Math.floor(1000 / 60);
+const FRONTEND_URL = process.env.CORS_URL || "https://knowledge-encouraged-bargains-parenting.trycloudflare.com";
 
 const app = express();
 const server = http.Server(app);
 const io = new Server(server, { 
     pingInterval: 1000,
     cors: {
-        origin: "https://knowledge-encouraged-bargains-parenting.trycloudflare.com" || "http://localhost:5173",
+        origin: FRONTEND_URL,
         methods: ["GET", "POST"],
         credentials: true
     }
@@ -39,7 +40,7 @@ const io = new Server(server, {
 app.set('port', PORT);
 
 app.use(cors({
-    origin: "https://knowledge-encouraged-bargains-parenting.trycloudflare.com" || 'http://localhost:3000' || "http://localhost:5173",
+    origin: FRONTEND_URL,
     credentials: true
 }));
 
