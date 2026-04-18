@@ -8,16 +8,21 @@
     flex-direction: column;
     align-items: center;
     justify-content: start;
+    font-family: monospace;
 
-    padding-top: 14rem;
+    gap: 2rem;
+    padding: 2rem;
     color: white;
+
+    background-image: url('../../public/background_lobby.jpeg');
+    background-size: cover;
 }
 
 .endgame_header {
-    font-size: 2rem;
+    font-size: 2.2rem;
     font-weight: 600;
 
-    text-decoration: underline;
+    font-family: monospace;
     text-underline-offset: 0.3rem;
     text-decoration-thickness: 0.2rem;
     margin-bottom: 0.5rem;
@@ -33,10 +38,10 @@
     height: fit-content;
 
     display: flex;
+    flex-direction: column;
     justify-content: center;
     gap: 2rem;
-
-    margin-top: 1.4rem;
+    overflow-y: auto;
 }
 
 .team_roster {
@@ -46,10 +51,11 @@
     flex-direction: column;
     border-radius: 5px;
     padding: 0rem 0.5rem 0.5rem 0.5rem;
+    overflow-y: auto;
 }
 
 .team_roster.red_roster {
-    color: rgb(255, 198, 198);
+    color: rgb(255, 215, 215);
     background-color: rgba(93, 5, 5, 0.425);
 }
 
@@ -98,7 +104,7 @@
 }
 
 .red_team {
-    color: #ffbfbf;
+    color: #ffb6b6;
 }
 
 /* Scrollbar styling */
@@ -118,4 +124,16 @@
 
 .roster_players::-webkit-scrollbar-thumb:hover {
     background: rgba(255, 255, 255, 0.3);
+}
+
+@media screen and (max-width: 800px) {
+    .team_rosters {
+        width: 40rem;
+    }
+}
+
+@media screen and (max-width: 650px) {
+    .team_rosters {
+        width: 30rem;
+    }
 }
