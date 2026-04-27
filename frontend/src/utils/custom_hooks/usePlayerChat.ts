@@ -45,10 +45,9 @@ export const usePlayerChat = (socket: Socket | null | undefined) => {
         socket.on("whisper_command", update_whisper_messages);
         socket.on("color_command", update_messages_color)
         socket.on("help_command", (helper_message) => {
-            console.log(helper_message)
             setHelpCommand(helper_message.text);
         })
-
+ 
         return () => {
             socket.off("broadcast_message", update_broadcast_messages);
             socket.off("whisper_command", update_whisper_messages);
