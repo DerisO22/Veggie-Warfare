@@ -29,6 +29,8 @@ const GameWorld = ({ cameraMode } : GameWorldProps) => {
                     rotation={player.rotation}
                     position={player.position}
                     characterType={player.character}
+                    localPlayerNickname={player.nickname ?? "Player"}
+                    localPlayerTeam={player.team ?? "blue"}
                 />
             ))}
 
