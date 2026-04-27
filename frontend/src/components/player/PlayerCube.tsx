@@ -40,7 +40,7 @@ export const PlayerCube = forwardRef<Group, PlayerProps>((
     });
 
     return (
-        <group ref={groupRef}>
+        <group position={[-20, 10, 0]} ref={groupRef}>
             <Character modelType={characterType} />
 
             <group position={[.2, 4.5, 0]}>
