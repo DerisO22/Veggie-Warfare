@@ -11,7 +11,7 @@ export class GameState {
         this.teamScores = { red: 0, blue: 0 };
 
         // 20 second countdown before voting starts
-        this.lobbyCountdownDuration = 2000;
+        this.lobbyCountdownDuration = 20000;
         this.lobbyCountdownStartTime = null;
 
         // 6 minutes for game
