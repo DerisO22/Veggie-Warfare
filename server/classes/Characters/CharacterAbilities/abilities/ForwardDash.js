@@ -6,7 +6,7 @@ export class ForwardDash extends Ability {
         this.duration = 0;
         this.launchForce = -200.0;
         this.damageAmount = 15;
-        this.dashRange = 10; 
+        this.dashRange = 15; 
     }
 
     execute(player, params = {}) {
@@ -20,12 +20,9 @@ export class ForwardDash extends Ability {
 
         player.body.applyImpulse(dashImpulse, true);
 
-        let checksLeft = 2;
-        const checkInterval = setInterval(() => {
+        setTimeout(() => {
             this.checkForEnemiesHit(player);
-            checksLeft--;
-            if (checksLeft <= 0) clearInterval(checkInterval);
-        }, 50);
+        }, 75);
 
         player.socket.emit("ability_activated", {
             ability: "forward_dash",
