@@ -13,12 +13,10 @@ export const usePlayerChat = (socket: Socket | null | undefined) => {
         whisper_messages: []
     })
 
+    const [ helpCommand, setHelpCommand ] = useState(null);
+
     useEffect(() => {
         if(!socket) return;
-
-        // const update_username = (new_username: string) => {
-            
-        // }
 
         const update_broadcast_messages = (new_broadcast_message: BroadcastMessage) => {
             setChatPayload(prev => ({
@@ -46,12 +44,17 @@ export const usePlayerChat = (socket: Socket | null | undefined) => {
         socket.on("broadcast_message", update_broadcast_messages);
         socket.on("whisper_command", update_whisper_messages);
         socket.on("color_command", update_messages_color)
-
+        socket.on("help_command", (helper_message) => {
+            setHelpCommand(helper_message.text);
+        })
+ 
         return () => {
             socket.off("broadcast_message", update_broadcast_messages);
             socket.off("whisper_command", update_whisper_messages);
+            socket.off("color_command", update_messages_color);
+            socket.off("help_command");
         }
     }, [socket]);
 
-    return chatPayload;
+    return {chatPayload, helpCommand, setHelpCommand};
 };

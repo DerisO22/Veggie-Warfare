@@ -70,6 +70,7 @@ export class PlayerChat {
      *  Command Handler Functions
      */
     handle_help_command() {
+        console.log("Hello?")
         const helper_message = {
             text: HelpCommandMessage,
             time: Date.now(),

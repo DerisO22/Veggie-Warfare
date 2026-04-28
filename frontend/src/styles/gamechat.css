@@ -193,6 +193,55 @@
     transform: scale(0.7);
 }   
 
+/*
+    Help command
+*/
+.help_panel {
+    position: absolute;
+    top: 0;
+    background: rgba(0, 0, 0, 0.9);
+    border: 2px solid #477d47;
+    border-radius: 8px;
+    padding: 15px;
+    max-width: 19rem;
+    max-height: 12rem;
+    overflow-y: auto;
+    z-index: 1000;
+}
+
+.help_header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #3d7a3d;
+    font-weight: bold;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #416e41;
+    padding-bottom: 8px;
+    font-family: monospace;
+}
+
+.help_header button {
+    background: none;
+    border: none;
+    color: #9ad59a;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.help_header button:hover {
+    color: #FFFFFF;
+}
+
+.help_text {
+    color: #a2c3a2;
+    font-family: monospace;
+    font-size: 12px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    margin: 0;
+}
+
 @media screen and (max-width: 1000px) {
     .toggle_light_button {
         width: 8rem;

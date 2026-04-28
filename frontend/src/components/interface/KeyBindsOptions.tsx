@@ -57,17 +57,19 @@ const KeyBindsOptions = () => {
     }, [isUpdateKeybindVisible, updatedKeybind, updatePlayerKeybinds]);
 
     return (
-        <div className="keybind_settings_container">
-            <h1>Keybinds</h1>
-            {Object.entries(playerKeybinds).map(([setting, keybind]) => (
-                <div key={setting} onClick={() => handleKeybindChange(setting)} className="keybind_setting">
-                    <div className="setting_name">{setting}</div>
-                    <div className="setting_keybind">{keybind}</div>
-                </div>
-            ))} 
+        <>
+            <div className="keybind_settings_container">
+                <h1>Keybinds</h1>
+                {Object.entries(playerKeybinds).map(([setting, keybind]) => (
+                    <div key={setting} onClick={() => handleKeybindChange(setting)} className="keybind_setting">
+                        <div className="setting_name">{setting}</div>
+                        <div className="setting_keybind">{keybind}</div>
+                    </div>
+                ))} 
 
-            <div onClick={() => resetKeyBinds()} className="keybind_setting reset_button">
-                Reset Keybinds
+                <div onClick={() => resetKeyBinds()} className="keybind_setting reset_button">
+                    Reset Keybinds
+                </div>
             </div>
 
             {isUpdateKeybindVisible && (
@@ -75,7 +77,7 @@ const KeyBindsOptions = () => {
                     Click on a Key to Change Keybind <strong>"{updatedKeybind}"</strong>
                 </div>
             )}
-        </div>
+        </>
     )
 }
 

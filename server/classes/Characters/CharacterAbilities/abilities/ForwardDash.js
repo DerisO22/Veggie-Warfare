@@ -5,8 +5,8 @@ export class ForwardDash extends Ability {
         super("forward_dash", 8000);
         this.duration = 0;
         this.launchForce = -200.0;
-        this.damageAmount = 15;
-        this.dashRange = 10; 
+        this.damageAmount = 30;
+        this.dashRange = 15; 
     }
 
     execute(player, params = {}) {
@@ -20,12 +20,9 @@ export class ForwardDash extends Ability {
 
         player.body.applyImpulse(dashImpulse, true);
 
-        let checksLeft = 2;
-        const checkInterval = setInterval(() => {
+        setTimeout(() => {
             this.checkForEnemiesHit(player);
-            checksLeft--;
-            if (checksLeft <= 0) clearInterval(checkInterval);
-        }, 50);
+        }, 75);
 
         player.socket.emit("ability_activated", {
             ability: "forward_dash",
@@ -57,7 +54,7 @@ export class ForwardDash extends Ability {
             
             console.log(`Checking ${otherPlayer.nickname}: distance=${distance.toFixed(2)}, dot=${dotProduct.toFixed(2)}, inRange=${distance < this.dashRange}, inFront=${dotProduct > 0}`);
     
-            if (distance < this.dashRange && dotProduct > 0) {
+            if (distance < this.dashRange && dotProduct > 0 && (otherPlayer.team !== player.team)) {
                 otherPlayer.takeDamage(this.damageAmount, player);
                 console.log(`HIT!`);
             }

@@ -9,7 +9,7 @@ import { RateLimiter } from "../utils/RateLimiter.js";
 import { InputValidator } from "../utils/InputValidator.js";
 
 const GRAVITY_CONST = -18.81;
-const NEEDED_PLAYERS = 4;
+const NEEDED_PLAYERS = 10;
 
 export class Game {
     constructor(io) {
@@ -118,6 +118,9 @@ export class Game {
                     // Assign to team
                     this.TeamManager.assignPlayerToTeam(socketId, this.players[socketId]);
                     console.log(`Player ${socketId} assigned to team ${this.players[socketId].team}`);
+
+                    const spawnPoint = this.players[socketId].team === "red" ? { x: -20 + Math.floor((Math.random() - 0.5) * 3), y: 15, z: 0 + + Math.floor((Math.random() - 0.5) * 3)} : { x: 15 + + Math.floor((Math.random() - 0.5) * 3), y: 15, z: 30 + Math.floor((Math.random() - 0.5) * 3)};
+                    this.players[socketId].body.setTranslation(spawnPoint, true);
                     
                     console.log(`Player created for pending socket ${socketId} with character ${select_character}`);
                 } catch (error) {

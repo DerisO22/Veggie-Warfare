@@ -7,10 +7,10 @@ export class GroundPound extends Ability {
         this.duration = 500;
 
         this.damageAmount = 40;
-        this.knockbackForce = 200;
+        this.knockbackForce = 250;
         
         // will adjust this later on
-        this.radius = 3;
+        this.radius = 6;
     }
 
     execute(player, params = {}) {
@@ -46,7 +46,7 @@ export class GroundPound extends Ability {
             const distance = Math.sqrt(dx * dx + dy * dy + dz * dz);
 
             // Check if in range 
-            if (distance < this.radius) {
+            if (distance < this.radius && (otherPlayer.team !== player.team)) {
                 otherPlayer.takeDamage(this.damageAmount, player);
                 const normalized = Math.sqrt(dx * dx + dz * dz) || 1;
 

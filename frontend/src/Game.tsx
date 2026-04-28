@@ -15,6 +15,7 @@ import { useKeyboardControls } from './utils/custom_hooks/useKeyboardControls';
  * Authentication Imports
  */
 import { useUser } from '@clerk/clerk-react';
+
 import { usePlayerData } from './contexts/PlayerContext';
 import TeamScoreboard from './components/interface/TeamScoreboard';
 import EndGame from './components/interface/EndGame';

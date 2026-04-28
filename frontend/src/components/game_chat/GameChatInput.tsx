@@ -1,10 +1,11 @@
-import { useState, type ChangeEvent } from "react";
+import { useRef, useState, type ChangeEvent } from "react";
 import type { Socket } from "socket.io-client";
 import { useChatInput } from "../../contexts/ChatInput";
 
 const GameChatInput = ({ socket } : { socket: Socket | null }) => {
     const [ message, setMessage ] = useState<string>("");
     const { setIsPlayerInputting } = useChatInput();
+    const inputRef = useRef<HTMLInputElement>(null);
 
     const handleSubmit = () => {
         if(!socket) return;
@@ -13,6 +14,7 @@ const GameChatInput = ({ socket } : { socket: Socket | null }) => {
             socket.emit("send_message", { text: message });
         }
 
+        inputRef.current?.blur();
         setMessage("");
     };
 
@@ -29,6 +31,7 @@ const GameChatInput = ({ socket } : { socket: Socket | null }) => {
                 handleSubmit();
             }}>
                 <input
+                    ref={inputRef}
                     type="text"
                     name="message_input"
                     className="message_input"

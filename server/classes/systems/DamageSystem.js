@@ -74,13 +74,12 @@ export class DamageSystem {
             });
         }
 
-        // Record death for victim
         this.player.deaths++;
 
         // Respawn player after 3 seconds
         setTimeout(() => {
             this.respawn();
-        }, 3000);
+        }, 2000);
     }
 
     /**
@@ -105,9 +104,9 @@ export class DamageSystem {
     getTeamSpawnPoint() {
         // Red team spawns on one side, blue on the other
         if (this.player.team === "red") {
-            return { x: -20, y: 10, z: 0 };
+            return { x: -20 + Math.floor((Math.random() - 0.5) * 3), y: 15, z: 0 + + Math.floor((Math.random() - 0.5) * 3)};
         } else {
-            return { x: 20, y: 10, z: 0 };
+            return { x: 15 + + Math.floor((Math.random() - 0.5) * 3), y: 15, z: 30 + Math.floor((Math.random() - 0.5) * 3)};
         }
     }
 

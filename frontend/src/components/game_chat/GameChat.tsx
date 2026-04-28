@@ -9,7 +9,7 @@ import { useCurrentGameState } from "../../contexts/CurrentGameState";
 const GameChat = () => {
     const { socket } = useSocket();
     const currentGameState = useCurrentGameState();
-    const chatPayload = usePlayerChat(socket);
+    const { chatPayload, helpCommand, setHelpCommand } = usePlayerChat(socket);
     const [ isVisible, setIsVisible ] = useState<boolean>(true);
 
     const formatDate = (time: number) => {
@@ -56,6 +56,17 @@ const GameChat = () => {
                                     </div>
                                 ))}
                             </>
+
+                            {/* Help command panel - only shows to that one player */}
+                            {helpCommand && (
+                                <div className="help_panel">
+                                    <div className="help_header">
+                                        <span>Help Commands</span>
+                                        <button onClick={() => setHelpCommand(null)}>×</button>
+                                    </div>
+                                    <pre className="help_text">{helpCommand}</pre>
+                                </div>
+                            )}
                         </div>
                         
                         {socket && (
