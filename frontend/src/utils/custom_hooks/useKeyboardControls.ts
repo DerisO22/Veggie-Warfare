@@ -4,13 +4,13 @@ import { useChatInput } from '../../contexts/ChatInput';
 import { useCharacterSelect } from '../../contexts/CharacterSelectionContext';
 import { ABILITY_MAP } from '../consts/abilites';
 import { useAbilities } from '../../contexts/AbilitiesContext';
-
+import { useGameSound } from '../../contexts/GameSoundsContext';
 export const useKeyboardControls = () => {
     const { socket } = useSocket();
     const pressedKeys = useRef<Set<string>>(new Set());
     const { playerKeybinds, abilityButtonRefs } = useAbilities();
     const { isPlayerInputting } = useChatInput();
-
+    const { playSounds } = useGameSound();
     // For Specific Player Abilities
     const { selectedCharacter } = useCharacterSelect();
 
@@ -35,12 +35,26 @@ export const useKeyboardControls = () => {
                 /**
                  * All button presses to server
                  */
-                if (key === playerKeybinds.forward) socket.emit('setButton', { button: 'forward', value: true });
-                if (key === playerKeybinds.backward) socket.emit('setButton', { button: 'backward', value: true });
-                if (key === playerKeybinds.left) socket.emit('setButton', { button: 'left', value: true });
-                if (key === playerKeybinds.right) socket.emit('setButton', { button: 'right', value: true });
-                if (key === playerKeybinds.jump) socket.emit('setButton', { button: 'jump', value: true });
-
+                if (key === playerKeybinds.forward) {
+    socket.emit('setButton', { button: 'forward', value: true });
+    playSounds('walk');
+}
+if (key === playerKeybinds.backward) {
+    socket.emit('setButton', { button: 'backward', value: true });
+    playSounds('walk');
+}
+if (key === playerKeybinds.left) {
+    socket.emit('setButton', { button: 'left', value: true });
+    playSounds('walk');
+}
+if (key === playerKeybinds.right) {
+    socket.emit('setButton', { button: 'right', value: true });
+    playSounds('walk');
+}
+if (key === playerKeybinds.jump) {
+    socket.emit('setButton', { button: 'jump', value: true });
+    playSounds('jump');
+}
                 // Abilities Key Mappings
                 if (key === playerKeybinds.ability1) {
                     const abilityName = characterAbilities.ability1; 
