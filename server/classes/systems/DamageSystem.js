@@ -103,7 +103,7 @@ export class DamageSystem {
      */
     getTeamSpawnPoint() {
         if (this.player.team === "red") {
-            return { x: -20 + Math.floor((Math.random() - 0.5) * 3), y: 25, z: 0 + Math.floor((Math.random() - 0.5) * 3)};
+            return { x: -20 + Math.floor((Math.random() - 0.5) * 3), y: 40, z: 0 + Math.floor((Math.random() - 0.5) * 3)};
         } else {
             return { x: 15 + Math.floor((Math.random() - 0.5) * 3), y: 100, z: 30 + Math.floor((Math.random() - 0.5) * 3)};
         }
