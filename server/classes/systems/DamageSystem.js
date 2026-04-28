@@ -105,7 +105,7 @@ export class DamageSystem {
         if (this.player.team === "red") {
             return { x: -20 + Math.floor((Math.random() - 0.5) * 3), y: 25, z: 0 + Math.floor((Math.random() - 0.5) * 3)};
         } else {
-            return { x: 15 + Math.floor((Math.random() - 0.5) * 3), y: 25, z: 30 + Math.floor((Math.random() - 0.5) * 3)};
+            return { x: 15 + Math.floor((Math.random() - 0.5) * 3), y: 22, z: 30 + Math.floor((Math.random() - 0.5) * 3)};
         }
     }
 
