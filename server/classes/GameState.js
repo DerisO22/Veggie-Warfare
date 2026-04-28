@@ -16,7 +16,7 @@ export class GameState {
 
         // 6 minutes for game
         this.gameStartTime = null;
-        this.gameDuration = 3000000;
+        this.gameDuration = 300000;
 
         // 20 secs to view leaderboard and stats
         this.endGameStartTime = null;
